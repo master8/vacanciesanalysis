@@ -63,7 +63,7 @@ def train_doc2vec(corpus, epochs_size):
     # fix the learning rate, no decay
     # d2v.min_alpha = d2v.alpha
 
-    # d2v.save("d2v.model")
+    d2v.save("d2v.model")
     return d2v
 
 
@@ -108,8 +108,13 @@ def test_classifier(d2v, classifier, testing_vectors, testing_labels):
 
 x_train, x_test, y_train, y_test, all_data = read_dataset("../data/old/old_marked_vacancies_from_hh.csv")
 
-for i in range(100, 150, 5):
-    print('\nepochs: ' + str(i))
-    d2v_model = train_doc2vec(all_data, i)
-    classifier = train_classifier(d2v_model, x_train, y_train)
-    test_classifier(d2v_model, classifier, x_test, y_test)
+# for i in range(100, 150, 5):
+#     print('\nepochs: ' + str(i))
+#     d2v_model = train_doc2vec(all_data, i)
+#     classifier = train_classifier(d2v_model, x_train, y_train)
+#     test_classifier(d2v_model, classifier, x_test, y_test)
+
+# d2v_model = train_doc2vec(all_data, 110)
+d2v_model = doc2vec.Doc2Vec.load('d2v.model')
+classifier = train_classifier(d2v_model, x_train, y_train)
+test_classifier(d2v_model, classifier, x_test, y_test)
