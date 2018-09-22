@@ -1,1 +1,1 @@
-# Analysis of vacancies based on machine learning methods
+# Analysis of vacancies using machine learning methods
