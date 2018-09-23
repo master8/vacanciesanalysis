@@ -23,7 +23,7 @@ def read_dataset(path):
     x_train, x_test, y_train, y_test = train_test_split(dataset.requirements,
                                                         dataset.profession,
                                                         random_state=0,
-                                                        test_size=0.2)
+                                                        test_size=0.1)
 
     x_train = label_sentences(x_train, 'Train')
     x_test = label_sentences(x_test, 'Test')
@@ -101,8 +101,8 @@ def train_classifier(d2v, training_vectors, training_labels):
 
 
 def test_classifier(d2v, classifier, testing_vectors, testing_labels):
-    test_vectors = get_vectors(d2v, len(testing_vectors), 300, 'Test')
-    testing_predictions = classifier.predict(test_vectors)
+    # test_vectors = get_vectors(d2v, len(testing_vectors), 300, 'Test')
+    testing_predictions = classifier.predict(testing_vectors)
 
     print("\nClassifier testing")
     print('Testing predicted classes: {}'.format(np.unique(testing_predictions)))
@@ -218,10 +218,17 @@ x_train, x_test, y_train, y_test, all_data = read_dataset("../data/old/old_marke
 #     classifier = train_classifier(d2v_model, x_train, y_train)
 #     test_classifier(d2v_model, classifier, x_test, y_test)
 
-# d2v_model = train_doc2vec(all_data, 110)
-d2v_model = doc2vec.Doc2Vec.load('d2v.model')
+d2v_model = train_doc2vec(x_train, 110)
+# d2v_model = doc2vec.Doc2Vec.load('d2v.model')
 classifier = train_classifier(d2v_model, x_train, y_train)
-y_true, y_pred = test_classifier(d2v_model, classifier, x_test, y_test)
+
+x_test_vec = np.zeros((len(x_test), 300))
+for i in range(0, len(x_test)):
+    x_test_vec[i] = d2v_model.infer_vector(x_test[i].words)
+
+y_true, y_pred = test_classifier(d2v_model, classifier, x_test_vec, y_test)
+
+
 confusion_matrix = confusion_matrix(y_true, y_pred)
 fig, ax = plot_confusion_matrix(confusion_matrix, colorbar=True, show_absolute=False, show_normed=True)
 plt.xticks(np.arange(0, 12, 1))
