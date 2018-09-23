@@ -2,18 +2,23 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from sklearn.metrics import accuracy_score, f1_score, confusion_matrix
+from sklearn.metrics import classification_report
 
 # TODO поправлю позже эти методы и вообще в класс какнибудь оформлю
 
 
 def show_classification_results(y_true, y_predict):
     print('Testing accuracy: {}'.format(accuracy_score(y_true, y_predict)))
-    print('Testing F1 score: {}'.format(f1_score(y_true, y_predict, average='weighted')))
+    print('Testing F1 score: {}\n'.format(f1_score(y_true, y_predict, average='weighted')))
+
+    report = classification_report(y_true, y_predict)
+    print(report)
 
     matrix = confusion_matrix(y_true, y_predict)
     plot_confusion_matrix(matrix, colorbar=True, show_absolute=False, show_normed=True)
     plt.xticks(np.arange(0, 12, 1))
     plt.yticks(np.arange(0, 12, 1))
+    plt.savefig('../../plots/results.png', format='png')
     plt.show()
 
 
