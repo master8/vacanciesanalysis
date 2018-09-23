@@ -47,7 +47,7 @@ def label_sentences(corpus, label_type):
 
 def train_doc2vec(corpus, epochs_size):
     d2v = doc2vec.Doc2Vec(min_count=1,  # Ignores all words with total frequency lower than this
-                          window=5,  # The maximum distance between the current and predicted word within a sentence
+                          window=3,  # The maximum distance between the current and predicted word within a sentence
                           vector_size=300,  # Dimensionality of the generated feature vectors
                           workers=5,  # Number of worker threads to train the model
                           alpha=0.025,  # The initial learning rate
@@ -218,19 +218,32 @@ x_train, x_test, y_train, y_test, all_data = read_dataset("../data/old/old_marke
 #     classifier = train_classifier(d2v_model, x_train, y_train)
 #     test_classifier(d2v_model, classifier, x_test, y_test)
 
-d2v_model = train_doc2vec(x_train, 110)
-# d2v_model = doc2vec.Doc2Vec.load('d2v.model')
+# d2v_model = train_doc2vec(x_train, 110)
+d2v_model = doc2vec.Doc2Vec.load('d2v.model')
 classifier = train_classifier(d2v_model, x_train, y_train)
 
 x_test_vec = np.zeros((len(x_test), 300))
 for i in range(0, len(x_test)):
-    x_test_vec[i] = d2v_model.infer_vector(x_test[i].words)
+    x_test_vec[i] = d2v_model.infer_vector(x_test[i].words, steps=3)
 
 y_true, y_pred = test_classifier(d2v_model, classifier, x_test_vec, y_test)
 
 
-confusion_matrix = confusion_matrix(y_true, y_pred)
-fig, ax = plot_confusion_matrix(confusion_matrix, colorbar=True, show_absolute=False, show_normed=True)
+matrix = confusion_matrix(y_true, y_pred)
+fig, ax = plot_confusion_matrix(matrix, colorbar=True, show_absolute=False, show_normed=True)
+plt.xticks(np.arange(0, 12, 1))
+plt.yticks(np.arange(0, 12, 1))
+plt.show()
+
+
+x_train_vec = np.zeros((len(x_train), 300))
+for i in range(0, len(x_train)):
+    x_train_vec[i] = d2v_model.infer_vector(x_train[i].words, steps=3)
+
+y_true, y_pred = test_classifier(d2v_model, classifier, x_train_vec, y_train)
+
+matrix = confusion_matrix(y_true, y_pred)
+fig, ax = plot_confusion_matrix(matrix, colorbar=True, show_absolute=False, show_normed=True)
 plt.xticks(np.arange(0, 12, 1))
 plt.yticks(np.arange(0, 12, 1))
 plt.show()
