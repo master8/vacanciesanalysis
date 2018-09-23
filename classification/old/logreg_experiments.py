@@ -122,7 +122,7 @@ vectors_w2v_sj_merged = [SentenceToAverageWeightedVector(w2v_hh_sj.wv, vacancy) 
 
 
 x_all = vectors_w2v_sj_merged + vectors_w2v_hh_merged
-y_all = pd.concat([dataset_hh.profession, dataset_sj.profession])
+y_all = pd.concat([dataset_sj.profession, dataset_hh.profession])
 
 
 # w2c tf-idf 0.89
