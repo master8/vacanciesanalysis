@@ -7,10 +7,14 @@ import pandas as pd
 from gensim.models import doc2vec
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import  train_test_split
-from sklearn.metrics import accuracy_score, f1_score
+from sklearn.metrics import accuracy_score, f1_score, confusion_matrix
 
+# from mlxtend.plotting import plot_confusion_matrix
+import matplotlib.pyplot as plt
 
 import warnings
+
+
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
@@ -37,7 +41,7 @@ def label_sentences(corpus, label_type):
     for i, v in enumerate(corpus):
         label = label_type + '_' + str(i)
         v = v.translate(str.maketrans("", "", string.punctuation))
-        labeled.append(doc2vec.LabeledSentence(v.split(), [label]))
+        labeled.append(doc2vec.TaggedDocument(v.split(), [label]))
     return labeled
 
 
@@ -85,7 +89,7 @@ def get_vectors(doc2vec_model, corpus_size, vectors_size, vectors_type):
 
 def train_classifier(d2v, training_vectors, training_labels):
     train_vectors = get_vectors(d2v, len(training_vectors), 300, 'Train')
-    model = LogisticRegression()
+    model = LogisticRegression(C =0.5,solver = 'liblinear')
     model.fit(train_vectors, np.array(training_labels))
     training_predictions = model.predict(train_vectors)
 
@@ -105,6 +109,106 @@ def test_classifier(d2v, classifier, testing_vectors, testing_labels):
     print('Testing accuracy: {}'.format(accuracy_score(testing_labels, testing_predictions)))
     print('Testing F1 score: {}'.format(f1_score(testing_labels, testing_predictions, average='weighted')))
 
+    return testing_labels, testing_predictions
+
+
+def plot_confusion_matrix(conf_mat,
+                          hide_spines=False,
+                          hide_ticks=False,
+                          figsize=None,
+                          cmap=None,
+                          colorbar=False,
+                          show_absolute=True,
+                          show_normed=False):
+    """Plot a confusion matrix via matplotlib.
+    Parameters
+    -----------
+    conf_mat : array-like, shape = [n_classes, n_classes]
+        Confusion matrix from evaluate.confusion matrix.
+    hide_spines : bool (default: False)
+        Hides axis spines if True.
+    hide_ticks : bool (default: False)
+        Hides axis ticks if True
+    figsize : tuple (default: (2.5, 2.5))
+        Height and width of the figure
+    cmap : matplotlib colormap (default: `None`)
+        Uses matplotlib.pyplot.cm.Blues if `None`
+    colorbar : bool (default: False)
+        Shows a colorbar if True
+    show_absolute : bool (default: True)
+        Shows absolute confusion matrix coefficients if True.
+        At least one of  `show_absolute` or `show_normed`
+        must be True.
+    show_normed : bool (default: False)
+        Shows normed confusion matrix coefficients if True.
+        The normed confusion matrix coefficients give the
+        proportion of training examples per class that are
+        assigned the correct label.
+        At least one of  `show_absolute` or `show_normed`
+        must be True.
+    Returns
+    -----------
+    fig, ax : matplotlib.pyplot subplot objects
+        Figure and axis elements of the subplot.
+    Examples
+    -----------
+    For usage examples, please see
+    http://rasbt.github.io/mlxtend/user_guide/plotting/plot_confusion_matrix/
+    """
+    if not (show_absolute or show_normed):
+        raise AssertionError('Both show_absolute and show_normed are False')
+
+    total_samples = conf_mat.sum(axis=1)[:, np.newaxis]
+    normed_conf_mat = conf_mat.astype('float') / total_samples
+
+    fig, ax = plt.subplots(figsize=figsize)
+    ax.grid(False)
+    if cmap is None:
+        cmap = plt.cm.Blues
+
+    if figsize is None:
+        figsize = (len(conf_mat)*1.25, len(conf_mat)*1.25)
+
+    if show_absolute:
+        matshow = ax.matshow(conf_mat, cmap=cmap)
+    else:
+        matshow = ax.matshow(normed_conf_mat, cmap=cmap)
+
+    if colorbar:
+        fig.colorbar(matshow)
+
+    for i in range(conf_mat.shape[0]):
+        for j in range(conf_mat.shape[1]):
+            cell_text = ""
+            if show_absolute:
+                # cell_text += format(conf_mat[i, j], 'd')
+                if show_normed:
+                    cell_text += "\n" + '('
+                    cell_text += format(normed_conf_mat[i, j], '.2f') + ')'
+            # else:
+                # cell_text += format(normed_conf_mat[i, j], '.2f')
+            ax.text(x=j,
+                    y=i,
+                    s=cell_text,
+                    va='center',
+                    ha='center',
+                    color="white" if normed_conf_mat[i, j] > 0.5 else "black")
+
+    if hide_spines:
+        ax.spines['right'].set_visible(False)
+        ax.spines['top'].set_visible(False)
+        ax.spines['left'].set_visible(False)
+        ax.spines['bottom'].set_visible(False)
+    ax.yaxis.set_ticks_position('left')
+    ax.xaxis.set_ticks_position('bottom')
+    if hide_ticks:
+        ax.axes.get_yaxis().set_ticks([])
+        ax.axes.get_xaxis().set_ticks([])
+
+    plt.xlabel('predicted label')
+    plt.ylabel('true label')
+    return fig, ax
+
 
 x_train, x_test, y_train, y_test, all_data = read_dataset("../data/old/old_marked_vacancies_from_hh.csv")
 
@@ -117,4 +221,9 @@ x_train, x_test, y_train, y_test, all_data = read_dataset("../data/old/old_marke
 # d2v_model = train_doc2vec(all_data, 110)
 d2v_model = doc2vec.Doc2Vec.load('d2v.model')
 classifier = train_classifier(d2v_model, x_train, y_train)
-test_classifier(d2v_model, classifier, x_test, y_test)
+y_true, y_pred = test_classifier(d2v_model, classifier, x_test, y_test)
+confusion_matrix = confusion_matrix(y_true, y_pred)
+fig, ax = plot_confusion_matrix(confusion_matrix, colorbar=True, show_absolute=False, show_normed=True)
+plt.xticks(np.arange(0, 12, 1))
+plt.yticks(np.arange(0, 12, 1))
+plt.show()
