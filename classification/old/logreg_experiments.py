@@ -94,26 +94,6 @@ def SentenceToAverageWeightedVector(wv, sentence):
     return vector
 
 
-def SentenceToAverageTfIdfWeightedVector(wv, sentence, tfidf, dictionary):
-    vectors = pandas.DataFrame()
-    index = 0
-    try:
-        for word in sentence:
-            if word not in dictionary.keys():
-                tf_idf = 0
-            else:
-                word_index = dictionary[word]
-                tf_idf = tfidf[word_index]
-            if word in wv.vocab:
-                vectors[index] = wv[word]*tf_idf
-            index += 1
-        vectors = vectors.transpose()
-        vector = vectors.mean().values.tolist()
-    except Exception:
-        return []
-    return vector
-
-
 vectors_w2v_hh_merged = [SentenceToAverageWeightedVector(w2v_hh_sj.wv, vacancy) for vacancy in hh_tokenized]
 vectors_w2v_sj_merged = [SentenceToAverageWeightedVector(w2v_hh_sj.wv, vacancy) for vacancy in sj_tokenized]
 
