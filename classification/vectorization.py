@@ -34,7 +34,7 @@ class Vectorizer:
 
         tokenizer.fit_on_texts(texts)
         matrix_tfidf = tokenizer.texts_to_matrix(texts=texts, mode='tfidf')
-        return matrix_tfidf, tokenizer.word_index
+        return matrix_tfidf
 
 
 class VectorsProvider:
