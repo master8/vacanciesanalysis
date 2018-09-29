@@ -40,8 +40,10 @@ def W2VStats(name, sentences):
     counter = [s.__len__() for s in sentences]
     print('Total n/o words in ' + name + ' : ' + str(sum(counter)))
 
-W2VStats('merged', hh_tokenized + sj_tokenized)
-w2v_hh_sj = gensim.models.Word2Vec(hh_tokenized + sj_tokenized, min_count=2, workers=2, iter=100, size=300, sg=0)
+# W2VStats('merged', hh_tokenized + sj_tokenized)
+# w2v_hh_sj = gensim.models.Word2Vec(hh_tokenized + sj_tokenized, min_count=2, workers=2, iter=100, size=300, sg=0)
+# w2v_hh_sj.save("../../data/old/old_vectorized_vacancies_all.w2v")
+w2v_hh_sj = gensim.models.Word2Vec.load("../../data/old/old_vectorized_vacancies_all.w2v")
 
 
 def SentenceToAverageWeightedVector(wv, sentence):
@@ -74,6 +76,8 @@ y_all = pd.concat([dataset_sj.profession, dataset_hh.profession])
 model1 = LogisticRegression(C=0.5, solver='liblinear')
 
 # w2v
+# Testing accuracy: 0.9253731343283582
+# Testing F1 score: 0.9246134547385705
 model2 = LogisticRegression(C=1.0, solver='sag')
 
 x_train, x_test, y_train, y_test = train_test_split(x_all, y_all, test_size=0.3)
