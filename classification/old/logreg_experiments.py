@@ -73,7 +73,7 @@ y_all = pd.concat([dataset_sj.profession, dataset_hh.profession])
 
 
 # w2c tf-idf 0.89
-model1 = LogisticRegression(C=0.5, solver='liblinear')
+# model1 = LogisticRegression(C=0.5, solver='liblinear')
 
 # w2v
 # Testing accuracy: 0.9253731343283582
