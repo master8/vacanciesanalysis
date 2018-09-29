@@ -22,13 +22,13 @@ class Tokenizer:
         original_dataset = self.__read_original_dataset()
         tokenized_requirements = self.__tokenize_sentences_lemmatized(original_dataset.requirements)
 
-        file_path = _TOKENS_FILE_PATH
-        outfile = open(file_path, 'wb')
+        outfile = open(_TOKENS_FILE_PATH, 'wb')
         pickle.dump(tokenized_requirements, outfile)
         outfile.close()
 
-        print("end tokenize, tokens saved")
+        print("end tokenizing, tokens saved")
 
+    # TODO порефакторить
     def __tokenize_sentences_lemmatized(self, rawSentences):
         sentences = []
         m = Mystem()
