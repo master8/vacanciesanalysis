@@ -1,5 +1,6 @@
 import pickle
 
+import pymystem3
 from nltk.corpus import stopwords
 from pymystem3 import Mystem
 
@@ -32,13 +33,13 @@ def tokenize_sentences_lemmatized(rawSentences):
 
         if cleaned_set.__len__() > 0:
             sentences.append(cleaned_set)
-        if index % 1000 == 0:
+        if index % 100 == 0:
             print(index)
         index += 1
     return sentences
 
 
-dataset_hh = pd.read_csv("../../data/old/old_marked_vacancies_from_hh.csv", header=0)[:10]
+dataset_hh = pd.read_csv("../../data/old/old_marked_vacancies_from_hh.csv", header=0)
 tokenized_hh = tokenize_sentences_lemmatized(dataset_hh.requirements)
 
 filename_hh = "../../data/old/old_tokenized_vacancies_from_hh.pkl"
@@ -47,7 +48,7 @@ pickle.dump(tokenized_hh, outfile_hh)
 outfile_hh.close()
 
 
-dataset_sj = pd.read_csv("../../data/old/old_marked_vacancies_from_sj.csv", header=0)[:10]
+dataset_sj = pd.read_csv("../../data/old/old_marked_vacancies_from_sj.csv", header=0)
 tokenized_sj = tokenize_sentences_lemmatized(dataset_sj.requirements)
 
 filename_sj = "../../data/old/old_tokenized_vacancies_from_sj.pkl"

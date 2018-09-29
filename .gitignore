@@ -200,4 +200,3 @@ venv.bak/
 # mypy
 .mypy_cache/
 .idea/
-/classification/testingdata.py
