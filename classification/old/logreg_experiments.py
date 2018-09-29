@@ -1,3 +1,5 @@
+from classification.old.reading_data import read_tokenized_all_data
+from classification.old.reading_data import read_all_data
 from classification.visualisation.classification_results import show_classification_results
 
 import numpy as np
@@ -26,49 +28,12 @@ from sklearn.ensemble import VotingClassifier
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import train_test_split
 
-pymystem3.mystem.MYSTEM_DIR = "/home/mluser/anaconda3/envs/master8_env/.local/bin"
-pymystem3.mystem.MYSTEM_BIN = "/home/mluser/anaconda3/envs/master8_env/.local/bin/mystem"
-print(pymystem3.mystem.MYSTEM_DIR)
-print(pymystem3.mystem.MYSTEM_BIN)
-print(pymystem3.mystem.MYSTEM_EXE)
 
-dataset_hh = pd.read_csv("../../data/old/old_marked_vacancies_from_hh.csv", header=0)
-dataset_sj = pd.read_csv("../../data/old/old_marked_vacancies_from_sj.csv", header=0)
+dataset_hh, dataset_sj = read_all_data()
+hh_tokenized, sj_tokenized = read_tokenized_all_data()
 
 
-
-
-def TokenizeSentencesLemmatized(rawSentences):
-    print('LEMMATIZED total = ' +str(rawSentences.__len__()))
-    sentences = []
-    m = Mystem()
-    index = 0
-    for c in rawSentences:
-        tokenized_sents = m.lemmatize(c)
-        cleaned_set = []
-        for tokenized in tokenized_sents:
-            if tokenized == "":
-                break
-            tokenized = tokenized.lower()
-            if tokenized in stopwords.words('russian'):
-                continue
-
-            token = tokenized[0]
-            if (token >= 'а' and token <= 'я'):
-                cleaned_set.append(tokenized)
-            elif ((token >= 'а' and token <= 'я') or (token >= 'a' and token <= 'z')):
-                cleaned_set.append(tokenized)
-
-        if cleaned_set.__len__()>0:
-            sentences.append(cleaned_set)
-        if index%1000 == 0:
-          print(index)
-        index+=1
-    return sentences
-
-
-hh_tokenized = TokenizeSentencesLemmatized(dataset_hh.requirements)
-sj_tokenized = TokenizeSentencesLemmatized(dataset_sj.requirements)
+# into vectors
 
 
 def W2VStats(name, sentences):
@@ -98,7 +63,7 @@ vectors_w2v_hh_merged = [SentenceToAverageWeightedVector(w2v_hh_sj.wv, vacancy) 
 vectors_w2v_sj_merged = [SentenceToAverageWeightedVector(w2v_hh_sj.wv, vacancy) for vacancy in sj_tokenized]
 
 
-
+# classification
 
 
 x_all = vectors_w2v_sj_merged + vectors_w2v_hh_merged
