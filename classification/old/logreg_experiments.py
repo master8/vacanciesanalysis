@@ -81,4 +81,4 @@ x_train, x_test, y_train, y_test = train_test_split(x_all, y_all, test_size=0.3)
 model2.fit(x_train, y_train)
 y_predict = model2.predict(x_test)
 
-show_classification_results(y_test, y_predict)
+show_classification_results(y_test, y_predict, "w2v_log_reg_model2")

@@ -3,8 +3,8 @@ import pandas as pd
 
 
 def read_all_data():
-    dataset_hh = pd.read_csv("../../data/old/old_marked_vacancies_from_hh.csv", header=0)[:10]
-    dataset_sj = pd.read_csv("../../data/old/old_marked_vacancies_from_sj.csv", header=0)[:10]
+    dataset_hh = pd.read_csv("../../data/old/old_marked_vacancies_from_hh.csv", header=0)
+    dataset_sj = pd.read_csv("../../data/old/old_marked_vacancies_from_sj.csv", header=0)
 
     return dataset_hh, dataset_sj
 

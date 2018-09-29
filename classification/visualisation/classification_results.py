@@ -7,7 +7,7 @@ from sklearn.metrics import classification_report
 # TODO поправлю позже эти методы и вообще в класс какнибудь оформлю
 
 
-def show_classification_results(y_true, y_predict):
+def show_classification_results(y_true, y_predict, plot_filename):
     print('Testing accuracy: {}'.format(accuracy_score(y_true, y_predict)))
     print('Testing F1 score: {}\n'.format(f1_score(y_true, y_predict, average='weighted')))
 
@@ -18,7 +18,7 @@ def show_classification_results(y_true, y_predict):
     plot_confusion_matrix(matrix, colorbar=True, show_absolute=False, show_normed=True)
     plt.xticks(np.arange(0, 12, 1))
     plt.yticks(np.arange(0, 12, 1))
-    plt.savefig('../../plots/results.png', format='png')
+    plt.savefig('../../plots/' + plot_filename + '.png', format='png')
     plt.show()
 
 
