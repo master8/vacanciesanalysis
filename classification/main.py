@@ -13,10 +13,13 @@ from classification.vectorization import Vectorizer, VectorsProvider
 
 # Tokenizer().tokenize()
 
-vectorizer = Vectorizer()
+# vectorizer = Vectorizer()
 # vectorizer.vectorize_with_tfidf()
-vectorizer.vectorize_with_w2v()
+# vectorizer.vectorize_with_w2v()
+# vectorizer.vectorize_with_w2v_tfidf()
 
 
 logreg = LogisticRegressionExperiments()
-logreg.make_use_tfidf()
+# logreg.make_use_tfidf()
+logreg.make_use_w2v()
+logreg.make_use_w2v_with_tfidf()
