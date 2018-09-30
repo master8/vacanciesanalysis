@@ -21,12 +21,12 @@ class LogisticRegressionExperiments:
 
         # TODO here grid search
 
-        model = LogisticRegression(C=1.0, solver='sag')
+        model1 = LogisticRegression(C=1.0, solver='sag')
 
         cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
-            = Evaluator.evaluate(model, x_all, y_all)
+            = Evaluator.evaluate(model1, x_all, y_all)
 
-        Visualizer.show_results("LogisticRegression", "TF-IDF",
+        Visualizer.show_results("LogisticRegression", "model1", "TF-IDF",
                                 cross_val_accuracy, cross_val_f1,
                                 train_accuracy, train_f1,
                                 test_accuracy, test_f1)

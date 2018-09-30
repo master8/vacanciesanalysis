@@ -1,12 +1,12 @@
 class Visualizer:
 
     @staticmethod
-    def show_results(classifier_name, vec_method,
+    def show_results(classifier_name, model_name, vec_method,
                      cross_val_accuracy, cross_val_f1,
                      train_accuracy, train_f1,
                      test_accuracy, test_f1):
         print()
-        print(classifier_name + " " + vec_method)
+        print(classifier_name + " " + model_name + " " + vec_method)
         print()
         print("cross validation")
         print("accuracy:" + str(cross_val_accuracy))
