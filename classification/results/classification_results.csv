@@ -1,2 +1,2 @@
-date_time,classifier_name,model_name,vec_method,cross_val_accuracy,cross_val_f1,train_accuracy,train_f1,test_accuracy,test_f1
-2018-09-30 13:51:47.515029,LogisticRegression,model1,TF-IDF,0.9096002452540912,0.9153211270342888,1.0,1.0,0.9283387622149837,0.929486558612915
+date_time,classifier_name,model_name,vec_method,cross_val_accuracy,cross_val_f1,train_accuracy,train_f1,test_accuracy,test_f1,dataset
+2018-09-30 13:51:47.515029,LogisticRegression,model1,TF-IDF,0.9096002452540912,0.9153211270342888,1.0,1.0,0.9283387622149837,0.929486558612915,old_hh_sz1021

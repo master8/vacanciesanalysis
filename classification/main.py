@@ -12,7 +12,10 @@ from classification.vectorization import Vectorizer, VectorsProvider
 
 
 # Tokenizer().tokenize()
-# Vectorizer().vectorize_with_tfidf()
+
+vectorizer = Vectorizer()
+# vectorizer.vectorize_with_tfidf()
+vectorizer.vectorize_with_w2v()
 
 
 logreg = LogisticRegressionExperiments()
