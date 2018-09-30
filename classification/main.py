@@ -5,6 +5,7 @@ import pymystem3
 
 from classification.experiments.knn import KNeighborsExperiments
 from classification.experiments.logreg import LogisticRegressionExperiments
+from classification.experiments.svc import SVCExperiments
 from classification.tokenization import Tokenizer, TokensProvider
 from classification.vectorization import Vectorizer, VectorsProvider
 
@@ -25,7 +26,12 @@ from classification.vectorization import Vectorizer, VectorsProvider
 # logreg.make_use_w2v()
 # logreg.make_use_w2v_with_tfidf()
 
-knn = KNeighborsExperiments()
-knn.make_use_tfidf()
-knn.make_use_w2v()
-knn.make_use_w2v_with_tfidf()
+# knn = KNeighborsExperiments()
+# knn.make_use_tfidf()
+# knn.make_use_w2v()
+# knn.make_use_w2v_with_tfidf()
+
+svc = SVCExperiments()
+svc.make_use_tfidf()
+svc.make_use_w2v()
+svc.make_use_w2v_with_tfidf()
