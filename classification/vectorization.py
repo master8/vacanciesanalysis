@@ -20,6 +20,24 @@ class Vectorizer:
     def __init__(self):
         self.__tokens_provider = TokensProvider()
 
+    def vectorize_with_tfidf_ngrams(self):
+        print("start tfidf ngrams vectorizing...")
+
+        tokens = self.__tokens_provider.get_tokens()
+        size_ngrams = 3
+        ngrams = self.__DatasetToNgrams(tokens, size_ngrams)
+        vectorized_tokens = self.__get_texts_to_matrix(ngrams)[0]
+
+        outfile = open(_VECTORS_TFIDF_NGRAMS_FILE_PATH, 'wb')
+        pickle.dump(vectorized_tokens, outfile)
+        outfile.close()
+
+        print("end tfidf ngrams vectorizing, vectors saved")
+
+    # TODO порефакторить
+    def __DatasetToNgrams(self, dataset, n):
+        return [[' '.join(line[i:i + n]) for i in range(0, line.__len__() - (n - 1))] for line in dataset]
+
     def vectorize_with_tfidf_wshingles(self):
         print("start tfidf wshingles vectorizing...")
 
@@ -160,6 +178,12 @@ class VectorsProvider:
 
     def get_tfidf_wshingles_vectors(self):
         file = open(_VECTORS_TFIDF_WSHINGLES_FILE_PATH, 'rb')
+        vectors = pickle.load(file)
+        file.close()
+        return vectors
+
+    def get_tfidf_ngrams_vectors(self):
+        file = open(_VECTORS_TFIDF_NGRAMS_FILE_PATH, 'rb')
         vectors = pickle.load(file)
         file.close()
         return vectors
