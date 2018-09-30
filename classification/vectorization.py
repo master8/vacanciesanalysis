@@ -8,6 +8,9 @@ from classification.tokenization import TokensProvider
 
 
 _VECTORS_TFIDF_FILE_PATH = "prepared_data/vectors_tfidf_all_hh.pkl"
+_VECTORS_TFIDF_WSHINGLES_FILE_PATH = "prepared_data/vectors_tfidf_wshingles_all_hh.pkl"
+_VECTORS_TFIDF_NGRAMS_FILE_PATH = "prepared_data/vectors_tfidf_ngrams_all_hh.pkl"
+
 _VECTORS_W2V_FILE_PATH = "prepared_data/vectors_w2v_all_hh.pkl"
 _VECTORS__W2V_TFIDF_FILE_PATH = "prepared_data/vectors_w2v_tfidf_all_hh.pkl"
 
@@ -16,6 +19,25 @@ class Vectorizer:
 
     def __init__(self):
         self.__tokens_provider = TokensProvider()
+
+    def vectorize_with_tfidf_wshingles(self):
+        print("start tfidf wshingles vectorizing...")
+
+        tokens = self.__tokens_provider.get_tokens()
+        size_shingles = 2
+        wshingles = self.__DatasetToShingles(tokens, size_shingles)
+        vectorized_tokens = self.__get_texts_to_matrix(wshingles)[0]
+
+        outfile = open(_VECTORS_TFIDF_WSHINGLES_FILE_PATH, 'wb')
+        pickle.dump(vectorized_tokens, outfile)
+        outfile.close()
+
+        print("end tfidf wshingles vectorizing, vectors saved")
+
+    # TODO порефакторить
+    def __DatasetToShingles(self, dataset, n):
+        merged = [' '.join(d) for d in dataset]
+        return [[''.join(line[i:i + n]) for i in range(0, line.__len__() - (n - 1))] for line in merged]
 
     def vectorize_with_w2v_tfidf(self):
         print("start w2v tfidf vectorizing...")
@@ -132,6 +154,12 @@ class VectorsProvider:
 
     def get_w2v_tfidf_vectors(self):
         file = open(_VECTORS__W2V_TFIDF_FILE_PATH, 'rb')
+        vectors = pickle.load(file)
+        file.close()
+        return vectors
+
+    def get_tfidf_wshingles_vectors(self):
+        file = open(_VECTORS_TFIDF_WSHINGLES_FILE_PATH, 'rb')
         vectors = pickle.load(file)
         file.close()
         return vectors
