@@ -3,6 +3,7 @@ from datetime import datetime
 import pandas as pd
 import pymystem3
 
+from classification.experiments.knn import KNeighborsExperiments
 from classification.experiments.logreg import LogisticRegressionExperiments
 from classification.tokenization import Tokenizer, TokensProvider
 from classification.vectorization import Vectorizer, VectorsProvider
@@ -19,7 +20,12 @@ from classification.vectorization import Vectorizer, VectorsProvider
 # vectorizer.vectorize_with_w2v_tfidf()
 
 
-logreg = LogisticRegressionExperiments()
+# logreg = LogisticRegressionExperiments()
 # logreg.make_use_tfidf()
-logreg.make_use_w2v()
-logreg.make_use_w2v_with_tfidf()
+# logreg.make_use_w2v()
+# logreg.make_use_w2v_with_tfidf()
+
+knn = KNeighborsExperiments()
+knn.make_use_tfidf()
+knn.make_use_w2v()
+knn.make_use_w2v_with_tfidf()

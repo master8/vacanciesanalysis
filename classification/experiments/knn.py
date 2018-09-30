@@ -1,14 +1,14 @@
 import pandas as pd
-from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
 
 from classification.evaluation import Evaluator
 from classification.vectorization import VectorsProvider
 from classification.visualisation import Visualizer
 
 
-class LogisticRegressionExperiments:
+class KNeighborsExperiments:
     __ORIGINAL_DATASET_PATH = "../data/old/old_marked_vacancies_from_hh.csv"
-    __CLASSIFIER_NAME = "LogisticRegression"
+    __CLASSIFIER_NAME = "KNeighborsClassifier"
 
     def __init__(self):
         self.__vectors_provider = VectorsProvider()
@@ -22,7 +22,7 @@ class LogisticRegressionExperiments:
 
         # TODO here grid search
 
-        model1 = LogisticRegression(C=1.0, solver='sag')
+        model1 = KNeighborsClassifier(algorithm='auto', metric='minkowski', weights='distance')
 
         cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
             = Evaluator.evaluate(model1, x_all, y_all)
@@ -38,7 +38,7 @@ class LogisticRegressionExperiments:
 
         # TODO here grid search
 
-        model1 = LogisticRegression(C=1.0, solver='sag')
+        model1 = KNeighborsClassifier(algorithm='auto', metric='minkowski', weights='distance')
 
         cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
             = Evaluator.evaluate(model1, x_all, y_all)
@@ -54,7 +54,7 @@ class LogisticRegressionExperiments:
 
         # TODO here grid search
 
-        model1 = LogisticRegression(C=1.0, solver='sag')
+        model1 = KNeighborsClassifier(algorithm='auto', metric='minkowski', weights='distance')
 
         cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
             = Evaluator.evaluate(model1, x_all, y_all)
