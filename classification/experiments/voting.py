@@ -9,7 +9,7 @@ from classification.vectorization import VectorsProvider
 from classification.visualisation import Visualizer
 
 
-class KNeighborsExperiments:
+class VotingExperiments:
     __ORIGINAL_DATASET_PATH = "../data/old/old_marked_vacancies_from_hh.csv"
     __CLASSIFIER_NAME = "VotingClassifier"
 

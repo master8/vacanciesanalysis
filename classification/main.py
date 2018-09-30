@@ -6,6 +6,7 @@ import pymystem3
 from classification.experiments.knn import KNeighborsExperiments
 from classification.experiments.logreg import LogisticRegressionExperiments
 from classification.experiments.svc import SVCExperiments
+from classification.experiments.voting import VotingExperiments
 from classification.tokenization import Tokenizer, TokensProvider
 from classification.vectorization import Vectorizer, VectorsProvider
 
@@ -31,7 +32,12 @@ from classification.vectorization import Vectorizer, VectorsProvider
 # knn.make_use_w2v()
 # knn.make_use_w2v_with_tfidf()
 
-svc = SVCExperiments()
-svc.make_use_tfidf()
-svc.make_use_w2v()
-svc.make_use_w2v_with_tfidf()
+# svc = SVCExperiments()
+# svc.make_use_tfidf()
+# svc.make_use_w2v()
+# svc.make_use_w2v_with_tfidf()
+
+voting = VotingExperiments()
+voting.make_use_tfidf()
+voting.make_use_w2v()
+voting.make_use_w2v_with_tfidf()
