@@ -63,3 +63,35 @@ class SVCExperiments:
                                 cross_val_accuracy, cross_val_f1,
                                 train_accuracy, train_f1,
                                 test_accuracy, test_f1)
+
+    def make_use_tfidf_wshingles(self):
+        x_all = self.__vectors_provider.get_tfidf_wshingles_vectors()
+        y_all = self.__read_original_dataset().profession
+
+        # TODO here grid search
+
+        model1 = SVC(C=1, kernel='linear', probability=True)
+
+        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
+            = Evaluator.evaluate(model1, x_all, y_all)
+
+        Visualizer.show_results(self.__CLASSIFIER_NAME, "model1", "TF-IDF&w-shingles",
+                                cross_val_accuracy, cross_val_f1,
+                                train_accuracy, train_f1,
+                                test_accuracy, test_f1)
+
+    def make_use_tfidf_ngrams(self):
+        x_all = self.__vectors_provider.get_tfidf_ngrams_vectors()
+        y_all = self.__read_original_dataset().profession
+
+        # TODO here grid search
+
+        model1 = SVC(C=1, kernel='linear', probability=True)
+
+        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
+            = Evaluator.evaluate(model1, x_all, y_all)
+
+        Visualizer.show_results(self.__CLASSIFIER_NAME, "model1", "TF-IDF&n-grams",
+                                cross_val_accuracy, cross_val_f1,
+                                train_accuracy, train_f1,
+                                test_accuracy, test_f1)
