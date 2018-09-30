@@ -3,6 +3,7 @@ from datetime import datetime
 import pandas as pd
 import pymystem3
 
+from classification.experiments.grboost import GradientBoostingExperiments
 from classification.experiments.knn import KNeighborsExperiments
 from classification.experiments.logreg import LogisticRegressionExperiments
 from classification.experiments.svc import SVCExperiments
@@ -37,7 +38,12 @@ from classification.vectorization import Vectorizer, VectorsProvider
 # svc.make_use_w2v()
 # svc.make_use_w2v_with_tfidf()
 
-voting = VotingExperiments()
-voting.make_use_tfidf()
-voting.make_use_w2v()
-voting.make_use_w2v_with_tfidf()
+# voting = VotingExperiments()
+# voting.make_use_tfidf()
+# voting.make_use_w2v()
+# voting.make_use_w2v_with_tfidf()
+
+grboost = GradientBoostingExperiments()
+grboost.make_use_tfidf()
+grboost.make_use_w2v()
+grboost.make_use_w2v_with_tfidf()
