@@ -1,3 +1,8 @@
+from datetime import datetime
+
+import pandas as pd
+
+
 class Visualizer:
 
     @staticmethod
@@ -22,3 +27,18 @@ class Visualizer:
         print("accuracy: " + str(test_accuracy))
         print("f-score: " + str(test_f1))
         print()
+
+        file_path = "results/classification_results.csv"
+
+        pd.read_csv(file_path, header=0).append({
+            'date_time': datetime.now(),
+            'classifier_name': classifier_name,
+            'model_name': model_name,
+            'vec_method': vec_method,
+            'cross_val_accuracy': cross_val_accuracy.mean(),
+            'cross_val_f1': cross_val_f1.mean(),
+            'train_accuracy': train_accuracy,
+            'train_f1': train_f1,
+            'test_accuracy': test_accuracy,
+            'test_f1': test_f1
+        }, ignore_index=True).to_csv(file_path, index=False)
