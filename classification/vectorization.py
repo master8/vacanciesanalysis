@@ -17,6 +17,54 @@ class Vectorizer:
     def __init__(self):
         self.__tokens_provider = TokensProvider()
 
+    def vectorize_with_w2v_tfidf(self):
+        print("start w2v tfidf vectorizing...")
+
+        tokens = self.__tokens_provider.get_tokens()
+        w2v_model = gensim.models.Word2Vec(tokens, min_count=2, workers=2, iter=100, size=300, sg=0)
+
+        results = self.__get_texts_to_matrix(tokens)
+        tfidf_model = results[0]
+        word_index = results[1]
+
+        vectorized_tokens = self.__GetW2VTFIDFVectors(w2v_model, tfidf_model, word_index, tokens)
+
+        outfile = open(_VECTORS__W2V_TFIDF_FILE_PATH, 'wb')
+        pickle.dump(vectorized_tokens, outfile)
+        outfile.close()
+
+        print("end w2v tfidf vectorizing, vectors saved")
+
+    # TODO порефакторить
+    def __GetW2VTFIDFVectors(self, w2v_model, tfidf_model, tfidf_dict, vacancies):
+        index = 0
+        vectors = []
+        for vacancy in vacancies:
+            vector = self.__SentenceToAverageTfIdfWeightedVector(w2v_model.wv, vacancy, tfidf_model[index], tfidf_dict)
+            vectors.append(vector)
+            index += 1
+        return vectors
+
+    # TODO порефакторить
+    def __SentenceToAverageTfIdfWeightedVector(self, wv, sentence, tfidf, dictionary):
+        vectors = pandas.DataFrame()
+        index = 0
+        try:
+            for word in sentence:
+                if word not in dictionary.keys():
+                    tf_idf = 0
+                else:
+                    word_index = dictionary[word]
+                    tf_idf = tfidf[word_index]
+                if word in wv.vocab:
+                    vectors[index] = wv[word] * tf_idf
+                index += 1
+            vectors = vectors.transpose()
+            vector = vectors.mean().values.tolist()
+        except Exception:
+            return []
+        return vector
+
     def vectorize_with_w2v(self):
         print("start w2v vectorizing...")
 
@@ -49,7 +97,7 @@ class Vectorizer:
         print("start tfidf vectorizing...")
 
         tokens = self.__tokens_provider.get_tokens()
-        vectorized_tokens = self.__get_texts_to_matrix(tokens)
+        vectorized_tokens = self.__get_texts_to_matrix(tokens)[0]
 
         outfile = open(_VECTORS_TFIDF_FILE_PATH, 'wb')
         pickle.dump(vectorized_tokens, outfile)
@@ -65,7 +113,7 @@ class Vectorizer:
 
         tokenizer.fit_on_texts(texts)
         matrix_tfidf = tokenizer.texts_to_matrix(texts=texts, mode='tfidf')
-        return matrix_tfidf
+        return matrix_tfidf, tokenizer.word_index
 
 
 class VectorsProvider:
@@ -78,6 +126,12 @@ class VectorsProvider:
 
     def get_w2v_vectors(self):
         file = open(_VECTORS_W2V_FILE_PATH, 'rb')
+        vectors = pickle.load(file)
+        file.close()
+        return vectors
+
+    def get_w2v_tfidf_vectors(self):
+        file = open(_VECTORS__W2V_TFIDF_FILE_PATH, 'rb')
         vectors = pickle.load(file)
         file.close()
         return vectors
