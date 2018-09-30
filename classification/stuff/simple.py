@@ -1,4 +1,3 @@
-import random
 import string
 
 import numpy as np
@@ -7,14 +6,13 @@ import pandas as pd
 from gensim.models import doc2vec
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, f1_score, confusion_matrix
+from sklearn.metrics import accuracy_score, f1_score
 
 # from mlxtend.plotting import plot_confusion_matrix
-import matplotlib.pyplot as plt
 
 import warnings
 
-from classification.visualisation.classification_results import show_classification_results
+from classification.stuff.classification_results import show_classification_results
 
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
