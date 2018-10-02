@@ -12,6 +12,7 @@ _VECTORS_TFIDF_WSHINGLES_FILE_PATH = "prepared_data/vectors_tfidf_wshingles_all_
 _VECTORS_TFIDF_NGRAMS_FILE_PATH = "prepared_data/vectors_tfidf_ngrams_all_hh.pkl"
 
 _VECTORS_W2V_FILE_PATH = "prepared_data/vectors_w2v_all_hh.pkl"
+_VECTORS_W2V_BIG_FILE_PATH = "prepared_data/vectors_w2v_big_all_hh.pkl"
 _VECTORS__W2V_TFIDF_FILE_PATH = "prepared_data/vectors_w2v_tfidf_all_hh.pkl"
 
 
@@ -105,6 +106,21 @@ class Vectorizer:
             return []
         return vector
 
+    def vectorize_with_w2v_big(self):
+        print("start w2v big vectorizing...")
+
+        tokens = self.__tokens_provider.get_tokens()
+        # w2v_model = gensim.models.Word2Vec(tokens, min_count=2, workers=2, iter=100, size=300, sg=0)
+        w2v_path = "prepared_data/all.norm-sz500-w10-cb0-it3-min5.w2v"
+        w2v_model = gensim.models.KeyedVectors.load_word2vec_format(w2v_path, binary=True, unicode_errors='ignore')
+        vectorized_tokens = [self.__SentenceToAverageWeightedVector(w2v_model.wv, vacancy) for vacancy in tokens]
+
+        outfile = open(_VECTORS_W2V_BIG_FILE_PATH, 'wb')
+        pickle.dump(vectorized_tokens, outfile)
+        outfile.close()
+
+        print("end w2v big vectorizing, vectors saved")
+
     def vectorize_with_w2v(self):
         print("start w2v vectorizing...")
 
@@ -166,6 +182,12 @@ class VectorsProvider:
 
     def get_w2v_vectors(self):
         file = open(_VECTORS_W2V_FILE_PATH, 'rb')
+        vectors = pickle.load(file)
+        file.close()
+        return vectors
+
+    def get_w2v_big_vectors(self):
+        file = open(_VECTORS_W2V_BIG_FILE_PATH, 'rb')
         vectors = pickle.load(file)
         file.close()
         return vectors
