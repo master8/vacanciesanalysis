@@ -2,6 +2,10 @@ from datetime import datetime
 
 import pandas as pd
 import pymystem3
+import logging
+
+logging.basicConfig(filename='main.log')
+logging.warning('Start main!')
 
 from classification.experiments.grboost import GradientBoostingExperiments
 from classification.experiments.knn import KNeighborsExperiments
@@ -11,15 +15,15 @@ from classification.experiments.voting import VotingExperiments
 from classification.tokenization import Tokenizer, TokensProvider
 from classification.vectorization import Vectorizer, VectorsProvider
 
-# pymystem3.mystem.MYSTEM_DIR = "/home/mluser/anaconda3/envs/master8_env/.local/bin"
-# pymystem3.mystem.MYSTEM_BIN = "/home/mluser/anaconda3/envs/master8_env/.local/bin/mystem"
+pymystem3.mystem.MYSTEM_DIR = "/home/mluser/anaconda3/envs/master8_env/.local/bin"
+pymystem3.mystem.MYSTEM_BIN = "/home/mluser/anaconda3/envs/master8_env/.local/bin/mystem"
 
 
-# Tokenizer().tokenize()
+Tokenizer().tokenize()
 
-# vectorizer = Vectorizer()
+vectorizer = Vectorizer()
 # vectorizer.vectorize_with_tfidf()
-# vectorizer.vectorize_with_w2v()
+vectorizer.vectorize_with_w2v()
 # vectorizer.vectorize_with_w2v_tfidf()
 # vectorizer.vectorize_with_tfidf_wshingles()
 # vectorizer.vectorize_with_tfidf_ngrams()
@@ -58,10 +62,10 @@ from classification.vectorization import Vectorizer, VectorsProvider
 # voting.make_use_tfidf_ngrams()
 # voting.make_use_w2v_big()
 
-grboost = GradientBoostingExperiments()
+# grboost = GradientBoostingExperiments()
 # grboost.make_use_tfidf()
 # grboost.make_use_w2v()
 # grboost.make_use_w2v_with_tfidf()
 # grboost.make_use_tfidf_wshingles()
 # grboost.make_use_tfidf_ngrams()
-grboost.make_use_w2v_big()
+# grboost.make_use_w2v_big()
