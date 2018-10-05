@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import gensim
 import pickle
 import logging
@@ -126,7 +128,7 @@ class Vectorizer:
 
     def vectorize_with_w2v(self):
         print("start w2v vectorizing...")
-        logging.warning("start w2v...")
+        logging.warning(str(datetime.now()) + " start w2v...")
 
         tokens = self.__tokens_provider.get_tokens()
         w2v_model = gensim.models.Word2Vec(tokens, min_count=2, workers=2, iter=100, size=300, sg=0)
@@ -136,7 +138,7 @@ class Vectorizer:
         pickle.dump(vectorized_tokens, outfile)
         outfile.close()
 
-        logging.warning("end w2v, vectors saved")
+        logging.warning(str(datetime.now()) + " end w2v, vectors saved")
         print("end w2v vectorizing, vectors saved")
 
     # TODO порефакторить

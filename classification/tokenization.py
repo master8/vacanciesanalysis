@@ -1,5 +1,6 @@
 import pickle
 import logging
+from datetime import datetime
 
 from nltk.corpus import stopwords
 from pymystem3 import Mystem
@@ -17,11 +18,11 @@ class Tokenizer:
     __ORIGINAL_DATASET_PATH = "../data/new/vacancies_hh_all_051018.csv"
 
     def __read_original_dataset(self):
-        return pd.read_csv(self.__ORIGINAL_DATASET_PATH, header=0, sep='|')[:100]
+        return pd.read_csv(self.__ORIGINAL_DATASET_PATH, header=0, sep='|')
 
     def tokenize(self):
         print("start tokenizing...")
-        logging.warning("start tokenizing...")
+        logging.warning(str(datetime.now()) + " start tokenizing...")
 
         original_dataset = self.__read_original_dataset()
         tokenized_requirements = self.__tokenize_sentences_lemmatized(original_dataset[~original_dataset.requirements.isnull()].requirements)
@@ -30,7 +31,7 @@ class Tokenizer:
         pickle.dump(tokenized_requirements, outfile)
         outfile.close()
 
-        logging.warning("end tokenizing, tokens saved")
+        logging.warning(str(datetime.now()) + " end tokenizing, tokens saved")
         print("end tokenizing, tokens saved")
 
     # TODO порефакторить
@@ -39,7 +40,7 @@ class Tokenizer:
         m = Mystem()
         index = 0
         for c in rawSentences:
-            logging.warning("tokinizeing " + str(index))
+            logging.warning(str(datetime.now()) + " tokinizeing " + str(index))
             tokenized_sents = m.lemmatize(c)
             cleaned_set = []
             for tokenized in tokenized_sents:
