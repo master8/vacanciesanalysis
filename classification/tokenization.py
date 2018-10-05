@@ -19,7 +19,7 @@ class Tokenizer:
     __ORIGINAL_DATASET_PATH = "../data/new/vacancies_hh_all_051018.csv"
 
     def __read_original_dataset(self):
-        return pd.read_csv(self.__ORIGINAL_DATASET_PATH, header=0, sep='|')[:50]
+        return pd.read_csv(self.__ORIGINAL_DATASET_PATH, header=0, sep='|')
 
     def clean(self, str):
         pattern = re.compile('<.*?>')
