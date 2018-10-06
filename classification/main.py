@@ -21,13 +21,14 @@ pymystem3.mystem.MYSTEM_BIN = "/home/mluser/anaconda3/envs/master8_env/.local/bi
 
 # Tokenizer().tokenize()
 
-# vectorizer = Vectorizer()
+vectorizer = Vectorizer()
 # vectorizer.vectorize_with_tfidf()
 # vectorizer.vectorize_with_w2v()
 # vectorizer.vectorize_with_w2v_tfidf()
 # vectorizer.vectorize_with_tfidf_wshingles()
 # vectorizer.vectorize_with_tfidf_ngrams()
 # vectorizer.vectorize_with_w2v_big()
+vectorizer.vectorize_with_w2v_old()
 
 
 logreg = LogisticRegressionExperiments()
