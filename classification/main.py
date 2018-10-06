@@ -4,8 +4,8 @@ import pandas as pd
 import pymystem3
 import logging
 
-logging.basicConfig(filename='main.log', level=logging.INFO)
-logging.warning('Start main!')
+# logging.basicConfig(filename='main.log', level=logging.INFO)
+# logging.warning('Start main!')
 
 from classification.experiments.grboost import GradientBoostingExperiments
 from classification.experiments.knn import KNeighborsExperiments
@@ -70,7 +70,7 @@ pymystem3.mystem.MYSTEM_BIN = "/home/mluser/anaconda3/envs/master8_env/.local/bi
 # grboost.make_use_tfidf_ngrams()
 # grboost.make_use_w2v_big()
 
-data = pd.read_csv("../data/new/vacancies_hh_all_051018.csv", header=0, sep='|')
+# data = pd.read_csv("../data/new/vacancies_hh_all_051018.csv", header=0, sep='|')
 
 
 # data.loc[data.id == 20000000, 'custom_mark'] = 1
