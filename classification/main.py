@@ -21,9 +21,9 @@ pymystem3.mystem.MYSTEM_BIN = "/home/mluser/anaconda3/envs/master8_env/.local/bi
 
 # Tokenizer().tokenize()
 
-vectorizer = Vectorizer()
+# vectorizer = Vectorizer()
 # vectorizer.vectorize_with_tfidf()
-vectorizer.vectorize_with_w2v()
+# vectorizer.vectorize_with_w2v()
 # vectorizer.vectorize_with_w2v_tfidf()
 # vectorizer.vectorize_with_tfidf_wshingles()
 # vectorizer.vectorize_with_tfidf_ngrams()
@@ -69,3 +69,10 @@ vectorizer.vectorize_with_w2v()
 # grboost.make_use_tfidf_wshingles()
 # grboost.make_use_tfidf_ngrams()
 # grboost.make_use_w2v_big()
+
+data = pd.read_csv("../data/new/vacancies_hh_all_051018.csv", header=0, sep='|')
+
+
+# data.loc[data.id == 20000000, 'custom_mark'] = 1
+# data[data.name.str.contains('QA')].name[:50]
+# data[data.specializations.str.contains('1.137')].name[:50]
