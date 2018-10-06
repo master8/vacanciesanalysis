@@ -9,8 +9,8 @@ from pymystem3 import Mystem
 import pandas as pd
 
 
-# _TOKENS_FILE_PATH = "prepared_data/old_tokens_all_hh.pkl"
-_TOKENS_FILE_PATH = "prepared_data/tokens_all_hh.pkl"
+_TOKENS_FILE_PATH = "prepared_data/old_tokens_all_hh.pkl"
+# _TOKENS_FILE_PATH = "prepared_data/tokens_all_hh.pkl"
 
 
 class Tokenizer:
