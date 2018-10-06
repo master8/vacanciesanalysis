@@ -130,10 +130,10 @@ class Vectorizer:
         print("start w2v vectorizing...")
         logging.warning(str(datetime.now()) + " read tokens...")
 
-        tokens = self.__tokens_provider.get_tokens()[:1000]
+        tokens = self.__tokens_provider.get_tokens()
         logging.warning(str(datetime.now()) + " start w2v...")
-        w2v_model = gensim.models.Word2Vec(tokens, min_count=2, iter=3, size=300, sg=0, workers=32)
-        w2v_model.save("prepared_data/hh_all_sz300-it3-min2-sg0.w2v")
+        w2v_model = gensim.models.Word2Vec(tokens, min_count=2, iter=100, size=300, sg=0, workers=32)
+        w2v_model.save("prepared_data/hh_all_sz300-it100-min2-sg0.w2v")
         # vectorized_tokens = [self.__SentenceToAverageWeightedVector(w2v_model.wv, vacancy) for vacancy in tokens]
 
         # outfile = open(_VECTORS_W2V_FILE_PATH, 'wb')
