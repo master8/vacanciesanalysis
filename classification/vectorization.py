@@ -23,6 +23,7 @@ _VECTORS__W2V_TFIDF_FILE_PATH = "prepared_data/vectors_w2v_tfidf_all_hh.pkl"
 
 
 class Vectorizer:
+    __step = 0
 
     def __init__(self):
         self.__tokens_provider = TokensProvider()
@@ -133,6 +134,8 @@ class Vectorizer:
 
         print("start w2v old vectorizing...")
 
+        self.__step = 0
+
         tokens = self.__tokens_provider.get_tokens()
         w2v_path = "prepared_data/hh_all_sz300-it100-min2-sg0.w2v"
         logging.warning(str(datetime.now()) + " loading model...")
@@ -165,6 +168,8 @@ class Vectorizer:
 
     # TODO порефакторить
     def __SentenceToAverageWeightedVector(self, wv, sentence):
+        logging.info(str(datetime.now()) + " step " + str(self.__step))
+        self.__step += 1
         vectors = pandas.DataFrame()
         index = 0
         try:
@@ -172,7 +177,6 @@ class Vectorizer:
                 if word in wv.vocab:
                     vectors[index] = wv[word]
                 index += 1
-                logging.warning(str(datetime.now()) + " step: " + index)
             vectors = vectors.transpose()
             vector = vectors.mean().values.tolist()
         except Exception:
