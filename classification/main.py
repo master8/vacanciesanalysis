@@ -30,13 +30,14 @@ pymystem3.mystem.MYSTEM_BIN = "/home/mluser/anaconda3/envs/master8_env/.local/bi
 # vectorizer.vectorize_with_w2v_big()
 
 
-# logreg = LogisticRegressionExperiments()
+logreg = LogisticRegressionExperiments()
 # logreg.make_use_tfidf()
 # logreg.make_use_w2v()
 # logreg.make_use_w2v_with_tfidf()
 # logreg.make_use_tfidf_wshingles()
 # logreg.make_use_tfidf_ngrams()
 # logreg.make_use_w2v_big()
+logreg.make_use_w2v_old()
 
 # knn = KNeighborsExperiments()
 # knn.make_use_tfidf()

@@ -48,6 +48,25 @@ class LogisticRegressionExperiments:
                                 train_accuracy, train_f1,
                                 test_accuracy, test_f1)
 
+    def make_use_w2v_old(self):
+
+        """ Обучает старый датасет с использованием w2v обученного на новом """
+
+        x_all = self.__vectors_provider.get_w2v_old_vectors()
+        y_all = self.__read_original_dataset().profession
+
+        # TODO here grid search
+
+        model1 = LogisticRegression(C=1.0, solver='sag')
+
+        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
+            = Evaluator.evaluate(model1, x_all, y_all)
+
+        Visualizer.show_results(self.__CLASSIFIER_NAME, "model1", "Word2VecNewOld",
+                                cross_val_accuracy, cross_val_f1,
+                                train_accuracy, train_f1,
+                                test_accuracy, test_f1)
+
     def make_use_w2v_big(self):
         x_all = self.__vectors_provider.get_w2v_big_vectors()
         y_all = self.__read_original_dataset().profession

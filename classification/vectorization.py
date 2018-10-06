@@ -129,7 +129,7 @@ class Vectorizer:
 
     def vectorize_with_w2v_old(self):
 
-        """Использует Word2Vec обеченный на новом большом датасете, строит вектора для старого датасета"""
+        """ Использует Word2Vec обеченный на новом большом датасете, строит вектора для старого датасета """
 
         print("start w2v old vectorizing...")
 
@@ -221,7 +221,7 @@ class VectorsProvider:
 
     def get_w2v_old_vectors(self):
 
-        """Использует Word2Vec обеченный на новом большом датасете, строит вектора для старого датасета"""
+        """ Использует Word2Vec обеченный на новом большом датасете, строит вектора для старого датасета """
 
         file = open(_VECTORS_W2V_OLD_FILE_PATH, 'rb')
         vectors = pickle.load(file)
