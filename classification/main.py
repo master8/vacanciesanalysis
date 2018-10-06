@@ -4,8 +4,8 @@ import pandas as pd
 import pymystem3
 import logging
 
-# logging.basicConfig(filename='main.log', level=logging.INFO)
-# logging.warning('Start main!')
+logging.basicConfig(filename='main.log', level=logging.INFO)
+logging.warning('Start main!')
 
 from classification.experiments.grboost import GradientBoostingExperiments
 from classification.experiments.knn import KNeighborsExperiments

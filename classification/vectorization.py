@@ -135,7 +135,9 @@ class Vectorizer:
 
         tokens = self.__tokens_provider.get_tokens()
         w2v_path = "prepared_data/hh_all_sz300-it100-min2-sg0.w2v"
+        logging.warning(str(datetime.now()) + " loading model...")
         w2v_model = gensim.models.Word2Vec.load(w2v_path)
+        logging.warning(str(datetime.now()) + " loaded model")
         vectorized_tokens = [self.__SentenceToAverageWeightedVector(w2v_model.wv, vacancy) for vacancy in tokens]
 
         outfile = open(_VECTORS_W2V_OLD_FILE_PATH, 'wb')
@@ -170,6 +172,7 @@ class Vectorizer:
                 if word in wv.vocab:
                     vectors[index] = wv[word]
                 index += 1
+                logging.warning(str(datetime.now()) + " step: " + index)
             vectors = vectors.transpose()
             vector = vectors.mean().values.tolist()
         except Exception:
