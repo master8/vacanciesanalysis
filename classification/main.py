@@ -74,6 +74,7 @@ pymystem3.mystem.MYSTEM_BIN = "/home/mluser/anaconda3/envs/master8_env/.local/bi
 # grboost.make_use_w2v_big()
 
 data = pd.read_csv("../data/new/marked_vacancies_hh_all_131018.csv", header=0, sep='|')
+# data.to_csv("../data/new/marked_vacancies_hh_all_131018.csv", index=False, sep='|')
 
 # data[data.requirements.notnull() & data.duties.notnull()].standard_mark.value_counts()
 # data.loc[data.id == 20000000, 'custom_mark'] = 1
@@ -118,7 +119,6 @@ data = pd.read_csv("../data/new/marked_vacancies_hh_all_131018.csv", header=0, s
 #        | data.name.str.contains('БД', case=False)
 #        ), 'standard_mark'] = 1
 #
-# data.to_csv("../data/new/marked_vacancies_hh_all_131018.csv", index=False, sep='|')
 
 # фильтр Технический писатель
 # var = data[data.requirements.notnull()
@@ -159,3 +159,37 @@ data = pd.read_csv("../data/new/marked_vacancies_hh_all_131018.csv", header=0, s
 #     & (data.name.str.contains('Системный программист', case=False)
 #        | data.name.str.contains('Системный разработчик', case=False)
 #        ), 'standard_mark'] = 12
+
+
+# Фильтрация для Архитектор программного обеспечения
+# var = data[data.requirements.notnull()
+#            & data.duties.notnull()
+#            & (data.standard_mark == 0)
+#            & data.name.str.contains('Архитектор', case=False)
+#            ][['name', 'specializations']][:50]
+#
+# Разметка Архитектор программного обеспечения
+# data.loc[
+#     data.requirements.notnull()
+#     & data.duties.notnull()
+#     & (data.standard_mark == 0)
+#     & data.name.str.contains('Архитектор', case=False)
+#     , 'standard_mark'] = 17
+
+
+# Фильтрация для Системный аналитик
+# var = data[data.requirements.notnull()
+#            & data.duties.notnull()
+#            & (data.standard_mark == 0)
+#            & data.name.str.contains('аналитик', case=False)
+#            & data.specializations.str.contains('1.25')
+#            ][['name', 'specializations']][:50]
+#
+# Разметка Системный аналитик
+# data.loc[
+#     data.requirements.notnull()
+#     & data.duties.notnull()
+#     & (data.standard_mark == 0)
+#     & data.name.str.contains('аналитик', case=False)
+#     & data.specializations.str.contains('1.25')
+#     , 'standard_mark'] = 8
