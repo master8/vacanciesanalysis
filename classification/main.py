@@ -18,7 +18,6 @@ from classification.vectorization import Vectorizer, VectorsProvider
 pymystem3.mystem.MYSTEM_DIR = "/home/mluser/anaconda3/envs/master8_env/.local/bin"
 pymystem3.mystem.MYSTEM_BIN = "/home/mluser/anaconda3/envs/master8_env/.local/bin/mystem"
 
-
 # Tokenizer().tokenize()
 
 # vectorizer = Vectorizer()
@@ -74,9 +73,46 @@ pymystem3.mystem.MYSTEM_BIN = "/home/mluser/anaconda3/envs/master8_env/.local/bi
 # grboost.make_use_tfidf_ngrams()
 # grboost.make_use_w2v_big()
 
-data = pd.read_csv("../data/new/vacancies_hh_all_051018.csv", header=0, sep='|')
-
+data = pd.read_csv("../data/new/marked_vacancies_hh_all_131018.csv", header=0, sep='|')
 
 # data.loc[data.id == 20000000, 'custom_mark'] = 1
 # data[data.name.str.contains('QA')].name[:50]
 # data[data.specializations.str.contains('1.137')].name[:50]
+
+# data[data.specializations.str.contains('1.420') & data.requirements.notnull()].name.describe()
+# data[data.specializations.str.contains('1.420') & ~data.specializations.str.contains('1.221') & data.requirements.notnull()][['name', 'specializations']][:10]
+
+# Фильтрация для администратора баз данных
+# var = data[data.requirements.notnull()
+#            & data.duties.notnull()
+#            & data.specializations.str.contains('1.420')
+#            & ~data.specializations.str.contains('1.221')
+#            & data.name.str.contains('администратор', case=False)
+#            & ~data.name.str.contains('системный', case=False)
+#            & (data.name.str.contains('баз данных', case=False)
+#               | data.name.str.contains('DBA', case=False)
+#               | data.name.str.contains('Oracle', case=False)
+#               | data.name.str.contains('MS SQL', case=False)
+#               | data.name.str.contains('MySQL', case=False)
+#               | data.name.str.contains('PostgreSQL', case=False)
+#               | data.name.str.contains('БД', case=False)
+#               )
+#            ][['name', 'specializations']][:50]
+#
+# data.loc[
+#     data.requirements.notnull()
+#     & data.duties.notnull()
+#     & data.specializations.str.contains('1.420')
+#     & ~data.specializations.str.contains('1.221')
+#     & data.name.str.contains('администратор', case=False)
+#     & ~data.name.str.contains('системный', case=False)
+#     & (data.name.str.contains('баз данных', case=False)
+#        | data.name.str.contains('DBA', case=False)
+#        | data.name.str.contains('Oracle', case=False)
+#        | data.name.str.contains('MS SQL', case=False)
+#        | data.name.str.contains('MySQL', case=False)
+#        | data.name.str.contains('PostgreSQL', case=False)
+#        | data.name.str.contains('БД', case=False)
+#        ), 'standard_mark'] = 1
+#
+# data.to_csv("../data/new/marked_vacancies_hh_all_131018.csv", index=False, sep='|')
