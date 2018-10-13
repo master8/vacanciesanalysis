@@ -84,6 +84,35 @@ data = pd.read_csv("../data/new/marked_vacancies_hh_all_131018.csv", header=0, s
 # data[data.specializations.str.contains('1.420') & data.requirements.notnull()].name.describe()
 # data[data.specializations.str.contains('1.420') & ~data.specializations.str.contains('1.221') & data.requirements.notnull()][['name', 'specializations']][:10]
 
+# Фильтрация телекоммуникации
+# var = data[data.requirements.notnull()
+#            & data.duties.notnull()
+#            & (data.standard_mark == 0)
+#            & (data.specializations.str.contains('1.295')
+#               | data.specializations.str.contains('1.277')
+#               )
+#            & ~data.specializations.str.contains('1.10')
+#            & ~data.specializations.str.contains('1.9')
+#            & (data.name.str.contains('Инженер-проектировщик', case=False)
+#               | data.name.str.contains('Инженер проектировщик', case=False)
+#               )
+#            ][['name', 'specializations']][:50]
+#
+# Разметка телекоммуникации
+# data.loc[
+#     data.requirements.notnull()
+#     & data.duties.notnull()
+#     & (data.standard_mark == 0)
+#     & (data.specializations.str.contains('1.295')
+#        | data.specializations.str.contains('1.277')
+#        )
+#     & ~data.specializations.str.contains('1.10')
+#     & ~data.specializations.str.contains('1.9')
+#     & (data.name.str.contains('Инженер-проектировщик', case=False)
+#        | data.name.str.contains('Инженер проектировщик', case=False)
+#        ), 'standard_mark'] = 20
+
+
 # Фильтрация для администратора баз данных
 # var = data[data.requirements.notnull()
 #            & data.duties.notnull()
@@ -209,3 +238,32 @@ data = pd.read_csv("../data/new/marked_vacancies_hh_all_131018.csv", header=0, s
 #     & (data.standard_mark == 0)
 #     & data.specializations.str.contains('1.30')
 #     , 'standard_mark'] = 9
+
+
+# Фильтрация Специалист по интеграции
+# var = data[data.requirements.notnull()
+#            & data.duties.notnull()
+#            & (data.standard_mark == 0)
+#            & ~data.name.str.contains('Менеджер', case=False)
+#            & ~data.name.str.contains('Руководитель', case=False)
+#            & ~data.name.str.contains('Директор', case=False)
+#            & (data.name.str.contains('внедрение', case=False)
+#               | data.name.str.contains('внедрению', case=False)
+#               | data.name.str.contains('внедрения', case=False)
+#               | data.name.str.contains('интеграции', case=False)
+#               )
+#            ][['name', 'specializations']][:50]
+#
+# Разметка Специалист по интеграции
+# data.loc[
+#     data.requirements.notnull()
+#     & data.duties.notnull()
+#     & (data.standard_mark == 0)
+#     & ~data.name.str.contains('Менеджер', case=False)
+#     & ~data.name.str.contains('Руководитель', case=False)
+#     & ~data.name.str.contains('Директор', case=False)
+#     & (data.name.str.contains('внедрение', case=False)
+#        | data.name.str.contains('внедрению', case=False)
+#        | data.name.str.contains('внедрения', case=False)
+#        | data.name.str.contains('интеграции', case=False)
+#        ), 'standard_mark'] = 21
