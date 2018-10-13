@@ -86,6 +86,7 @@ data = pd.read_csv("../data/new/marked_vacancies_hh_all_131018.csv", header=0, s
 # Фильтрация для администратора баз данных
 # var = data[data.requirements.notnull()
 #            & data.duties.notnull()
+#            & (data.standard_mark == 0)
 #            & data.specializations.str.contains('1.420')
 #            & ~data.specializations.str.contains('1.221')
 #            & data.name.str.contains('администратор', case=False)
@@ -140,3 +141,21 @@ data = pd.read_csv("../data/new/marked_vacancies_hh_all_131018.csv", header=0, s
 #        | data.name.str.contains('технической документации', case=False)
 #        | data.name.str.contains('Technical Writer', case=False)
 #        ), 'standard_mark'] = 7
+
+# фильтр Системный программист
+# var = data[data.requirements.notnull()
+#            & data.duties.notnull()
+#            & (data.standard_mark == 0)
+#            & (data.name.str.contains('Системный программист', case=False)
+#               | data.name.str.contains('Системный разработчик', case=False)
+#               )
+#            ][['name', 'specializations']][:50]
+
+# Разметка Технический писатель
+# data.loc[
+#     data.requirements.notnull()
+#     & data.duties.notnull()
+#     & (data.standard_mark == 0)
+#     & (data.name.str.contains('Системный программист', case=False)
+#        | data.name.str.contains('Системный разработчик', case=False)
+#        ), 'standard_mark'] = 12
