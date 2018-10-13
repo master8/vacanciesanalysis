@@ -75,6 +75,7 @@ pymystem3.mystem.MYSTEM_BIN = "/home/mluser/anaconda3/envs/master8_env/.local/bi
 
 data = pd.read_csv("../data/new/marked_vacancies_hh_all_131018.csv", header=0, sep='|')
 
+# data[data.requirements.notnull() & data.duties.notnull()].standard_mark.value_counts()
 # data.loc[data.id == 20000000, 'custom_mark'] = 1
 # data[data.name.str.contains('QA')].name[:50]
 # data[data.specializations.str.contains('1.137')].name[:50]
@@ -99,6 +100,7 @@ data = pd.read_csv("../data/new/marked_vacancies_hh_all_131018.csv", header=0, s
 #               )
 #            ][['name', 'specializations']][:50]
 #
+# Разметка DBA
 # data.loc[
 #     data.requirements.notnull()
 #     & data.duties.notnull()
@@ -116,3 +118,25 @@ data = pd.read_csv("../data/new/marked_vacancies_hh_all_131018.csv", header=0, s
 #        ), 'standard_mark'] = 1
 #
 # data.to_csv("../data/new/marked_vacancies_hh_all_131018.csv", index=False, sep='|')
+
+# фильтр Технический писатель
+# var = data[data.requirements.notnull()
+#            & data.duties.notnull()
+#            & (data.standard_mark == 0)
+#            & data.specializations.str.contains('1.296')
+#            & (data.name.str.contains('Технический писатель', case=False)
+#               | data.name.str.contains('технической документации', case=False)
+#               | data.name.str.contains('Technical Writer', case=False)
+#               )
+#            ][['name', 'specializations']][:50]
+#
+# Разметка Технический писатель
+# data.loc[
+#     data.requirements.notnull()
+#     & data.duties.notnull()
+#     & (data.standard_mark == 0)
+#     & data.specializations.str.contains('1.296')
+#     & (data.name.str.contains('Технический писатель', case=False)
+#        | data.name.str.contains('технической документации', case=False)
+#        | data.name.str.contains('Technical Writer', case=False)
+#        ), 'standard_mark'] = 7
