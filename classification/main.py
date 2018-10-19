@@ -85,6 +85,49 @@ data = pd.read_csv("../data/new/marked_vacancies_hh_all_131018.csv", header=0, s
 # data[data.specializations.str.contains('1.420') & ~data.specializations.str.contains('1.221') & data.requirements.notnull()][['name', 'specializations']][:10]
 
 
+# Фильтрация для Программист
+# var = data[data.requirements.notnull()
+#            & data.duties.notnull()
+#            & (data.standard_mark == 0)
+#            & data.specializations.str.contains('1\.221')
+#            & (data.name.str.contains('Программист', case=False)
+#               | data.name.str.contains('разработчик', case=False)
+#               )
+#            ][['name', 'specializations']][:50]
+#
+# Разметка Программист
+# data.loc[
+#     data.requirements.notnull()
+#     & data.duties.notnull()
+#     & (data.standard_mark == 0)
+#     & data.specializations.str.contains('1\.221')
+#     & (data.name.str.contains('Программист', case=False)
+#        | data.name.str.contains('разработчик', case=False)
+#        ), 'standard_mark'] = 14
+
+
+# Фильтрация для Инженер-радиоэлектронщик
+# var = data[data.requirements.notnull()
+#            & data.duties.notnull()
+#            & (data.standard_mark == 0)
+#            & data.specializations.str.contains('1\.82')
+#            & ~data.specializations.str.contains('1\.221')
+#            & data.name.str.contains('радио.*', case=False)
+#            & ~data.name.str.contains('писатель', case=False)
+#            ][['name', 'specializations']][:50]
+#
+# Разметка Инженер-радиоэлектронщик
+# data.loc[
+#     data.requirements.notnull()
+#     & data.duties.notnull()
+#     & (data.standard_mark == 0)
+#     & data.specializations.str.contains('1\.82')
+#     & ~data.specializations.str.contains('1\.221')
+#     & data.name.str.contains('радио.*', case=False)
+#     & ~data.name.str.contains('писатель', case=False)
+#     , 'standard_mark'] = 15
+
+
 # Фильтрация для Специалист по информационным ресурсам
 # var = data[data.requirements.notnull()
 #            & data.duties.notnull()
