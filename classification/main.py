@@ -85,6 +85,53 @@ data = pd.read_csv("../data/new/marked_vacancies_hh_all_131018.csv", header=0, s
 # data[data.specializations.str.contains('1.420') & ~data.specializations.str.contains('1.221') & data.requirements.notnull()][['name', 'specializations']][:10]
 
 
+# Фильтрация для Менеджер по информационным технологиям
+# var = data[data.requirements.notnull()
+#            & data.duties.notnull()
+#            & (data.standard_mark == 0)
+#            & data.specializations.str.contains('1\.327')
+#            & ~data.specializations.str.contains('1\.221')
+#            & data.name.str.contains('.*проект.*', case=False)
+#            & ~data.name.str.contains('офис*', case=False)
+#            & ~data.name.str.contains('отдел*', case=False)
+#            & (data.name.str.contains('Руководитель', case=False)
+#               | data.name.str.contains('менеджер', case=False)
+#               | data.name.str.contains('Project Manager', case=False)
+#               )
+#            ][['name', 'specializations']][:50]
+#
+# Разметка Менеджер по информационным технологиям
+# data.loc[
+#     data.requirements.notnull()
+#     & data.duties.notnull()
+#     & (data.standard_mark == 0)
+#     & data.specializations.str.contains('1\.327')
+#     & ~data.specializations.str.contains('1\.221')
+#     & data.name.str.contains('.*проект.*', case=False)
+#     & ~data.name.str.contains('офис*', case=False)
+#     & ~data.name.str.contains('отдел*', case=False)
+#     & (data.name.str.contains('Руководитель', case=False)
+#        | data.name.str.contains('менеджер', case=False)
+#        | data.name.str.contains('Project Manager', case=False)
+#        ), 'standard_mark'] = 5
+
+
+# Фильтрация для Менеджер продуктов в области информационных технологий
+# var = data[data.requirements.notnull()
+#            & data.duties.notnull()
+#            & (data.standard_mark == 0)
+#            & data.name.str.contains('Менеджер .*продукт.*', case=False)
+#            ][['name', 'specializations']][:50]
+#
+# Разметка Менеджер продуктов в области информационных технологий
+# data.loc[
+#     data.requirements.notnull()
+#     & data.duties.notnull()
+#     & (data.standard_mark == 0)
+#     & data.name.str.contains('Менеджер .*продукт.*', case=False)
+#     , 'standard_mark'] = 3
+
+
 # Фильтрация для Специалист по информационным системам
 # var = data[data.requirements.notnull()
 #            & data.duties.notnull()
