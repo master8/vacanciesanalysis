@@ -84,6 +84,66 @@ data = pd.read_csv("../data/new/marked_vacancies_hh_all_131018.csv", header=0, s
 # data[data.specializations.str.contains('1.420') & data.requirements.notnull()].name.describe()
 # data[data.specializations.str.contains('1.420') & ~data.specializations.str.contains('1.221') & data.requirements.notnull()][['name', 'specializations']][:10]
 
+
+# Фильтрация для Специалист по информационным ресурсам
+# var = data[data.requirements.notnull()
+#            & data.duties.notnull()
+#            & (data.standard_mark == 0)
+#            & data.specializations.str.contains('1\.116')
+#            & data.name.str.contains('контент', case=False)
+#            ][['name', 'specializations']][:50]
+#
+# Разметка Специалист по информационным ресурсам
+# data.loc[
+#     data.requirements.notnull()
+#     & data.duties.notnull()
+#     & (data.standard_mark == 0)
+#     & data.specializations.str.contains('1\.116')
+#     & data.name.str.contains('контент', case=False)
+#     , 'standard_mark'] = 16
+
+
+# Фильтрация для Специалист по тестированию в области информационных технологий
+# var = data[data.requirements.notnull()
+#            & data.duties.notnull()
+#            & (data.standard_mark == 0)
+#            & ~data.specializations.str.contains('1\.221')
+#            & (data.name.str.contains('Специалист по тестированию', case=False)
+#               | data.name.str.contains('Тестировщик', case=False)
+#               )
+#            ][['name', 'specializations']][:50]
+#
+# Разметка Специалист по тестированию в области информационных технологий
+# data.loc[
+#     data.requirements.notnull()
+#     & data.duties.notnull()
+#     & (data.standard_mark == 0)
+#     & ~data.specializations.str.contains('1\.221')
+#     & (data.name.str.contains('Специалист по тестированию', case=False)
+#        | data.name.str.contains('Тестировщик', case=False)
+#        ), 'standard_mark'] = 18
+
+
+# Фильтрация для Специалист по администрированию сетевых устройств информационно-коммуникационных систем
+# var = data[data.requirements.notnull()
+#            & data.duties.notnull()
+#            & (data.standard_mark == 0)
+#            & ~data.specializations.str.contains('1\.221')
+#            & data.name.str.contains('сетев.*', case=False)
+#            & ~data.name.str.contains('безопасн.*', case=False)
+#            ][['name', 'specializations']][:50]
+#
+# Разметка Специалист по администрированию сетевых устройств информационно-коммуникационных систем
+# data.loc[
+#     data.requirements.notnull()
+#     & data.duties.notnull()
+#     & (data.standard_mark == 0)
+#     & ~data.specializations.str.contains('1\.221')
+#     & data.name.str.contains('сетев.*', case=False)
+#     & ~data.name.str.contains('безопасн.*', case=False)
+#     , 'standard_mark'] = 11
+
+
 # Фильтрация для Системный администратор информационно-коммуникационных систем
 # var = data[data.requirements.notnull()
 #            & data.duties.notnull()
