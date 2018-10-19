@@ -89,6 +89,43 @@ data = pd.read_csv("../data/new/marked_vacancies_hh_all_131018.csv", header=0, s
 # var = data[data.requirements.notnull()
 #            & data.duties.notnull()
 #            & (data.standard_mark == 0)
+#            & data.specializations.str.contains('1\.3')
+#            & ~data.specializations.str.contains('1\.395')
+#            & ~data.specializations.str.contains('1\.359')
+#            & ~data.specializations.str.contains('1\.327')
+#            & ~data.specializations.str.contains('1\.30')
+#            & (data.name.str.contains('Начальник', case=False)
+#               | data.name.str.contains('подраздилен.*', case=False)
+#               | data.name.str.contains('департамент.*', case=False)
+#               | data.name.str.contains('директор', case=False)
+#               | data.name.str.contains('CTO', case=False)
+#               | data.name.str.contains('CIO', case=False)
+#               )
+#            ][['name', 'specializations']][:50]
+#
+# Разметка Менеджер по информационным технологиям
+# data.loc[
+#     data.requirements.notnull()
+#     & data.duties.notnull()
+#     & (data.standard_mark == 0)
+#     & data.specializations.str.contains('1\.3')
+#     & ~data.specializations.str.contains('1\.395')
+#     & ~data.specializations.str.contains('1\.359')
+#     & ~data.specializations.str.contains('1\.327')
+#     & ~data.specializations.str.contains('1\.30')
+#     & (data.name.str.contains('Начальник', case=False)
+#        | data.name.str.contains('подраздилен.*', case=False)
+#        | data.name.str.contains('департамент.*', case=False)
+#        | data.name.str.contains('директор', case=False)
+#        | data.name.str.contains('CTO', case=False)
+#        | data.name.str.contains('CIO', case=False)
+#        ), 'standard_mark'] = 4
+
+
+# Фильтрация для Руководитель проектов в области информационных технологий
+# var = data[data.requirements.notnull()
+#            & data.duties.notnull()
+#            & (data.standard_mark == 0)
 #            & data.specializations.str.contains('1\.327')
 #            & ~data.specializations.str.contains('1\.221')
 #            & data.name.str.contains('.*проект.*', case=False)
@@ -100,7 +137,7 @@ data = pd.read_csv("../data/new/marked_vacancies_hh_all_131018.csv", header=0, s
 #               )
 #            ][['name', 'specializations']][:50]
 #
-# Разметка Менеджер по информационным технологиям
+# Разметка Руководитель проектов в области информационных технологий
 # data.loc[
 #     data.requirements.notnull()
 #     & data.duties.notnull()
