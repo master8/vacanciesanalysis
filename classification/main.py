@@ -84,6 +84,37 @@ data = pd.read_csv("../data/new/marked_vacancies_hh_all_131018.csv", header=0, s
 # data[data.specializations.str.contains('1.420') & data.requirements.notnull()].name.describe()
 # data[data.specializations.str.contains('1.420') & ~data.specializations.str.contains('1.221') & data.requirements.notnull()][['name', 'specializations']][:10]
 
+# Фильтрация для Системный администратор информационно-коммуникационных систем
+# var = data[data.requirements.notnull()
+#            & data.duties.notnull()
+#            & (data.standard_mark == 0)
+#            & data.name.str.contains('Системный администратор', case=False)
+#            ][['name', 'specializations']][:50]
+#
+# Разметка Системный администратор информационно-коммуникационных систем
+# data.loc[
+#     data.requirements.notnull()
+#     & data.duties.notnull()
+#     & (data.standard_mark == 0)
+#     & data.name.str.contains('Системный администратор', case=False)
+#     , 'standard_mark'] = 10
+
+
+# Фильтрация для Руководитель разработки программного обеспечения
+# var = data[data.requirements.notnull()
+#            & data.duties.notnull()
+#            & (data.standard_mark == 0)
+#            & data.name.str.contains('Руководитель разработки', case=False)
+#            ][['name', 'specializations']][:50]
+#
+# Разметка Руководитель разработки программного обеспечения
+# data.loc[
+#     data.requirements.notnull()
+#     & data.duties.notnull()
+#     & (data.standard_mark == 0)
+#     & data.name.str.contains('Руководитель разработки', case=False)
+#     , 'standard_mark'] = 6
+
 
 # Фильтрация для Менеджер по информационным технологиям
 # var = data[data.requirements.notnull()
