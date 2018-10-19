@@ -84,6 +84,40 @@ data = pd.read_csv("../data/new/marked_vacancies_hh_all_131018.csv", header=0, s
 # data[data.specializations.str.contains('1.420') & data.requirements.notnull()].name.describe()
 # data[data.specializations.str.contains('1.420') & ~data.specializations.str.contains('1.221') & data.requirements.notnull()][['name', 'specializations']][:10]
 
+
+# Фильтрация для Специалист по информационным системам
+# var = data[data.requirements.notnull()
+#            & data.duties.notnull()
+#            & (data.standard_mark == 0)
+#            & (data.specializations.str.contains('1\.50')
+#               | data.specializations.str.contains('1\.536')
+#               )
+#            & ~data.specializations.str.contains('1\.221')
+#            & ~data.name.str.contains('программист', case=False)
+#            & ~data.name.str.contains('Системный администратор', case=False)
+#            & ~data.name.str.contains('поддержк*', case=False)
+#            & (data.name.str.contains('специалист', case=False)
+#               | data.name.str.contains('консультант', case=False)
+#               )
+#            ][['name', 'specializations']][:50]
+#
+# Разметка Специалист по информационным системам
+# data.loc[
+#     data.requirements.notnull()
+#     & data.duties.notnull()
+#     & (data.standard_mark == 0)
+#     & (data.specializations.str.contains('1\.50')
+#        | data.specializations.str.contains('1\.536')
+#        )
+#     & ~data.specializations.str.contains('1\.221')
+#     & ~data.name.str.contains('программист', case=False)
+#     & ~data.name.str.contains('Системный администратор', case=False)
+#     & ~data.name.str.contains('поддержк*', case=False)
+#     & (data.name.str.contains('специалист', case=False)
+#        | data.name.str.contains('консультант', case=False)
+#        ), 'standard_mark'] = 2
+
+
 # Фильтрация для Разработчик Web и мультимедийных приложений
 # var = data[data.requirements.notnull()
 #            & data.duties.notnull()
@@ -179,8 +213,8 @@ data = pd.read_csv("../data/new/marked_vacancies_hh_all_131018.csv", header=0, s
 # var = data[data.requirements.notnull()
 #            & data.duties.notnull()
 #            & (data.standard_mark == 0)
-#            & data.specializations.str.contains('1.420')
-#            & ~data.specializations.str.contains('1.221')
+#            & data.specializations.str.contains('1\.420')
+#            & ~data.specializations.str.contains('1\.221')
 #            & data.name.str.contains('администратор', case=False)
 #            & ~data.name.str.contains('системный', case=False)
 #            & (data.name.str.contains('баз данных', case=False)
@@ -197,8 +231,8 @@ data = pd.read_csv("../data/new/marked_vacancies_hh_all_131018.csv", header=0, s
 # data.loc[
 #     data.requirements.notnull()
 #     & data.duties.notnull()
-#     & data.specializations.str.contains('1.420')
-#     & ~data.specializations.str.contains('1.221')
+#     & data.specializations.str.contains('1\.420')
+#     & ~data.specializations.str.contains('1\.221')
 #     & data.name.str.contains('администратор', case=False)
 #     & ~data.name.str.contains('системный', case=False)
 #     & (data.name.str.contains('баз данных', case=False)
