@@ -18,7 +18,7 @@ class VotingExperiments:
         self.__vectors_provider = VectorsProvider()
 
     def __read_y_for_original_dataset(self):
-        return pd.read_csv(self.__ORIGINAL_DATASET_PATH, header=0).standard_mark
+        return pd.read_csv(self.__ORIGINAL_DATASET_PATH, header=0, sep='|').standard_mark
 
     def make_use_tfidf(self):
         x_all = self.__vectors_provider.get_tfidf_vectors()
