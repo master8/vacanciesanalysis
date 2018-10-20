@@ -156,19 +156,19 @@ class Vectorizer:
 
     def vectorize_with_w2v(self):
         print("start w2v vectorizing...")
-        logging.warning(str(datetime.now()) + " read tokens...")
 
         tokens = self.__tokens_provider.get_tokens()
-        logging.warning(str(datetime.now()) + " start w2v...")
-        w2v_model = gensim.models.Word2Vec(tokens, min_count=2, iter=100, size=300, sg=0, workers=32)
-        w2v_model.save("prepared_data/hh_all_sz300-it100-min2-sg0.w2v")
-        # vectorized_tokens = [self.__SentenceToAverageWeightedVector(w2v_model.wv, vacancy) for vacancy in tokens]
+        # w2v_model = gensim.models.Word2Vec(tokens, min_count=2, iter=100, size=300, sg=0, workers=32)
+        # w2v_model.save("prepared_data/hh_all_sz300-it100-min2-sg0.w2v")
 
-        # outfile = open(_VECTORS_W2V_FILE_PATH, 'wb')
-        # pickle.dump(vectorized_tokens, outfile)
-        # outfile.close()
+        w2v_path = "prepared_data/hh_all_sz300-it100-min2-sg0.w2v"
+        w2v_model = gensim.models.Word2Vec.load(w2v_path)
+        vectorized_tokens = [self.__SentenceToAverageWeightedVector(w2v_model.wv, vacancy) for vacancy in tokens]
 
-        logging.warning(str(datetime.now()) + " end w2v, vectors saved")
+        outfile = open(_VECTORS_W2V_FILE_PATH, 'wb')
+        pickle.dump(vectorized_tokens, outfile)
+        outfile.close()
+
         print("end w2v vectorizing, vectors saved")
 
     # TODO порефакторить
