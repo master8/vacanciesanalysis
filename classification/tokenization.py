@@ -9,14 +9,16 @@ from pymystem3 import Mystem
 import pandas as pd
 
 
-_TOKENS_FILE_PATH = "prepared_data/old_tokens_all_hh.pkl"
+_TOKENS_FILE_PATH = "prepared_data/tokens_sz100_hh.pkl"
+# _TOKENS_FILE_PATH = "prepared_data/old_tokens_all_hh.pkl"
 # _TOKENS_FILE_PATH = "prepared_data/tokens_all_hh.pkl"
 
 
 class Tokenizer:
 
     # __ORIGINAL_DATASET_PATH = "../data/old/old_marked_vacancies_from_hh.csv"
-    __ORIGINAL_DATASET_PATH = "../data/new/vacancies_hh_all_051018.csv"
+    # __ORIGINAL_DATASET_PATH = "../data/new/vacancies_hh_all_051018.csv"
+    __ORIGINAL_DATASET_PATH = "../data/new/marked_vacancies_hh_sz100_201018.csv"
 
     def __read_original_dataset(self):
         return pd.read_csv(self.__ORIGINAL_DATASET_PATH, header=0, sep='|')
@@ -30,7 +32,7 @@ class Tokenizer:
         logging.warning(str(datetime.now()) + " start tokenizing...")
 
         original_dataset = self.__read_original_dataset()
-        tokenized_requirements = self.__tokenize_sentences_lemmatized(original_dataset.description)
+        tokenized_requirements = self.__tokenize_sentences_lemmatized(original_dataset.requirements_duties)
 
         outfile = open(_TOKENS_FILE_PATH, 'wb')
         pickle.dump(tokenized_requirements, outfile)
