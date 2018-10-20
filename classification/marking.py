@@ -71,6 +71,15 @@ data.loc[
     & data.name.str.contains('Руководитель разработки', case=False)
     , 'standard_mark'] = 6
 
+data.loc[
+    data.requirements.notnull()
+    & data.duties.notnull()
+    & (data.standard_mark == 0)
+    & data.name.str.contains('Руководитель .*разработки', case=False)
+    & ~data.name.str.contains('проект', case=False)
+    , 'standard_mark'] = 6
+
+
 # Разметка Менеджер по информационным технологиям
 data.loc[
     data.requirements.notnull()
