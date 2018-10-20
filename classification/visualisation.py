@@ -41,5 +41,5 @@ class Visualizer:
             'train_f1': train_f1,
             'test_accuracy': test_accuracy,
             'test_f1': test_f1,
-            'dataset': 'old_hh_sz1021'
+            'dataset': 'hh_sz100'
         }, ignore_index=True).to_csv(file_path, index=False)
