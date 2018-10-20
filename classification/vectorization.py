@@ -10,16 +10,21 @@ from keras_preprocessing.text import Tokenizer
 from classification.tokenization import TokensProvider
 
 
-_VECTORS_TFIDF_FILE_PATH = "prepared_data/vectors_tfidf_all_hh.pkl"
-_VECTORS_TFIDF_WSHINGLES_FILE_PATH = "prepared_data/vectors_tfidf_wshingles_all_hh.pkl"
-_VECTORS_TFIDF_NGRAMS_FILE_PATH = "prepared_data/vectors_tfidf_ngrams_all_hh.pkl"
+# _VECTORS_TFIDF_FILE_PATH = "prepared_data/vectors_tfidf_all_hh.pkl"
+_VECTORS_TFIDF_FILE_PATH = "prepared_data/vectors_tfidf_sz100_hh.pkl"
+# _VECTORS_TFIDF_WSHINGLES_FILE_PATH = "prepared_data/vectors_tfidf_wshingles_all_hh.pkl"
+_VECTORS_TFIDF_WSHINGLES_FILE_PATH = "prepared_data/vectors_tfidf_wshingles_sz100_hh.pkl"
+# _VECTORS_TFIDF_NGRAMS_FILE_PATH = "prepared_data/vectors_tfidf_ngrams_all_hh.pkl"
+_VECTORS_TFIDF_NGRAMS_FILE_PATH = "prepared_data/vectors_tfidf_ngrams_sz100_hh.pkl"
 
 # _VECTORS_W2V_FILE_PATH = "prepared_data/old_vectors_w2v_all_hh.pkl"
-_VECTORS_W2V_FILE_PATH = "prepared_data/vectors_w2v_all_hh.pkl"
+# _VECTORS_W2V_FILE_PATH = "prepared_data/vectors_w2v_all_hh.pkl"
+_VECTORS_W2V_FILE_PATH = "prepared_data/vectors_w2v_sz100_hh.pkl"
 _VECTORS_W2V_OLD_FILE_PATH = "prepared_data/vectors_w2v_all_old_hh.pkl"
 
 _VECTORS_W2V_BIG_FILE_PATH = "prepared_data/vectors_w2v_big_all_hh.pkl"
-_VECTORS__W2V_TFIDF_FILE_PATH = "prepared_data/vectors_w2v_tfidf_all_hh.pkl"
+# _VECTORS__W2V_TFIDF_FILE_PATH = "prepared_data/vectors_w2v_tfidf_all_hh.pkl"
+_VECTORS__W2V_TFIDF_FILE_PATH = "prepared_data/vectors_w2v_tfidf_sz100_hh.pkl"
 
 
 class Vectorizer:
