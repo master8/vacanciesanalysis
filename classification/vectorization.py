@@ -75,8 +75,8 @@ class Vectorizer:
 
         tokens = self.__tokens_provider.get_tokens()
         # w2v_model = gensim.models.Word2Vec(tokens, min_count=2, workers=2, iter=100, size=300, sg=0)
-        w2v_path = "prepared_data/all.norm-sz500-w10-cb0-it3-min5.w2v"
-        w2v_model = gensim.models.KeyedVectors.load_word2vec_format(w2v_path, binary=True, unicode_errors='ignore')
+        w2v_path = "prepared_data/hh_all_sz300-it100-min2-sg0.w2v"
+        w2v_model = gensim.models.Word2Vec.load(w2v_path)
 
         results = self.__get_texts_to_matrix(tokens)
         tfidf_model = results[0]
