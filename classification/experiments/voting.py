@@ -11,7 +11,7 @@ from classification.visualisation import Visualizer
 
 class VotingExperiments:
     # __ORIGINAL_DATASET_PATH = "../data/old/old_marked_vacancies_from_hh.csv"
-    __ORIGINAL_DATASET_PATH = "../data/old/marked_vacancies_hh_sz100_201018.csv"
+    __ORIGINAL_DATASET_PATH = "../data/new/marked_vacancies_hh_sz100_201018.csv"
     __CLASSIFIER_NAME = "VotingClassifier"
 
     def __init__(self):
