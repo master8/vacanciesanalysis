@@ -74,3 +74,19 @@ pymystem3.mystem.MYSTEM_BIN = "/home/mluser/anaconda3/envs/master8_env/.local/bi
 # grboost.make_use_w2v_big()
 
 # data = pd.read_csv("../data/new/marked_vacancies_hh_all_131018.csv", header=0, sep='|')
+#
+# data['requirements_duties'] = data.requirements + ' ' + data.duties
+# data = data.drop_duplicates('requirements_duties')
+#
+# frames = []
+#
+# for mark in range(1, 22):
+#     if mark != 13:
+#         frames.append(data[data.standard_mark == mark].sample(n=100))
+#
+# result = pd.concat(frames)
+#
+# result.to_csv("../data/new/marked_vacancies_hh_sz100_201018.csv", index=False, sep='|')
+
+# data = pd.read_csv("../data/new/marked_vacancies_hh_sz100_201018.csv", header=0, sep='|')
+# reuslt = data.groupby(['standard_mark'])[['requirements_duties']].describe()
