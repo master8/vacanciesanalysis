@@ -20,6 +20,32 @@ from classification.visualisation import Visualizer
 pymystem3.mystem.MYSTEM_DIR = "/home/mluser/anaconda3/envs/master8_env/.local/bin"
 pymystem3.mystem.MYSTEM_BIN = "/home/mluser/anaconda3/envs/master8_env/.local/bin/mystem"
 
+
+def run_experiments(corpus_name, x_column_name, y_column_name):
+    data_source = DataSource(corpus_name,
+                             x_column_name,
+                             y_column_name)
+    tokens_provider = TokensProvider(corpus_name=corpus_name)
+    vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
+    visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
+
+    logreg = LogisticRegressionExperiments(data_source=data_source,
+                                           vectors_provider=vectors_provider,
+                                           visualizer=visualizer)
+    logreg.make_use_tfidf()
+    logreg.make_use_w2v()
+    logreg.make_use_w2v_with_tfidf()
+    logreg.make_use_w2v_big()
+
+    svc = SVCExperiments(data_source=data_source,
+                         vectors_provider=vectors_provider,
+                         visualizer=visualizer)
+    svc.make_use_tfidf()
+    svc.make_use_w2v()
+    svc.make_use_w2v_with_tfidf()
+    svc.make_use_w2v_big()
+
+
 # n - name
 # r - requirements
 # d - duties
@@ -32,15 +58,19 @@ CURRENT_CORPUS_NAME = 'hh_sz100_m20_rd'
 CURRENT_X_COLUMN_NAME = 'requirements_duties'
 CURRENT_Y_COLUMN_NAME = 'standard_mark'
 
-data_source = DataSource(CURRENT_CORPUS_NAME,
-                         CURRENT_X_COLUMN_NAME,
-                         CURRENT_Y_COLUMN_NAME)
+run_experiments(corpus_name='hh_sz100_m20_rd',
+                x_column_name='requirements_duties',
+                y_column_name='standard_mark')
+
+# data_source = DataSource(CURRENT_CORPUS_NAME,
+#                          CURRENT_X_COLUMN_NAME,
+#                          CURRENT_Y_COLUMN_NAME)
 
 # tokenizer = Tokenizer(data_source=data_source,
 #                       corpus_name=CURRENT_CORPUS_NAME)
 # tokenizer.tokenize()
 
-tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
+# tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
 
 # vectorizer = Vectorizer(tokens_provider=tokens_provider,
 #                         corpus_name=CURRENT_CORPUS_NAME)
@@ -52,18 +82,18 @@ tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
 # vectorizer.vectorize_with_tfidf_ngrams()
 # vectorizer.vectorize_with_w2v_old()
 
-vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
-visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
+# vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
+# visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
 
-logreg = LogisticRegressionExperiments(data_source=data_source,
-                                       vectors_provider=vectors_provider,
-                                       visualizer=visualizer)
-logreg.make_use_tfidf()
+# logreg = LogisticRegressionExperiments(data_source=data_source,
+#                                        vectors_provider=vectors_provider,
+#                                        visualizer=visualizer)
+# logreg.make_use_tfidf()
 # logreg.make_use_w2v()
-# logreg.make_use_w2v_with_tfidf()
+# logreg.make_use_w2v_with_tfidf(
+# logreg.make_use_w2v_big())
 # logreg.make_use_tfidf_wshingles()
 # logreg.make_use_tfidf_ngrams()
-# logreg.make_use_w2v_big()
 # logreg.make_use_w2v_old()
 
 # knn = KNeighborsExperiments(data_source=data_source,
@@ -83,9 +113,9 @@ logreg.make_use_tfidf()
 # svc.make_use_tfidf()
 # svc.make_use_w2v()
 # svc.make_use_w2v_with_tfidf()
+# svc.make_use_w2v_big()
 # svc.make_use_tfidf_wshingles()
 # svc.make_use_tfidf_ngrams()
-# svc.make_use_w2v_big()
 # svc.make_use_w2v_old()
 
 # voting = VotingExperiments(data_source=data_source,
