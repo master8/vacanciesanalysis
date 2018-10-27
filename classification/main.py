@@ -72,9 +72,34 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
 # CURRENT_X_COLUMN_NAME = 'requirements_duties'
 # CURRENT_Y_COLUMN_NAME = 'standard_mark'
 #
-# run_experiments(corpus_name='hh_sz100_m20_rd',
-#                 x_column_name='requirements_duties',
-#                 y_column_name='standard_mark')
+run_experiments(corpus_name='hh_sz100_m20_nrd',
+                x_column_name='name_requirements_duties',
+                y_column_name='standard_mark')
+
+run_experiments(corpus_name='hh_sz100_m20_all',
+                x_column_name='all_description',
+                y_column_name='standard_mark')
+
+
+run_experiments(corpus_name='hh_sz50_m16_nrd',
+                x_column_name='name_requirements_duties',
+                y_column_name='standard_mark')
+
+run_experiments(corpus_name='hh_sz100_m16_nrd',
+                x_column_name='name_requirements_duties',
+                y_column_name='standard_mark')
+
+run_experiments(corpus_name='hh_sz200_m16_nrd',
+                x_column_name='name_requirements_duties',
+                y_column_name='standard_mark')
+
+run_experiments(corpus_name='hh_sz350_m16_nrd',
+                x_column_name='name_requirements_duties',
+                y_column_name='standard_mark')
+
+run_experiments(corpus_name='hh_sz500_m16_nrd',
+                x_column_name='name_requirements_duties',
+                y_column_name='standard_mark')
 
 # data_source = DataSource(CURRENT_CORPUS_NAME,
 #                          CURRENT_X_COLUMN_NAME,
