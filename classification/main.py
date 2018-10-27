@@ -3,6 +3,7 @@ from datetime import datetime
 import pandas as pd
 import pymystem3
 import logging
+import re
 
 # logging.basicConfig(filename='main.log', level=logging.INFO)
 # logging.warning('Start main!')
@@ -62,7 +63,7 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
 # n - name
 # r - requirements
 # d - duties
-# all - all description
+# all - all description + name
 
 # sz - count vacancies per mark
 # m - count marks
@@ -71,9 +72,9 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
 # CURRENT_X_COLUMN_NAME = 'requirements_duties'
 # CURRENT_Y_COLUMN_NAME = 'standard_mark'
 #
-run_experiments(corpus_name='hh_sz100_m20_rd',
-                x_column_name='requirements_duties',
-                y_column_name='standard_mark')
+# run_experiments(corpus_name='hh_sz100_m20_rd',
+#                 x_column_name='requirements_duties',
+#                 y_column_name='standard_mark')
 
 # data_source = DataSource(CURRENT_CORPUS_NAME,
 #                          CURRENT_X_COLUMN_NAME,
@@ -152,19 +153,26 @@ run_experiments(corpus_name='hh_sz100_m20_rd',
 # grboost.make_use_w2v_big()
 
 # data = pd.read_csv("../data/new/marked_vacancies_hh_all_131018.csv", header=0, sep='|')
+
+# def clean(str):
+#     pattern = re.compile('<.*?>')
+#     return pattern.sub('', str)
+# size = 500
 #
-# data['requirements_duties'] = data.requirements + ' ' + data.duties
-# data = data.drop_duplicates('requirements_duties')
+# data['name_requirements_duties'] = data.name + ' ' + data.requirements + ' ' + data.duties
+# data['all_description'] = data.name + ' ' + data.description.apply(clean)
+# data = data.drop_duplicates('name_requirements_duties')
 #
 # frames = []
-#
+
 # for mark in range(1, 22):
+# for mark in [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14, 16, 17, 18, 19, 21]:
 #     if mark != 13:
-#         frames.append(data[data.standard_mark == mark].sample(n=100))
+#         frames.append(data[data.standard_mark == mark].sample(n=size))
 #
 # result = pd.concat(frames)
 #
-# result.to_csv("../data/new/marked_vacancies_hh_sz100_201018.csv", index=False, sep='|')
+# result.to_csv("../data/new/marked_vacancies_hh_sz" + str(size) + "_m16_nrd.csv", index=False, sep='|')
 
-# data = pd.read_csv("../data/new/marked_vacancies_hh_sz100_201018.csv", header=0, sep='|')
-# reuslt = data.groupby(['standard_mark'])[['requirements_duties']].describe()
+# data_test = pd.read_csv("../data/new/marked_vacancies_hh_sz50_m16_nrd.csv", header=0, sep='|')
+# result_test = data_test.groupby(['standard_mark'])[['name_requirements_duties']].describe()
