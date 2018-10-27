@@ -66,7 +66,9 @@ logreg.make_use_tfidf()
 # logreg.make_use_w2v_big()
 # logreg.make_use_w2v_old()
 
-# knn = KNeighborsExperiments()
+# knn = KNeighborsExperiments(data_source=data_source,
+#                             vectors_provider=vectors_provider,
+#                             visualizer=visualizer)
 # knn.make_use_tfidf()
 # knn.make_use_w2v()
 # knn.make_use_w2v_with_tfidf()
@@ -75,7 +77,9 @@ logreg.make_use_tfidf()
 # knn.make_use_w2v_big()
 # knn.make_use_w2v_old()
 
-# svc = SVCExperiments()
+# svc = SVCExperiments(data_source=data_source,
+#                      vectors_provider=vectors_provider,
+#                      visualizer=visualizer)
 # svc.make_use_tfidf()
 # svc.make_use_w2v()
 # svc.make_use_w2v_with_tfidf()
@@ -84,7 +88,9 @@ logreg.make_use_tfidf()
 # svc.make_use_w2v_big()
 # svc.make_use_w2v_old()
 
-# voting = VotingExperiments()
+# voting = VotingExperiments(data_source=data_source,
+#                            vectors_provider=vectors_provider,
+#                            visualizer=visualizer)
 # voting.make_use_tfidf()
 # voting.make_use_w2v()
 # voting.make_use_w2v_with_tfidf()
@@ -92,7 +98,9 @@ logreg.make_use_tfidf()
 # voting.make_use_tfidf_ngrams()
 # voting.make_use_w2v_big()
 
-# grboost = GradientBoostingExperiments()
+# grboost = GradientBoostingExperiments(data_source=data_source,
+#                                       vectors_provider=vectors_provider,
+#                                       visualizer=visualizer)
 # grboost.make_use_tfidf()
 # grboost.make_use_w2v()
 # grboost.make_use_w2v_with_tfidf()
