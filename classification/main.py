@@ -12,11 +12,29 @@ from classification.experiments.knn import KNeighborsExperiments
 from classification.experiments.logreg import LogisticRegressionExperiments
 from classification.experiments.svc import SVCExperiments
 from classification.experiments.voting import VotingExperiments
+from classification.source import DataSource
 from classification.tokenization import Tokenizer, TokensProvider
 from classification.vectorization import Vectorizer, VectorsProvider
 
 pymystem3.mystem.MYSTEM_DIR = "/home/mluser/anaconda3/envs/master8_env/.local/bin"
 pymystem3.mystem.MYSTEM_BIN = "/home/mluser/anaconda3/envs/master8_env/.local/bin/mystem"
+
+# n - name
+# r - requirements
+# d - duties
+# all - all description
+
+# sz - count vacancies per mark
+# m - count marks
+CURRENT_CORPUS_NAME = 'hh_sz100_m20_rd'
+
+CURRENT_X_COLUMN_NAME = 'requirements_duties'
+CURRENT_Y_COLUMN_NAME = 'standard_mark'
+
+
+data_source = DataSource(CURRENT_CORPUS_NAME,
+                         CURRENT_X_COLUMN_NAME,
+                         CURRENT_Y_COLUMN_NAME)
 
 # Tokenizer().tokenize()
 
@@ -39,10 +57,10 @@ logreg.make_use_w2v_with_tfidf()
 # logreg.make_use_w2v_big()
 # logreg.make_use_w2v_old()
 
-knn = KNeighborsExperiments()
-knn.make_use_tfidf()
-knn.make_use_w2v()
-knn.make_use_w2v_with_tfidf()
+# knn = KNeighborsExperiments()
+# knn.make_use_tfidf()
+# knn.make_use_w2v()
+# knn.make_use_w2v_with_tfidf()
 # knn.make_use_tfidf_wshingles()
 # knn.make_use_tfidf_ngrams()
 # knn.make_use_w2v_big()
