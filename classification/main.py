@@ -36,7 +36,11 @@ data_source = DataSource(CURRENT_CORPUS_NAME,
                          CURRENT_X_COLUMN_NAME,
                          CURRENT_Y_COLUMN_NAME)
 
-# Tokenizer().tokenize()
+Tokenizer(data_source=data_source,
+          corpus_name=CURRENT_CORPUS_NAME)\
+    .tokenize()
+
+tokens = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
 
 # vectorizer = Vectorizer()
 # vectorizer.vectorize_with_tfidf()
@@ -48,10 +52,10 @@ data_source = DataSource(CURRENT_CORPUS_NAME,
 # vectorizer.vectorize_with_w2v_old()
 
 
-logreg = LogisticRegressionExperiments()
-logreg.make_use_tfidf()
-logreg.make_use_w2v()
-logreg.make_use_w2v_with_tfidf()
+# logreg = LogisticRegressionExperiments()
+# logreg.make_use_tfidf()
+# logreg.make_use_w2v()
+# logreg.make_use_w2v_with_tfidf()
 # logreg.make_use_tfidf_wshingles()
 # logreg.make_use_tfidf_ngrams()
 # logreg.make_use_w2v_big()
@@ -66,10 +70,10 @@ logreg.make_use_w2v_with_tfidf()
 # knn.make_use_w2v_big()
 # knn.make_use_w2v_old()
 
-svc = SVCExperiments()
-svc.make_use_tfidf()
-svc.make_use_w2v()
-svc.make_use_w2v_with_tfidf()
+# svc = SVCExperiments()
+# svc.make_use_tfidf()
+# svc.make_use_w2v()
+# svc.make_use_w2v_with_tfidf()
 # svc.make_use_tfidf_wshingles()
 # svc.make_use_tfidf_ngrams()
 # svc.make_use_w2v_big()
