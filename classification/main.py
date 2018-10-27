@@ -25,25 +25,24 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
     data_source = DataSource(corpus_name,
                              x_column_name,
                              y_column_name)
-    tokens_provider = TokensProvider(corpus_name=corpus_name)
     vectors_provider = VectorsProvider(corpus_name=corpus_name)
     visualizer = Visualizer(corpus_name=corpus_name)
 
-    logreg = LogisticRegressionExperiments(data_source=data_source,
-                                           vectors_provider=vectors_provider,
-                                           visualizer=visualizer)
-    logreg.make_use_tfidf()
-    logreg.make_use_w2v()
-    logreg.make_use_w2v_with_tfidf()
-    logreg.make_use_w2v_big()
+    # logreg = LogisticRegressionExperiments(data_source=data_source,
+    #                                        vectors_provider=vectors_provider,
+    #                                        visualizer=visualizer)
+    # logreg.make_use_tfidf()
+    # logreg.make_use_w2v()
+    # logreg.make_use_w2v_with_tfidf()
+    # logreg.make_use_w2v_big()
 
     svc = SVCExperiments(data_source=data_source,
                          vectors_provider=vectors_provider,
                          visualizer=visualizer)
-    svc.make_use_tfidf()
+    # svc.make_use_tfidf()
     svc.make_use_w2v()
-    svc.make_use_w2v_with_tfidf()
-    svc.make_use_w2v_big()
+    # svc.make_use_w2v_with_tfidf()
+    # svc.make_use_w2v_big()
 
 
 # n - name
