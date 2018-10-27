@@ -27,14 +27,14 @@ class SVCExperiments:
 
         model1 = SVC(C=1, kernel='linear', probability=True)
 
-        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
+        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
 
         self.__visualizer.show_results(self.__CLASSIFIER_NAME, "(C=1, kernel='linear', probability=True)",
                                        "TF-IDF",
                                        cross_val_accuracy, cross_val_f1,
                                        train_accuracy, train_f1,
-                                       test_accuracy, test_f1)
+                                       test_accuracy, test_f1, y_true, y_pred)
 
     def make_use_w2v(self):
         x_all = self.__vectors_provider.get_w2v_vectors()
@@ -44,14 +44,14 @@ class SVCExperiments:
 
         model1 = SVC(C=1, kernel='linear', probability=True)
 
-        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
+        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred  \
             = Evaluator.evaluate(model1, x_all, y_all)
 
         self.__visualizer.show_results(self.__CLASSIFIER_NAME, "(C=1, kernel='linear', probability=True)",
                                        "Word2Vec",
                                        cross_val_accuracy, cross_val_f1,
                                        train_accuracy, train_f1,
-                                       test_accuracy, test_f1)
+                                       test_accuracy, test_f1, y_true, y_pred)
 
     def make_use_w2v_big(self):
         x_all = self.__vectors_provider.get_w2v_big_vectors()
@@ -61,14 +61,14 @@ class SVCExperiments:
 
         model1 = SVC(C=1, kernel='linear', probability=True)
 
-        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
+        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
 
         self.__visualizer.show_results(self.__CLASSIFIER_NAME, "(C=1, kernel='linear', probability=True)",
                                        "Word2VecBig",
                                        cross_val_accuracy, cross_val_f1,
                                        train_accuracy, train_f1,
-                                       test_accuracy, test_f1)
+                                       test_accuracy, test_f1, y_true, y_pred)
 
     def make_use_w2v_old(self):
         """ Обучает старый датасет с использованием w2v обученного на новом """
@@ -80,14 +80,14 @@ class SVCExperiments:
 
         model1 = SVC(C=1, kernel='linear', probability=True)
 
-        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
+        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
 
         self.__visualizer.show_results(self.__CLASSIFIER_NAME, "(C=1, kernel='linear', probability=True)",
                                        "Word2VecNewOld",
                                        cross_val_accuracy, cross_val_f1,
                                        train_accuracy, train_f1,
-                                       test_accuracy, test_f1)
+                                       test_accuracy, test_f1, y_true, y_pred)
 
     def make_use_w2v_with_tfidf(self):
         x_all = self.__vectors_provider.get_w2v_tfidf_vectors()
@@ -97,14 +97,14 @@ class SVCExperiments:
 
         model1 = SVC(C=1, kernel='linear', probability=True)
 
-        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
+        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
 
         self.__visualizer.show_results(self.__CLASSIFIER_NAME, "(C=1, kernel='linear', probability=True)",
                                        "Word2Vec&TF-IDF",
                                        cross_val_accuracy, cross_val_f1,
                                        train_accuracy, train_f1,
-                                       test_accuracy, test_f1)
+                                       test_accuracy, test_f1, y_true, y_pred)
 
     def make_use_tfidf_wshingles(self):
         x_all = self.__vectors_provider.get_tfidf_wshingles_vectors()
@@ -114,14 +114,14 @@ class SVCExperiments:
 
         model1 = SVC(C=1, kernel='linear', probability=True)
 
-        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
+        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
 
         self.__visualizer.show_results(self.__CLASSIFIER_NAME, "(C=1, kernel='linear', probability=True)",
                                        "TF-IDF&w-shingles",
                                        cross_val_accuracy, cross_val_f1,
                                        train_accuracy, train_f1,
-                                       test_accuracy, test_f1)
+                                       test_accuracy, test_f1, y_true, y_pred)
 
     def make_use_tfidf_ngrams(self):
         x_all = self.__vectors_provider.get_tfidf_ngrams_vectors()
@@ -131,11 +131,11 @@ class SVCExperiments:
 
         model1 = SVC(C=1, kernel='linear', probability=True)
 
-        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
+        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
 
         self.__visualizer.show_results(self.__CLASSIFIER_NAME, "(C=1, kernel='linear', probability=True)",
                                        "TF-IDF&n-grams",
                                        cross_val_accuracy, cross_val_f1,
                                        train_accuracy, train_f1,
-                                       test_accuracy, test_f1)
+                                       test_accuracy, test_f1, y_true, y_pred)

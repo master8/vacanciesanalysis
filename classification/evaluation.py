@@ -22,4 +22,4 @@ class Evaluator:
         test_accuracy = accuracy_score(y_test, y_predict_test)
         test_f1 = f1_score(y_test, y_predict_test, average='weighted')
 
-        return cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1
+        return cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_test, y_predict_test
