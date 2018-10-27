@@ -26,8 +26,8 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
                              x_column_name,
                              y_column_name)
     tokens_provider = TokensProvider(corpus_name=corpus_name)
-    vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
-    visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
+    vectors_provider = VectorsProvider(corpus_name=corpus_name)
+    visualizer = Visualizer(corpus_name=corpus_name)
 
     logreg = LogisticRegressionExperiments(data_source=data_source,
                                            vectors_provider=vectors_provider,
@@ -53,11 +53,11 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
 
 # sz - count vacancies per mark
 # m - count marks
-CURRENT_CORPUS_NAME = 'hh_sz100_m20_rd'
-
-CURRENT_X_COLUMN_NAME = 'requirements_duties'
-CURRENT_Y_COLUMN_NAME = 'standard_mark'
-
+# CURRENT_CORPUS_NAME = 'hh_sz100_m20_rd'
+#
+# CURRENT_X_COLUMN_NAME = 'requirements_duties'
+# CURRENT_Y_COLUMN_NAME = 'standard_mark'
+#
 run_experiments(corpus_name='hh_sz100_m20_rd',
                 x_column_name='requirements_duties',
                 y_column_name='standard_mark')
