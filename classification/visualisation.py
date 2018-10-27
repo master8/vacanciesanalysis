@@ -5,8 +5,11 @@ import pandas as pd
 
 class Visualizer:
 
-    @staticmethod
-    def show_results(classifier_name, model_name, vec_method,
+    def __init__(self, corpus_name) -> None:
+        super().__init__()
+        self.__corpus_name = corpus_name
+
+    def show_results(self, classifier_name, model_name, vec_method,
                      cross_val_accuracy, cross_val_f1,
                      train_accuracy, train_f1,
                      test_accuracy, test_f1):
@@ -41,5 +44,5 @@ class Visualizer:
             'train_f1': train_f1,
             'test_accuracy': test_accuracy,
             'test_f1': test_f1,
-            'dataset': 'hh_sz100'
+            'dataset': self.__corpus_name
         }, ignore_index=True).to_csv(file_path, index=False)

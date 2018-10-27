@@ -15,6 +15,7 @@ from classification.experiments.voting import VotingExperiments
 from classification.source import DataSource
 from classification.tokenization import Tokenizer, TokensProvider
 from classification.vectorization import Vectorizer, VectorsProvider
+from classification.visualisation import Visualizer
 
 pymystem3.mystem.MYSTEM_DIR = "/home/mluser/anaconda3/envs/master8_env/.local/bin"
 pymystem3.mystem.MYSTEM_BIN = "/home/mluser/anaconda3/envs/master8_env/.local/bin/mystem"
@@ -52,7 +53,7 @@ tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
 # vectorizer.vectorize_with_w2v_old()
 
 vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
-
+visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
 
 # logreg = LogisticRegressionExperiments()
 # logreg.make_use_tfidf()
