@@ -10,28 +10,24 @@ from keras_preprocessing.text import Tokenizer
 from classification.tokenization import TokensProvider
 
 
-# _VECTORS_TFIDF_FILE_PATH = "prepared_data/vectors_tfidf_all_hh.pkl"
-_VECTORS_TFIDF_FILE_PATH = "prepared_data/vectors_tfidf_sz100_hh.pkl"
-# _VECTORS_TFIDF_WSHINGLES_FILE_PATH = "prepared_data/vectors_tfidf_wshingles_all_hh.pkl"
-_VECTORS_TFIDF_WSHINGLES_FILE_PATH = "prepared_data/vectors_tfidf_wshingles_sz100_hh.pkl"
-# _VECTORS_TFIDF_NGRAMS_FILE_PATH = "prepared_data/vectors_tfidf_ngrams_all_hh.pkl"
-_VECTORS_TFIDF_NGRAMS_FILE_PATH = "prepared_data/vectors_tfidf_ngrams_sz100_hh.pkl"
+_VECTORS_BASE_PATH = "prepared_data/"
+_VECTORS_TFIDF_FILE_NAME = "/vectors_tfidf.pkl"
+_VECTORS_W2V_FILE_NAME = "/vectors_w2v.pkl"
+_VECTORS_W2V_TFIDF_FILE_NAME = "/vectors_w2v_tfidf.pkl"
+_VECTORS_W2V_BIG_FILE_NAME = "/vectors_w2v_big.pkl"
 
-# _VECTORS_W2V_FILE_PATH = "prepared_data/old_vectors_w2v_all_hh.pkl"
-# _VECTORS_W2V_FILE_PATH = "prepared_data/vectors_w2v_all_hh.pkl"
-_VECTORS_W2V_FILE_PATH = "prepared_data/vectors_w2v_sz100_hh.pkl"
+_VECTORS_TFIDF_WSHINGLES_FILE_NAME = "/vectors_tfidf_wshingles.pkl"
+_VECTORS_TFIDF_NGRAMS_FILE_NAME = "/vectors_tfidf_ngrams.pkl"
+
 _VECTORS_W2V_OLD_FILE_PATH = "prepared_data/vectors_w2v_all_old_hh.pkl"
-
-_VECTORS_W2V_BIG_FILE_PATH = "prepared_data/vectors_w2v_big_all_hh.pkl"
-# _VECTORS__W2V_TFIDF_FILE_PATH = "prepared_data/vectors_w2v_tfidf_all_hh.pkl"
-_VECTORS__W2V_TFIDF_FILE_PATH = "prepared_data/vectors_w2v_tfidf_sz100_hh.pkl"
 
 
 class Vectorizer:
-    __step = 0
 
-    def __init__(self):
-        self.__tokens_provider = TokensProvider()
+    def __init__(self, tokens_provider: TokensProvider, corpus_name):
+        self.__tokens_provider = tokens_provider
+        self.__corpus_name = corpus_name
+        self.__step = 0
 
     def vectorize_with_tfidf_ngrams(self):
         print("start tfidf ngrams vectorizing...")
@@ -41,7 +37,7 @@ class Vectorizer:
         ngrams = self.__DatasetToNgrams(tokens, size_ngrams)
         vectorized_tokens = self.__get_texts_to_matrix(ngrams)[0]
 
-        outfile = open(_VECTORS_TFIDF_NGRAMS_FILE_PATH, 'wb')
+        outfile = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_TFIDF_NGRAMS_FILE_NAME, 'wb')
         pickle.dump(vectorized_tokens, outfile)
         outfile.close()
 
@@ -59,7 +55,7 @@ class Vectorizer:
         wshingles = self.__DatasetToShingles(tokens, size_shingles)
         vectorized_tokens = self.__get_texts_to_matrix(wshingles)[0]
 
-        outfile = open(_VECTORS_TFIDF_WSHINGLES_FILE_PATH, 'wb')
+        outfile = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_TFIDF_WSHINGLES_FILE_NAME, 'wb')
         pickle.dump(vectorized_tokens, outfile)
         outfile.close()
 
@@ -84,7 +80,7 @@ class Vectorizer:
 
         vectorized_tokens = self.__GetW2VTFIDFVectors(w2v_model, tfidf_model, word_index, tokens)
 
-        outfile = open(_VECTORS__W2V_TFIDF_FILE_PATH, 'wb')
+        outfile = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_W2V_TFIDF_FILE_NAME, 'wb')
         pickle.dump(vectorized_tokens, outfile)
         outfile.close()
 
@@ -129,7 +125,7 @@ class Vectorizer:
         w2v_model = gensim.models.KeyedVectors.load_word2vec_format(w2v_path, binary=True, unicode_errors='ignore')
         vectorized_tokens = [self.__SentenceToAverageWeightedVector(w2v_model.wv, vacancy) for vacancy in tokens]
 
-        outfile = open(_VECTORS_W2V_BIG_FILE_PATH, 'wb')
+        outfile = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_W2V_BIG_FILE_NAME, 'wb')
         pickle.dump(vectorized_tokens, outfile)
         outfile.close()
 
@@ -167,7 +163,7 @@ class Vectorizer:
         w2v_model = gensim.models.Word2Vec.load(w2v_path)
         vectorized_tokens = [self.__SentenceToAverageWeightedVector(w2v_model.wv, vacancy) for vacancy in tokens]
 
-        outfile = open(_VECTORS_W2V_FILE_PATH, 'wb')
+        outfile = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_W2V_FILE_NAME, 'wb')
         pickle.dump(vectorized_tokens, outfile)
         outfile.close()
 
@@ -196,7 +192,7 @@ class Vectorizer:
         tokens = self.__tokens_provider.get_tokens()
         vectorized_tokens = self.__get_texts_to_matrix(tokens)[0]
 
-        outfile = open(_VECTORS_TFIDF_FILE_PATH, 'wb')
+        outfile = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_TFIDF_FILE_NAME, 'wb')
         pickle.dump(vectorized_tokens, outfile)
         outfile.close()
 
@@ -215,20 +211,24 @@ class Vectorizer:
 
 class VectorsProvider:
 
+    def __init__(self, corpus_name) -> None:
+        super().__init__()
+        self.__corpus_name = corpus_name
+
     def get_tfidf_vectors(self):
-        file = open(_VECTORS_TFIDF_FILE_PATH, 'rb')
+        file = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_TFIDF_FILE_NAME, 'rb')
         vectors = pickle.load(file)
         file.close()
         return vectors
 
     def get_w2v_vectors(self):
-        file = open(_VECTORS_W2V_FILE_PATH, 'rb')
+        file = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_W2V_FILE_NAME, 'rb')
         vectors = pickle.load(file)
         file.close()
         return vectors
 
     def get_w2v_big_vectors(self):
-        file = open(_VECTORS_W2V_BIG_FILE_PATH, 'rb')
+        file = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_W2V_BIG_FILE_NAME, 'rb')
         vectors = pickle.load(file)
         file.close()
         return vectors
@@ -243,19 +243,19 @@ class VectorsProvider:
         return vectors
 
     def get_w2v_tfidf_vectors(self):
-        file = open(_VECTORS__W2V_TFIDF_FILE_PATH, 'rb')
+        file = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_W2V_TFIDF_FILE_NAME, 'rb')
         vectors = pickle.load(file)
         file.close()
         return vectors
 
     def get_tfidf_wshingles_vectors(self):
-        file = open(_VECTORS_TFIDF_WSHINGLES_FILE_PATH, 'rb')
+        file = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_TFIDF_WSHINGLES_FILE_NAME, 'rb')
         vectors = pickle.load(file)
         file.close()
         return vectors
 
     def get_tfidf_ngrams_vectors(self):
-        file = open(_VECTORS_TFIDF_NGRAMS_FILE_PATH, 'rb')
+        file = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_TFIDF_NGRAMS_FILE_NAME, 'rb')
         vectors = pickle.load(file)
         file.close()
         return vectors

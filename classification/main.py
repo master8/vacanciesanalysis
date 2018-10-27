@@ -31,25 +31,28 @@ CURRENT_CORPUS_NAME = 'hh_sz100_m20_rd'
 CURRENT_X_COLUMN_NAME = 'requirements_duties'
 CURRENT_Y_COLUMN_NAME = 'standard_mark'
 
-
 data_source = DataSource(CURRENT_CORPUS_NAME,
                          CURRENT_X_COLUMN_NAME,
                          CURRENT_Y_COLUMN_NAME)
 
-Tokenizer(data_source=data_source,
-          corpus_name=CURRENT_CORPUS_NAME)\
-    .tokenize()
+# tokenizer = Tokenizer(data_source=data_source,
+#                       corpus_name=CURRENT_CORPUS_NAME)
+# tokenizer.tokenize()
 
-tokens = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
+tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
 
-# vectorizer = Vectorizer()
-# vectorizer.vectorize_with_tfidf()
+vectorizer = Vectorizer(tokens_provider=tokens_provider,
+                        corpus_name=CURRENT_CORPUS_NAME)
+vectorizer.vectorize_with_tfidf()
 # vectorizer.vectorize_with_w2v()
 # vectorizer.vectorize_with_w2v_tfidf()
 # vectorizer.vectorize_with_tfidf_wshingles()
 # vectorizer.vectorize_with_tfidf_ngrams()
 # vectorizer.vectorize_with_w2v_big()
 # vectorizer.vectorize_with_w2v_old()
+
+vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
+vectors = vectors_provider.get_tfidf_vectors()
 
 
 # logreg = LogisticRegressionExperiments()
