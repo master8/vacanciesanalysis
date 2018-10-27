@@ -38,13 +38,13 @@ class VotingExperiments:
 
         model1 = VotingClassifier(estimators)
 
-        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
+        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
 
         self.__visualizer.show_results(self.__CLASSIFIER_NAME, "model1", "TF-IDF",
                                        cross_val_accuracy, cross_val_f1,
                                        train_accuracy, train_f1,
-                                       test_accuracy, test_f1)
+                                       test_accuracy, test_f1, y_true, y_pred)
 
     def make_use_w2v(self):
         x_all = self.__vectors_provider.get_w2v_vectors()
@@ -62,13 +62,13 @@ class VotingExperiments:
 
         model1 = VotingClassifier(estimators)
 
-        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
+        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
 
         self.__visualizer.show_results(self.__CLASSIFIER_NAME, "model1", "Word2Vec",
                                        cross_val_accuracy, cross_val_f1,
                                        train_accuracy, train_f1,
-                                       test_accuracy, test_f1)
+                                       test_accuracy, test_f1, y_true, y_pred)
 
     def make_use_w2v_big(self):
         x_all = self.__vectors_provider.get_w2v_big_vectors()
@@ -86,13 +86,13 @@ class VotingExperiments:
 
         model1 = VotingClassifier(estimators)
 
-        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
+        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
 
         self.__visualizer.show_results(self.__CLASSIFIER_NAME, "model1", "Word2VecBig",
                                        cross_val_accuracy, cross_val_f1,
                                        train_accuracy, train_f1,
-                                       test_accuracy, test_f1)
+                                       test_accuracy, test_f1, y_true, y_pred)
 
     def make_use_w2v_with_tfidf(self):
         x_all = self.__vectors_provider.get_w2v_tfidf_vectors()
@@ -110,13 +110,13 @@ class VotingExperiments:
 
         model1 = VotingClassifier(estimators)
 
-        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
+        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
 
         self.__visualizer.show_results(self.__CLASSIFIER_NAME, "model1", "Word2Vec&TF-IDF",
                                        cross_val_accuracy, cross_val_f1,
                                        train_accuracy, train_f1,
-                                       test_accuracy, test_f1)
+                                       test_accuracy, test_f1, y_true, y_pred)
 
     def make_use_tfidf_wshingles(self):
         x_all = self.__vectors_provider.get_tfidf_wshingles_vectors()
@@ -134,13 +134,13 @@ class VotingExperiments:
 
         model1 = VotingClassifier(estimators)
 
-        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
+        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
 
         self.__visualizer.show_results(self.__CLASSIFIER_NAME, "model1", "TF-IDF&w-shingles",
                                        cross_val_accuracy, cross_val_f1,
                                        train_accuracy, train_f1,
-                                       test_accuracy, test_f1)
+                                       test_accuracy, test_f1, y_true, y_pred)
 
     def make_use_tfidf_ngrams(self):
         x_all = self.__vectors_provider.get_tfidf_ngrams_vectors()
@@ -158,10 +158,10 @@ class VotingExperiments:
 
         model1 = VotingClassifier(estimators)
 
-        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
+        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
 
         self.__visualizer.show_results(self.__CLASSIFIER_NAME, "model1", "TF-IDF&n-grams",
                                        cross_val_accuracy, cross_val_f1,
                                        train_accuracy, train_f1,
-                                       test_accuracy, test_f1)
+                                       test_accuracy, test_f1, y_true, y_pred)

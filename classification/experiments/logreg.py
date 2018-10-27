@@ -27,13 +27,13 @@ class LogisticRegressionExperiments:
 
         model1 = LogisticRegression(C=1.0, solver='sag')
 
-        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
+        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
 
         self.__visualizer.show_results(self.__CLASSIFIER_NAME, "(C=1.0, solver='sag')", "TF-IDF",
                                        cross_val_accuracy, cross_val_f1,
                                        train_accuracy, train_f1,
-                                       test_accuracy, test_f1)
+                                       test_accuracy, test_f1, y_true, y_pred)
 
     def make_use_w2v(self):
         x_all = self.__vectors_provider.get_w2v_vectors()
@@ -43,13 +43,13 @@ class LogisticRegressionExperiments:
 
         model1 = LogisticRegression(C=1.0, solver='sag')
 
-        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
+        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
 
         self.__visualizer.show_results(self.__CLASSIFIER_NAME, "(C=1.0, solver='sag')", "Word2Vec",
                                        cross_val_accuracy, cross_val_f1,
                                        train_accuracy, train_f1,
-                                       test_accuracy, test_f1)
+                                       test_accuracy, test_f1, y_true, y_pred)
 
     def make_use_w2v_old(self):
 
@@ -62,13 +62,13 @@ class LogisticRegressionExperiments:
 
         model1 = LogisticRegression(C=1.0, solver='sag')
 
-        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
+        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
 
         self.__visualizer.show_results(self.__CLASSIFIER_NAME, "(C=1.0, solver='sag')", "Word2VecNewOld",
                                        cross_val_accuracy, cross_val_f1,
                                        train_accuracy, train_f1,
-                                       test_accuracy, test_f1)
+                                       test_accuracy, test_f1, y_true, y_pred)
 
     def make_use_w2v_big(self):
         x_all = self.__vectors_provider.get_w2v_big_vectors()
@@ -78,13 +78,13 @@ class LogisticRegressionExperiments:
 
         model1 = LogisticRegression(C=1.0, solver='sag')
 
-        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
+        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
 
         self.__visualizer.show_results(self.__CLASSIFIER_NAME, "(C=1.0, solver='sag')", "Word2VecBig",
                                        cross_val_accuracy, cross_val_f1,
                                        train_accuracy, train_f1,
-                                       test_accuracy, test_f1)
+                                       test_accuracy, test_f1, y_true, y_pred)
 
     def make_use_w2v_with_tfidf(self):
         x_all = self.__vectors_provider.get_w2v_tfidf_vectors()
@@ -94,13 +94,13 @@ class LogisticRegressionExperiments:
 
         model1 = LogisticRegression(C=1.0, solver='sag')
 
-        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
+        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
 
         self.__visualizer.show_results(self.__CLASSIFIER_NAME, "(C=1.0, solver='sag')", "Word2Vec&TF-IDF",
                                        cross_val_accuracy, cross_val_f1,
                                        train_accuracy, train_f1,
-                                       test_accuracy, test_f1)
+                                       test_accuracy, test_f1, y_true, y_pred)
 
     def make_use_tfidf_wshingles(self):
         x_all = self.__vectors_provider.get_tfidf_wshingles_vectors()
@@ -110,13 +110,13 @@ class LogisticRegressionExperiments:
 
         model1 = LogisticRegression(C=1.0, solver='sag')
 
-        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
+        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
 
         self.__visualizer.show_results(self.__CLASSIFIER_NAME, "(C=1.0, solver='sag')", "TF-IDF&w-shingles",
                                        cross_val_accuracy, cross_val_f1,
                                        train_accuracy, train_f1,
-                                       test_accuracy, test_f1)
+                                       test_accuracy, test_f1, y_true, y_pred)
 
     def make_use_tfidf_ngrams(self):
         x_all = self.__vectors_provider.get_tfidf_ngrams_vectors()
@@ -126,10 +126,10 @@ class LogisticRegressionExperiments:
 
         model1 = LogisticRegression(C=1.0, solver='sag')
 
-        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1 \
+        cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
 
         self.__visualizer.show_results(self.__CLASSIFIER_NAME, "(C=1.0, solver='sag')", "TF-IDF&n-grams",
                                        cross_val_accuracy, cross_val_f1,
                                        train_accuracy, train_f1,
-                                       test_accuracy, test_f1)
+                                       test_accuracy, test_f1, y_true, y_pred)
