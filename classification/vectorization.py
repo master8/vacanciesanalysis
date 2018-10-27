@@ -214,24 +214,31 @@ class VectorsProvider:
     def __init__(self, corpus_name) -> None:
         super().__init__()
         self.__corpus_name = corpus_name
+        self.__vectors_tfidf = None
+        self.__vectors_w2v = None
+        self.__vectors_w2v_tfidf = None
+        self.__vectors_w2v_big = None
 
     def get_tfidf_vectors(self):
-        file = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_TFIDF_FILE_NAME, 'rb')
-        vectors = pickle.load(file)
-        file.close()
-        return vectors
+        if self.__vectors_tfidf is None:
+            file = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_TFIDF_FILE_NAME, 'rb')
+            self.__vectors_tfidf = pickle.load(file)
+            file.close()
+        return self.__vectors_tfidf
 
     def get_w2v_vectors(self):
-        file = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_W2V_FILE_NAME, 'rb')
-        vectors = pickle.load(file)
-        file.close()
-        return vectors
+        if self.__vectors_w2v is None:
+            file = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_W2V_FILE_NAME, 'rb')
+            self.__vectors_w2v = pickle.load(file)
+            file.close()
+        return self.__vectors_w2v
 
     def get_w2v_big_vectors(self):
-        file = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_W2V_BIG_FILE_NAME, 'rb')
-        vectors = pickle.load(file)
-        file.close()
-        return vectors
+        if self.__vectors_w2v_big is None:
+            file = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_W2V_BIG_FILE_NAME, 'rb')
+            self.__vectors_w2v_big = pickle.load(file)
+            file.close()
+        return self.__vectors_w2v_big
 
     def get_w2v_old_vectors(self):
 
@@ -243,10 +250,11 @@ class VectorsProvider:
         return vectors
 
     def get_w2v_tfidf_vectors(self):
-        file = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_W2V_TFIDF_FILE_NAME, 'rb')
-        vectors = pickle.load(file)
-        file.close()
-        return vectors
+        if self.__vectors_w2v_tfidf is None:
+            file = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_W2V_TFIDF_FILE_NAME, 'rb')
+            self.__vectors_w2v_tfidf = pickle.load(file)
+            file.close()
+        return self.__vectors_w2v_tfidf
 
     def get_tfidf_wshingles_vectors(self):
         file = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_TFIDF_WSHINGLES_FILE_NAME, 'rb')
