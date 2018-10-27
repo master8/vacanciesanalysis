@@ -55,8 +55,10 @@ tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
 vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
 visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
 
-# logreg = LogisticRegressionExperiments()
-# logreg.make_use_tfidf()
+logreg = LogisticRegressionExperiments(data_source=data_source,
+                                       vectors_provider=vectors_provider,
+                                       visualizer=visualizer)
+logreg.make_use_tfidf()
 # logreg.make_use_w2v()
 # logreg.make_use_w2v_with_tfidf()
 # logreg.make_use_tfidf_wshingles()
