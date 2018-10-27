@@ -25,7 +25,7 @@ class LogisticRegressionExperiments:
 
         # TODO here grid search
 
-        model1 = LogisticRegression(C=1.0, solver='sag')
+        model1 = LogisticRegression(C=1.0, solver='sag', n_jobs=-1)
 
         cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
@@ -41,7 +41,7 @@ class LogisticRegressionExperiments:
 
         # TODO here grid search
 
-        model1 = LogisticRegression(C=1.0, solver='sag')
+        model1 = LogisticRegression(C=1.0, solver='sag', n_jobs=-1)
 
         cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
@@ -60,7 +60,7 @@ class LogisticRegressionExperiments:
 
         # TODO here grid search
 
-        model1 = LogisticRegression(C=1.0, solver='sag')
+        model1 = LogisticRegression(C=1.0, solver='sag', n_jobs=-1)
 
         cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
@@ -76,7 +76,7 @@ class LogisticRegressionExperiments:
 
         # TODO here grid search
 
-        model1 = LogisticRegression(C=1.0, solver='sag')
+        model1 = LogisticRegression(C=1.0, solver='sag', n_jobs=-1)
 
         cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
@@ -92,7 +92,7 @@ class LogisticRegressionExperiments:
 
         # TODO here grid search
 
-        model1 = LogisticRegression(C=1.0, solver='sag')
+        model1 = LogisticRegression(C=1.0, solver='sag', n_jobs=-1)
 
         cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
@@ -108,7 +108,7 @@ class LogisticRegressionExperiments:
 
         # TODO here grid search
 
-        model1 = LogisticRegression(C=1.0, solver='sag')
+        model1 = LogisticRegression(C=1.0, solver='sag', n_jobs=-1)
 
         cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
@@ -124,7 +124,7 @@ class LogisticRegressionExperiments:
 
         # TODO here grid search
 
-        model1 = LogisticRegression(C=1.0, solver='sag')
+        model1 = LogisticRegression(C=1.0, solver='sag', n_jobs=-1)
 
         cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)

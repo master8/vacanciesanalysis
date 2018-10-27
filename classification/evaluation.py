@@ -6,8 +6,8 @@ class Evaluator:
 
     @staticmethod
     def evaluate(model, x_all, y_all):
-        cross_val_accuracy = cross_val_score(estimator=model, X=x_all, y=y_all, scoring='accuracy', cv=5)
-        cross_val_f1 = cross_val_score(estimator=model, X=x_all, y=y_all, scoring='f1_weighted', cv=5)
+        cross_val_accuracy = cross_val_score(estimator=model, X=x_all, y=y_all, scoring='accuracy', cv=5, n_jobs=-1)
+        cross_val_f1 = cross_val_score(estimator=model, X=x_all, y=y_all, scoring='f1_weighted', cv=5, n_jobs=-1)
 
         x_train, x_test, y_train, y_test = train_test_split(x_all, y_all, test_size=0.3)
 
