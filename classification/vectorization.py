@@ -162,7 +162,7 @@ class Vectorizer:
         w2v_model = gensim.models.Word2Vec(tokens, min_count=2, iter=100, size=300, sg=0, workers=32)
         w2v_model.save(_VECTORS_BASE_PATH + self.__corpus_name + _ALL_DESCRIPTION_W2V)
 
-        # w2v_path = _VECTORS_BASE_PATH + self.__corpus_name + _ALL_DESCRIPTION_W2V
+        # w2v_path = _VECTORS_BASE_PATH + 'hh_all_corpus' + _ALL_DESCRIPTION_W2V
         # w2v_model = gensim.models.Word2Vec.load(w2v_path)
         # vectorized_tokens = [self.__SentenceToAverageWeightedVector(w2v_model.wv, vacancy) for vacancy in tokens]
 
