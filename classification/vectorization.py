@@ -10,6 +10,8 @@ from keras_preprocessing.text import Tokenizer
 from classification.tokenization import TokensProvider
 
 
+_ALL_DESCRIPTION_W2V = '/hh_all_description_sz300-it100-min2-sg0.w2v'
+
 _VECTORS_BASE_PATH = "prepared_data/"
 _VECTORS_TFIDF_FILE_NAME = "/vectors_tfidf.pkl"
 _VECTORS_W2V_FILE_NAME = "/vectors_w2v.pkl"
@@ -154,18 +156,20 @@ class Vectorizer:
 
     def vectorize_with_w2v(self):
         print("start w2v vectorizing...")
+        logging.warning(str(datetime.now()) + " start w2v vectorizing...")
 
         tokens = self.__tokens_provider.get_tokens()
-        # w2v_model = gensim.models.Word2Vec(tokens, min_count=2, iter=100, size=300, sg=0, workers=32)
-        # w2v_model.save("prepared_data/hh_all_sz300-it100-min2-sg0.w2v")
+        w2v_model = gensim.models.Word2Vec(tokens, min_count=2, iter=100, size=300, sg=0, workers=32)
+        w2v_model.save(_VECTORS_BASE_PATH + self.__corpus_name + _ALL_DESCRIPTION_W2V)
 
-        w2v_path = "prepared_data/hh_all_sz300-it100-min2-sg0.w2v"
-        w2v_model = gensim.models.Word2Vec.load(w2v_path)
-        vectorized_tokens = [self.__SentenceToAverageWeightedVector(w2v_model.wv, vacancy) for vacancy in tokens]
+        # w2v_path = _VECTORS_BASE_PATH + self.__corpus_name + _ALL_DESCRIPTION_W2V
+        # w2v_model = gensim.models.Word2Vec.load(w2v_path)
+        # vectorized_tokens = [self.__SentenceToAverageWeightedVector(w2v_model.wv, vacancy) for vacancy in tokens]
 
-        outfile = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_W2V_FILE_NAME, 'wb')
-        pickle.dump(vectorized_tokens, outfile)
-        outfile.close()
+        # outfile = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_W2V_FILE_NAME, 'wb')
+        # pickle.dump(vectorized_tokens, outfile)
+        # outfile.close()
+        logging.warning(str(datetime.now()) + " end w2v vectorizing, vectors saved")
 
         print("end w2v vectorizing, vectors saved")
 
