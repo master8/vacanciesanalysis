@@ -206,9 +206,9 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
 
 results = pd.read_csv('results/classification_results.csv', header=0)
 results = results[results.model_name != 'model1']
-df = results[~results.dataset.str.contains('m16')].groupby(['vec_method', 'dataset']).max()
+df = results[results.dataset.str.contains('m16')].groupby(['vec_method', 'dataset']).max()
 # results[~results.dataset.str.contains('m16')].groupby(['vec_method', 'dataset']).cross_val_f1.max()
 df.reset_index(inplace=True)
 sns.barplot(x='vec_method', hue='dataset', y='cross_val_f1', palette="ch:.25", data=df)
 plt.legend(loc='lower left')
-plt.savefig('results/plots/dif_x.svg', format='svg')
+plt.savefig('results/plots/dif_size.svg', format='svg')
