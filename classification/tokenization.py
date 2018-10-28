@@ -45,7 +45,7 @@ class Tokenizer:
         index = 0
         for c in rawSentences:
             c = self.clean(c)
-            logging.warning(str(datetime.now()) + " tokinizeing " + str(index) + " " + c[:50])
+            logging.warning(str(datetime.now()) + " tokinizeing " + str(index))
             tokenized_sents = m.lemmatize(c)
             cleaned_set = []
             for tokenized in tokenized_sents:
