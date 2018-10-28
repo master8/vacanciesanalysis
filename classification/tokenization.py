@@ -21,10 +21,6 @@ class Tokenizer:
         self.__data_source = data_source
         self.__corpus_name = corpus_name
 
-    def clean(self, str):
-        pattern = re.compile('<.*?>')
-        return pattern.sub('', str)
-
     def tokenize(self):
         print("start tokenizing...")
         logging.warning(str(datetime.now()) + " start tokenizing...")
@@ -44,7 +40,6 @@ class Tokenizer:
         m = Mystem()
         index = 0
         for c in rawSentences:
-            c = self.clean(c)
             logging.warning(str(datetime.now()) + " tokinizeing " + str(index))
             tokenized_sents = m.lemmatize(c)
             cleaned_set = []
