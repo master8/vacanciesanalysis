@@ -4,6 +4,8 @@ import pandas as pd
 import pymystem3
 import logging
 import re
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # logging.basicConfig(filename='main.log', level=logging.INFO)
 # logging.warning('Start main!')
@@ -72,34 +74,34 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
 # CURRENT_X_COLUMN_NAME = 'requirements_duties'
 # CURRENT_Y_COLUMN_NAME = 'standard_mark'
 #
-run_experiments(corpus_name='hh_sz100_m20_nrd',
-                x_column_name='name_requirements_duties',
-                y_column_name='standard_mark')
-
-run_experiments(corpus_name='hh_sz100_m20_all',
-                x_column_name='all_description',
-                y_column_name='standard_mark')
-
-
-run_experiments(corpus_name='hh_sz50_m16_nrd',
-                x_column_name='name_requirements_duties',
-                y_column_name='standard_mark')
-
-run_experiments(corpus_name='hh_sz100_m16_nrd',
-                x_column_name='name_requirements_duties',
-                y_column_name='standard_mark')
-
-run_experiments(corpus_name='hh_sz200_m16_nrd',
-                x_column_name='name_requirements_duties',
-                y_column_name='standard_mark')
-
-run_experiments(corpus_name='hh_sz350_m16_nrd',
-                x_column_name='name_requirements_duties',
-                y_column_name='standard_mark')
-
-run_experiments(corpus_name='hh_sz500_m16_nrd',
-                x_column_name='name_requirements_duties',
-                y_column_name='standard_mark')
+# run_experiments(corpus_name='hh_sz100_m20_nrd',
+#                 x_column_name='name_requirements_duties',
+#                 y_column_name='standard_mark')
+#
+# run_experiments(corpus_name='hh_sz100_m20_all',
+#                 x_column_name='all_description',
+#                 y_column_name='standard_mark')
+#
+#
+# run_experiments(corpus_name='hh_sz50_m16_nrd',
+#                 x_column_name='name_requirements_duties',
+#                 y_column_name='standard_mark')
+#
+# run_experiments(corpus_name='hh_sz100_m16_nrd',
+#                 x_column_name='name_requirements_duties',
+#                 y_column_name='standard_mark')
+#
+# run_experiments(corpus_name='hh_sz200_m16_nrd',
+#                 x_column_name='name_requirements_duties',
+#                 y_column_name='standard_mark')
+#
+# run_experiments(corpus_name='hh_sz350_m16_nrd',
+#                 x_column_name='name_requirements_duties',
+#                 y_column_name='standard_mark')
+#
+# run_experiments(corpus_name='hh_sz500_m16_nrd',
+#                 x_column_name='name_requirements_duties',
+#                 y_column_name='standard_mark')
 
 # data_source = DataSource(CURRENT_CORPUS_NAME,
 #                          CURRENT_X_COLUMN_NAME,
@@ -201,3 +203,12 @@ run_experiments(corpus_name='hh_sz500_m16_nrd',
 
 # data_test = pd.read_csv("../data/new/marked_vacancies_hh_sz50_m16_nrd.csv", header=0, sep='|')
 # result_test = data_test.groupby(['standard_mark'])[['name_requirements_duties']].describe()
+
+results = pd.read_csv('results/classification_results.csv', header=0)
+results = results[results.model_name != 'model1']
+df = results[~results.dataset.str.contains('m16')].groupby(['vec_method', 'dataset']).max()
+# results[~results.dataset.str.contains('m16')].groupby(['vec_method', 'dataset']).cross_val_f1.max()
+df.reset_index(inplace=True)
+sns.barplot(x='vec_method', hue='dataset', y='cross_val_f1', palette="ch:.25", data=df)
+plt.legend(loc='lower left')
+plt.savefig('results/plots/dif_x.svg', format='svg')
