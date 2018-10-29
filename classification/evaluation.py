@@ -50,7 +50,7 @@ class Evaluator:
         temp[proba_true_column] = proba_true
         temp = temp.drop(columns=['true_mark_index'])
         temp[pred_mark_column] = proba.idxmax(axis=1)
-        temp[pred_mark_column] = temp.pred_mark_w2v + 1
+        temp[pred_mark_column] = temp[pred_mark_column] + 1
         temp.loc[temp[pred_mark_column] > 12, pred_mark_column] = temp[pred_mark_column] + 1
         temp[proba_pred_column] = proba.max(axis=1)
 
