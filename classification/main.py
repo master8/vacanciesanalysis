@@ -73,7 +73,7 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
 
 # sz - count vacancies per mark
 # m - count marks
-CURRENT_CORPUS_NAME = 'hh_all_corpus'
+CURRENT_CORPUS_NAME = 'hh_corpus_sz245_m20_all'
 
 CURRENT_X_COLUMN_NAME = 'all_description'
 CURRENT_Y_COLUMN_NAME = 'standard_mark'
@@ -107,28 +107,28 @@ CURRENT_Y_COLUMN_NAME = 'standard_mark'
 #                 x_column_name='name_requirements_duties',
 #                 y_column_name='standard_mark')
 
-# data_source = DataSource(CURRENT_CORPUS_NAME,
-#                          CURRENT_X_COLUMN_NAME,
-#                          CURRENT_Y_COLUMN_NAME)
-#
-# tokenizer = Tokenizer(data_source=data_source,
-#                       corpus_name=CURRENT_CORPUS_NAME)
-# tokenizer.tokenize()
-#
-# tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
-#
-# vectorizer = Vectorizer(tokens_provider=tokens_provider,
-#                         corpus_name=CURRENT_CORPUS_NAME)
-# vectorizer.vectorize_with_tfidf()
-# vectorizer.vectorize_with_w2v()
+data_source = DataSource(CURRENT_CORPUS_NAME,
+                         CURRENT_X_COLUMN_NAME,
+                         CURRENT_Y_COLUMN_NAME)
+
+tokenizer = Tokenizer(data_source=data_source,
+                      corpus_name=CURRENT_CORPUS_NAME)
+tokenizer.tokenize()
+
+tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
+
+vectorizer = Vectorizer(tokens_provider=tokens_provider,
+                        corpus_name=CURRENT_CORPUS_NAME)
+vectorizer.vectorize_with_tfidf()
+vectorizer.vectorize_with_w2v()
 # vectorizer.vectorize_with_w2v_tfidf()
 # vectorizer.vectorize_with_w2v_big()
 # vectorizer.vectorize_with_tfidf_wshingles()
 # vectorizer.vectorize_with_tfidf_ngrams()
 # vectorizer.vectorize_with_w2v_old()
 
-# vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
-# visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
+vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
+visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
 
 # x_all = vectors_provider.get_w2v_vectors()
 # y_all = data_source.get_y()
@@ -167,11 +167,11 @@ CURRENT_Y_COLUMN_NAME = 'standard_mark'
 # co[proba_pred_column] = temp[proba_pred_column]
 # data_source.save_corpus(co)
 
-# logreg = LogisticRegressionExperiments(data_source=data_source,
-#                                        vectors_provider=vectors_provider,
-#                                        visualizer=visualizer)
-# logreg.make_use_tfidf()
-# logreg.make_use_w2v()
+logreg = LogisticRegressionExperiments(data_source=data_source,
+                                       vectors_provider=vectors_provider,
+                                       visualizer=visualizer)
+logreg.make_use_w2v()
+logreg.make_use_tfidf()
 # logreg.make_use_w2v_with_tfidf(
 # logreg.make_use_w2v_big())
 # logreg.make_use_tfidf_wshingles()
@@ -220,29 +220,29 @@ CURRENT_Y_COLUMN_NAME = 'standard_mark'
 # grboost.make_use_tfidf_ngrams()
 # grboost.make_use_w2v_big()
 
-data = pd.read_csv("../data/new/hh_all_corpus.csv", header=0, sep='|')
+# data = pd.read_csv("../data/new/hh_corpus_sz245_m20_all.csv", header=0, sep='|')
 # data = mark_corpus(data)
 # data.to_csv("../data/new/hh_all_corpus.csv", index=False, sep='|')
 
 # def clean(str):
 #     pattern = re.compile('<.*?>')
 #     return pattern.sub('', str)
-# size = 500
+# size = 245
 #
 # data['name_requirements_duties'] = data.name + ' ' + data.requirements + ' ' + data.duties
 # data['all_description'] = data.name + ' ' + data.description.apply(clean)
-# data = data.drop_duplicates('name_requirements_duties')
+# data = data.drop_duplicates('all_description')
 #
 # frames = []
-
+#
 # for mark in range(1, 22):
-# for mark in [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14, 16, 17, 18, 19, 21]:
+# # for mark in [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14, 16, 17, 18, 19, 21]:
 #     if mark != 13:
 #         frames.append(data[data.standard_mark == mark].sample(n=size))
 #
 # result = pd.concat(frames)
 #
-# result.to_csv("../data/new/marked_vacancies_hh_sz" + str(size) + "_m16_nrd.csv", index=False, sep='|')
+# result.to_csv("../data/new/hh_corpus_sz" + str(size) + "_m20_all.csv", index=False, sep='|')
 
 # data_test = pd.read_csv("../data/new/marked_vacancies_hh_sz50_m16_nrd.csv", header=0, sep='|')
 # result_test = data_test.groupby(['standard_mark'])[['name_requirements_duties']].describe()
