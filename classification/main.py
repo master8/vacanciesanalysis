@@ -18,6 +18,7 @@ from classification.experiments.knn import KNeighborsExperiments
 from classification.experiments.logreg import LogisticRegressionExperiments
 from classification.experiments.svc import SVCExperiments
 from classification.experiments.voting import VotingExperiments
+from classification.marking import mark_corpus
 from classification.source import DataSource
 from classification.tokenization import Tokenizer, TokensProvider
 from classification.vectorization import Vectorizer, VectorsProvider
@@ -219,7 +220,7 @@ CURRENT_Y_COLUMN_NAME = 'standard_mark'
 # grboost.make_use_tfidf_ngrams()
 # grboost.make_use_w2v_big()
 
-# data = pd.read_csv("../data/new/vacancies_hh_all_051018.csv", header=0, sep='|')
+data = pd.read_csv("../data/new/hh_all_corpus.csv", header=0, sep='|')
 
 # def clean(str):
 #     pattern = re.compile('<.*?>')
@@ -240,6 +241,8 @@ CURRENT_Y_COLUMN_NAME = 'standard_mark'
 # result = pd.concat(frames)
 #
 # result.to_csv("../data/new/marked_vacancies_hh_sz" + str(size) + "_m16_nrd.csv", index=False, sep='|')
+data.to_csv("../data/new/hh_all_corpus.csv", index=False, sep='|')
+data = mark_corpus(data)
 
 # data_test = pd.read_csv("../data/new/marked_vacancies_hh_sz50_m16_nrd.csv", header=0, sep='|')
 # result_test = data_test.groupby(['standard_mark'])[['name_requirements_duties']].describe()
