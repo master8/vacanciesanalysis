@@ -111,16 +111,16 @@ data_source = DataSource(CURRENT_CORPUS_NAME,
                          CURRENT_X_COLUMN_NAME,
                          CURRENT_Y_COLUMN_NAME)
 
-tokenizer = Tokenizer(data_source=data_source,
-                      corpus_name=CURRENT_CORPUS_NAME)
-tokenizer.tokenize()
+# tokenizer = Tokenizer(data_source=data_source,
+#                       corpus_name=CURRENT_CORPUS_NAME)
+# tokenizer.tokenize()
 
-tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
+# tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
 
-vectorizer = Vectorizer(tokens_provider=tokens_provider,
-                        corpus_name=CURRENT_CORPUS_NAME)
-vectorizer.vectorize_with_tfidf()
-vectorizer.vectorize_with_w2v()
+# vectorizer = Vectorizer(tokens_provider=tokens_provider,
+#                         corpus_name=CURRENT_CORPUS_NAME)
+# vectorizer.vectorize_with_tfidf()
+# vectorizer.vectorize_with_w2v()
 # vectorizer.vectorize_with_w2v_tfidf()
 # vectorizer.vectorize_with_w2v_big()
 # vectorizer.vectorize_with_tfidf_wshingles()
@@ -170,7 +170,7 @@ visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
 logreg = LogisticRegressionExperiments(data_source=data_source,
                                        vectors_provider=vectors_provider,
                                        visualizer=visualizer)
-logreg.make_use_w2v()
+# logreg.make_use_w2v()
 logreg.make_use_tfidf()
 # logreg.make_use_w2v_with_tfidf(
 # logreg.make_use_w2v_big())
