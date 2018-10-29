@@ -7,8 +7,8 @@ import re
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# logging.basicConfig(filename='main.log', level=logging.INFO)
-# logging.warning('Start main!')
+logging.basicConfig(filename='main.log', level=logging.INFO)
+logging.warning('Start main!')
 from sklearn.model_selection import train_test_split, KFold
 from sklearn.svm import SVC
 from sklearn.model_selection import cross_val_predict
