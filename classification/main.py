@@ -7,8 +7,8 @@ import re
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-logging.basicConfig(filename='main.log', level=logging.INFO)
-logging.warning('Start main!')
+# logging.basicConfig(filename='main.log', level=logging.INFO)
+# logging.warning('Start main!')
 from sklearn.model_selection import train_test_split, KFold
 from sklearn.svm import SVC
 from sklearn.model_selection import cross_val_predict
@@ -106,20 +106,20 @@ CURRENT_Y_COLUMN_NAME = 'standard_mark'
 #                 x_column_name='name_requirements_duties',
 #                 y_column_name='standard_mark')
 
-data_source = DataSource(CURRENT_CORPUS_NAME,
-                         CURRENT_X_COLUMN_NAME,
-                         CURRENT_Y_COLUMN_NAME)
-
-tokenizer = Tokenizer(data_source=data_source,
-                      corpus_name=CURRENT_CORPUS_NAME)
-tokenizer.tokenize()
-
-tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
-
-vectorizer = Vectorizer(tokens_provider=tokens_provider,
-                        corpus_name=CURRENT_CORPUS_NAME)
+# data_source = DataSource(CURRENT_CORPUS_NAME,
+#                          CURRENT_X_COLUMN_NAME,
+#                          CURRENT_Y_COLUMN_NAME)
+#
+# tokenizer = Tokenizer(data_source=data_source,
+#                       corpus_name=CURRENT_CORPUS_NAME)
+# tokenizer.tokenize()
+#
+# tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
+#
+# vectorizer = Vectorizer(tokens_provider=tokens_provider,
+#                         corpus_name=CURRENT_CORPUS_NAME)
 # vectorizer.vectorize_with_tfidf()
-vectorizer.vectorize_with_w2v()
+# vectorizer.vectorize_with_w2v()
 # vectorizer.vectorize_with_w2v_tfidf()
 # vectorizer.vectorize_with_w2v_big()
 # vectorizer.vectorize_with_tfidf_wshingles()
