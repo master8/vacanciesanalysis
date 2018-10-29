@@ -26,6 +26,8 @@ class LogisticRegressionExperiments:
         # TODO here grid search
 
         model1 = LogisticRegression(C=1.0, solver='sag', n_jobs=-1)
+        Evaluator.cross_probabilities(model=model1, x_all=x_all, y_all=y_all, data_source=self.__data_source,
+                                      method='tfidf')
 
         cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
@@ -42,6 +44,8 @@ class LogisticRegressionExperiments:
         # TODO here grid search
 
         model1 = LogisticRegression(C=1.0, solver='sag', n_jobs=-1)
+        Evaluator.cross_probabilities(model=model1, x_all=x_all, y_all=y_all, data_source=self.__data_source,
+                                      method='w2v')
 
         cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_true, y_pred \
             = Evaluator.evaluate(model1, x_all, y_all)
