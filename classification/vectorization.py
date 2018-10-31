@@ -73,7 +73,7 @@ class Vectorizer:
 
         tokens = self.__tokens_provider.get_tokens()
         # w2v_model = gensim.models.Word2Vec(tokens, min_count=2, workers=2, iter=100, size=300, sg=0)
-        w2v_path = "prepared_data/hh_all_sz300-it100-min2-sg0.w2v"
+        w2v_path = _VECTORS_BASE_PATH + 'hh_all_corpus' + _ALL_DESCRIPTION_W2V
         w2v_model = gensim.models.Word2Vec.load(w2v_path)
 
         results = self.__get_texts_to_matrix(tokens)

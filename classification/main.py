@@ -223,7 +223,7 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
 data = pd.read_csv("../data/new/hh_corpus_sz245_m20_all.csv", header=0, sep='|')
 # data = mark_corpus(data)
 # data.to_csv("../data/new/hh_all_corpus.csv", index=False, sep='|')
-
+# data.to_csv("../data/new/hh_corpus_sz245_m20_all_confusion.csv", index=False, sep='|')
 # def clean(str):
 #     pattern = re.compile('<.*?>')
 #     return pattern.sub('', str)
