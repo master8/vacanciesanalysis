@@ -220,7 +220,7 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
 # grboost.make_use_tfidf_ngrams()
 # grboost.make_use_w2v_big()
 
-data = pd.read_csv("../data/new/hh_corpus_sz245_m20_all.csv", header=0, sep='|')
+# data = pd.read_csv("../data/new/hh_corpus_sz245_m20_all.csv", header=0, sep='|')
 # data = mark_corpus(data)
 # data.to_csv("../data/new/hh_all_corpus.csv", index=False, sep='|')
 # data.to_csv("../data/new/hh_corpus_sz245_m20_all_confusion.csv", index=False, sep='|')
