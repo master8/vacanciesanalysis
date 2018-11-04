@@ -220,7 +220,7 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
 # grboost.make_use_tfidf_ngrams()
 # grboost.make_use_w2v_big()
 
-data = pd.read_csv("../data/new/hh_corpus_sz245_m20_all.csv", header=0)
+data = pd.read_csv("../data/new/hh_corpus_sz245_m20_all_v3.csv", header=0, index_col='id')
 # data = mark_corpus(data)
 # data.to_csv("../data/new/hh_all_corpus.csv", index=False, sep='|')
 # data.to_csv("../data/new/hh_corpus_sz245_m20_all_confusion.csv", index=False, sep='|')
@@ -255,3 +255,33 @@ data = pd.read_csv("../data/new/hh_corpus_sz245_m20_all.csv", header=0)
 # sns.barplot(x='vec_method', hue='dataset', y='cross_val_f1', palette="ch:.25", data=df)
 # plt.legend(loc='lower left')
 # plt.savefig('results/plots/dif_size.svg', format='svg')
+
+
+
+# data = pd.read_csv("../data/new/hh_corpus_sz245_m20_all_v2.csv", header=0, index_col='id')
+# ed = pd.read_csv("../data/new/hh_corpus_sz245_m20_all_confusion_v2_edit.csv", header=0, index_col='id')
+# co = pd.merge(data, ed, left_index=True, right_index=True, how='outer', suffixes=('', '_y'))
+#
+# co[co.main_label != 0].main_label.count()
+# co[co.main_label_y != 0].main_label_y.count()
+#
+# co['main_label_y'] = co['main_label_y'].fillna(0).astype('int')
+# co.loc[co.main_label_y != 0, 'main_label'] = co.main_label_y
+#
+# co['additional_labels_y'] = co['additional_labels_y'].fillna('0,0,0')
+# co.loc[co.additional_labels_y != '0,0,0', 'additional_labels'] = co.additional_labels_y
+#
+# co['editor_name_y'] = co['editor_name_y'].fillna('')
+# co.loc[co.editor_name_y != '', 'editor_name'] = co.editor_name_y
+#
+# co['comments_y'] = co['comments_y'].fillna('')
+# co.loc[co.comments_y != '', 'comments'] = co.comments_y
+#
+# co = co[co.main_label != -1]
+# co = co[co.main_label != 13]
+#
+# co.loc[co.main_label != 0, 'standard_mark'] = co.main_label
+# co = co.drop(columns=['main_label_y', 'additional_labels_y', 'editor_name_y', 'comments_y'])
+#
+# co.to_csv("../data/new/hh_corpus_sz245_m20_all_v3.csv", index_label='id')
+
