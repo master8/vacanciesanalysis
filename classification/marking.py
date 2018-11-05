@@ -416,9 +416,6 @@ def mark_corpus_multi_labels(data: pd.DataFrame) -> pd.DataFrame:
            ), 'labels'] = '4' + ',' + data.labels
 
     # Разметка Руководитель разработки программного обеспечения
-    data.loc[
-        data.name.str.contains('Руководитель разработки', case=False)
-        , 'labels'] = '6' + ',' + data.labels
 
     data.loc[
         data.name.str.contains('Руководитель .*разработки', case=False)
