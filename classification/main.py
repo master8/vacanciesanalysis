@@ -16,6 +16,9 @@ from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.linear_model import LogisticRegression
 
+from skmultilearn.problem_transform import BinaryRelevance
+from skmultilearn.problem_transform import LabelPowerset
+
 from classification.experiments.grboost import GradientBoostingExperiments
 from classification.experiments.knn import KNeighborsExperiments
 from classification.experiments.logreg import LogisticRegressionExperiments
@@ -316,5 +319,7 @@ y_all = data_source.get_y_multi_label()
 
 y_all_bin = binarizer.fit_transform(y_all)
 
-model = OneVsRestClassifier(LogisticRegression(), n_jobs=-1)
+# model = OneVsRestClassifier(LogisticRegression(C=1.0, solver='sag', n_jobs=-1), n_jobs=-1)
+# model = BinaryRelevance(classifier=LogisticRegression(C=1.0, solver='sag', n_jobs=-1))
+model = LabelPowerset(classifier=LogisticRegression(C=1.0, solver='sag', n_jobs=-1)) # w2v 0.8342391573578064
 cross_val_f1 = cross_val_score(estimator=model, X=x_all, y=y_all_bin, scoring='f1_weighted', cv=5, n_jobs=-1)
