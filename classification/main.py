@@ -21,7 +21,7 @@ from classification.experiments.knn import KNeighborsExperiments
 from classification.experiments.logreg import LogisticRegressionExperiments
 from classification.experiments.svc import SVCExperiments
 from classification.experiments.voting import VotingExperiments
-from classification.marking import mark_corpus
+from classification.marking import mark_corpus, mark_corpus_multi_labels
 from classification.source import DataSource
 from classification.tokenization import Tokenizer, TokensProvider
 from classification.vectorization import Vectorizer, VectorsProvider
@@ -131,6 +131,8 @@ data_source = DataSource(CURRENT_CORPUS_NAME,
 # vectorizer.vectorize_with_w2v_old()
 
 vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
+
+
 # visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
 
 # x_all = vectors_provider.get_w2v_vectors()
@@ -260,7 +262,6 @@ vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
 # plt.savefig('results/plots/dif_size.svg', format='svg')
 
 
-
 # data = pd.read_csv("../data/new/hh_corpus_sz245_m20_all_v2.csv", header=0, index_col='id')
 # ed = pd.read_csv("../data/new/hh_corpus_sz245_m20_all_confusion_v2_edit.csv", header=0, index_col='id')
 # co = pd.merge(data, ed, left_index=True, right_index=True, how='outer', suffixes=('', '_y'))
@@ -288,3 +289,18 @@ vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
 #
 # co.to_csv("../data/new/hh_corpus_sz245_m20_all_v3.csv", index_label='id')
 
+
+# y = ad.apply(str.split, sep=',')
+
+
+data_source.get_y()
+data = data_source.get_corpus()
+
+
+co = mark_corpus_multi_labels(data)
+
+
+# data[data.labels != ''].labels.value_counts()
+
+# ly = data[data.labels != ''].labels.apply(str.split, sep=',')
+# y = MultiLabelBinarizer().fit_transform(ly)
