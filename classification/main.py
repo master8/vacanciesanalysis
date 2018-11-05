@@ -12,6 +12,9 @@ logging.warning('Start main!')
 from sklearn.model_selection import train_test_split, KFold
 from sklearn.svm import SVC
 from sklearn.model_selection import cross_val_predict
+from sklearn.preprocessing import MultiLabelBinarizer
+from sklearn.multiclass import OneVsRestClassifier
+from sklearn.linear_model import LogisticRegression
 
 from classification.experiments.grboost import GradientBoostingExperiments
 from classification.experiments.knn import KNeighborsExperiments
@@ -73,10 +76,10 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
 
 # sz - count vacancies per mark
 # m - count marks
-# CURRENT_CORPUS_NAME = 'hh_corpus_sz245_m20_all_v3'
-#
-# CURRENT_X_COLUMN_NAME = 'all_description'
-# CURRENT_Y_COLUMN_NAME = 'standard_mark'
+CURRENT_CORPUS_NAME = 'hh_corpus_sz245_m20_all_v3'
+
+CURRENT_X_COLUMN_NAME = 'all_description'
+CURRENT_Y_COLUMN_NAME = 'standard_mark'
 #
 # run_experiments(corpus_name='hh_sz100_m20_nrd',
 #                 x_column_name='name_requirements_duties',
@@ -107,9 +110,9 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
 #                 x_column_name='name_requirements_duties',
 #                 y_column_name='standard_mark')
 
-# data_source = DataSource(CURRENT_CORPUS_NAME,
-#                          CURRENT_X_COLUMN_NAME,
-#                          CURRENT_Y_COLUMN_NAME)
+data_source = DataSource(CURRENT_CORPUS_NAME,
+                         CURRENT_X_COLUMN_NAME,
+                         CURRENT_Y_COLUMN_NAME)
 #
 # tokenizer = Tokenizer(data_source=data_source,
 #                       corpus_name=CURRENT_CORPUS_NAME)
@@ -127,7 +130,7 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
 # vectorizer.vectorize_with_tfidf_ngrams()
 # vectorizer.vectorize_with_w2v_old()
 
-# vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
+vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
 # visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
 
 # x_all = vectors_provider.get_w2v_vectors()
@@ -220,7 +223,7 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
 # grboost.make_use_tfidf_ngrams()
 # grboost.make_use_w2v_big()
 
-data = pd.read_csv("../data/new/hh_corpus_sz245_m20_all_v3.csv", header=0)
+# data = pd.read_csv("../data/new/hh_corpus_sz245_m20_all_v3.csv", header=0)
 # data = mark_corpus(data)
 # data.to_csv("../data/new/hh_all_corpus.csv", index=False, sep='|')
 # data.to_csv("../data/new/hh_corpus_sz245_m20_all_confusion.csv", index=False, sep='|')
