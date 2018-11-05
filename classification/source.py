@@ -25,6 +25,12 @@ class DataSource:
 
         return self.__corpus[self.__y_column_name]
 
+    def get_y_multi_label(self):
+        if self.__corpus is None:
+            self.__corpus = self.__read_corpus()
+
+        return self.__corpus[self.__corpus.labels != ''].labels.apply(str.split, sep=',')
+
     def get_corpus(self) -> pd.DataFrame:
         return self.__corpus
 

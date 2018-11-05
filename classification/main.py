@@ -9,7 +9,7 @@ import seaborn as sns
 
 logging.basicConfig(filename='main.log', level=logging.INFO)
 logging.warning('Start main!')
-from sklearn.model_selection import train_test_split, KFold
+from sklearn.model_selection import train_test_split, KFold, cross_val_score
 from sklearn.svm import SVC
 from sklearn.model_selection import cross_val_predict
 from sklearn.preprocessing import MultiLabelBinarizer
@@ -21,7 +21,7 @@ from classification.experiments.knn import KNeighborsExperiments
 from classification.experiments.logreg import LogisticRegressionExperiments
 from classification.experiments.svc import SVCExperiments
 from classification.experiments.voting import VotingExperiments
-from classification.marking import mark_corpus, mark_corpus_multi_labels
+from classification.marking import mark_corpus, mark_corpus_multi_labels, clean_label
 from classification.source import DataSource
 from classification.tokenization import Tokenizer, TokensProvider
 from classification.vectorization import Vectorizer, VectorsProvider
@@ -293,14 +293,28 @@ vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
 # y = ad.apply(str.split, sep=',')
 
 
-data_source.get_y()
-data = data_source.get_corpus()
-
-
-co = mark_corpus_multi_labels(data)
+# co = mark_corpus_multi_labels(data)
 
 
 # data[data.labels != ''].labels.value_counts()
 
 # ly = data[data.labels != ''].labels.apply(str.split, sep=',')
 # y = MultiLabelBinarizer().fit_transform(ly)
+
+
+# temp = data[data.standard_mark != data.pred_mark_w2v].sort_values(by='proba_pred_w2v', ascending=False)
+
+# co.loc[co.additional_labels == '0,0,0', 'additional_labels'] = ''
+# co.loc[co.main_label != 0, 'labels'] = co.main_label.apply(str) + ',' + co.additional_labels
+#
+# co.labels = co.labels.apply(clean_label)
+
+binarizer = MultiLabelBinarizer()
+
+x_all = vectors_provider.get_w2v_vectors()
+y_all = data_source.get_y_multi_label()
+
+y_all_bin = binarizer.fit_transform(y_all)
+
+model = OneVsRestClassifier(LogisticRegression(), n_jobs=-1)
+cross_val_f1 = cross_val_score(estimator=model, X=x_all, y=y_all_bin, scoring='f1_weighted', cv=5, n_jobs=-1)

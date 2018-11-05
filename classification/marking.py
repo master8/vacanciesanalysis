@@ -267,7 +267,11 @@ def mark_corpus(data: pd.DataFrame) -> pd.DataFrame:
 
 def clean_label(label: str):
     t = label.split(',')
-    t.remove('')
+    t = list(map(str.strip, t))
+
+    if '' in t:
+        t.remove('')
+
     return ','.join(t)
 
 
