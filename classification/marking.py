@@ -469,3 +469,37 @@ def mark_corpus_multi_labels(data: pd.DataFrame) -> pd.DataFrame:
     data.labels = data.labels.apply(clean_label)
 
     return data
+
+
+def merge_marking(corpus_original_name: str, corpus_edited_name: str, corpus_result_name: str):
+    data = pd.read_csv("../data/new/" + corpus_original_name, header=0, index_col='id')
+    ed = pd.read_csv("../data/new/" + corpus_edited_name, header=0, index_col='id')
+    co = pd.merge(data, ed, left_index=True, right_index=True, how='outer', suffixes=('', '_y'))
+
+    co[co.main_label != 0].main_label.count()
+    co[co.main_label_y != 0].main_label_y.count()
+
+    co['main_label_y'] = co['main_label_y'].fillna(0).astype('int')
+    co.loc[co.main_label_y != 0, 'main_label'] = co.main_label_y
+
+    co['additional_labels_y'] = co['additional_labels_y'].fillna('0,0,0')
+    co.loc[co.additional_labels_y != '0,0,0', 'additional_labels'] = co.additional_labels_y
+
+    co['editor_name_y'] = co['editor_name_y'].fillna('')
+    co.loc[co.editor_name_y != '', 'editor_name'] = co.editor_name_y
+
+    co['comments_y'] = co['comments_y'].fillna('')
+    co.loc[co.comments_y != '', 'comments'] = co.comments_y
+
+    co = co[co.main_label != -1]
+    co = co[co.main_label != 13]
+
+    co.loc[co.main_label != 0, 'standard_mark'] = co.main_label
+    co = co.drop(columns=['main_label_y', 'additional_labels_y', 'editor_name_y', 'comments_y'])
+
+    co.loc[co.additional_labels == '0,0,0', 'additional_labels'] = ''
+    co.loc[co.main_label != 0, 'labels'] = co.main_label.apply(str) + ',' + co.additional_labels
+
+    co.labels = co.labels.apply(clean_label)
+
+    co.to_csv("../data/new/" + corpus_result_name, index_label='id')

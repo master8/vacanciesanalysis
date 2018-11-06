@@ -26,7 +26,7 @@ from classification.experiments.knn import KNeighborsExperiments
 from classification.experiments.logreg import LogisticRegressionExperiments
 from classification.experiments.svc import SVCExperiments
 from classification.experiments.voting import VotingExperiments
-from classification.marking import mark_corpus, mark_corpus_multi_labels, clean_label
+from classification.marking import mark_corpus, mark_corpus_multi_labels, clean_label, merge_marking
 from classification.source import DataSource
 from classification.tokenization import Tokenizer, TokensProvider
 from classification.vectorization import Vectorizer, VectorsProvider
@@ -61,7 +61,7 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
                                      vectors_provider=vectors_provider,
                                      visualizer=visualizer)
     onevsrest.make_use_w2v()
-    onevsrest.make_use_tfidf()
+    # onevsrest.make_use_tfidf()
 
 
 # n - name
@@ -76,21 +76,21 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
 # CURRENT_X_COLUMN_NAME = 'all_description'
 # CURRENT_Y_COLUMN_NAME = 'standard_mark'
 #
-run_experiments(corpus_name='hh_corpus_sz245_m20_all',
-                x_column_name='all_description',
-                y_column_name='standard_mark')
+# run_experiments(corpus_name='hh_corpus_sz245_m20_all',
+#                 x_column_name='all_description',
+#                 y_column_name='standard_mark')
 
-run_experiments(corpus_name='hh_corpus_sz245_m20_all_v2',
-                x_column_name='all_description',
-                y_column_name='standard_mark')
-
-run_experiments(corpus_name='hh_corpus_sz245_m20_all_v3',
-                x_column_name='all_description',
-                y_column_name='standard_mark')
-
-run_experiments(corpus_name='hh_corpus_sz245_m20_all_v4',
-                x_column_name='all_description',
-                y_column_name='standard_mark')
+# run_experiments(corpus_name='hh_corpus_sz245_m20_all_v2',
+#                 x_column_name='all_description',
+#                 y_column_name='standard_mark')
+#
+# run_experiments(corpus_name='hh_corpus_sz245_m20_all_v3',
+#                 x_column_name='all_description',
+#                 y_column_name='standard_mark')
+#
+# run_experiments(corpus_name='hh_corpus_sz245_m20_all_v4',
+#                 x_column_name='all_description',
+#                 y_column_name='standard_mark')
 #
 # run_experiments(corpus_name='hh_sz200_m16_nrd',
 #                 x_column_name='name_requirements_duties',
@@ -256,32 +256,11 @@ run_experiments(corpus_name='hh_corpus_sz245_m20_all_v4',
 # plt.savefig('results/plots/dif_size.svg', format='svg')
 
 
-# data = pd.read_csv("../data/new/hh_corpus_sz245_m20_all_v2.csv", header=0, index_col='id')
-# ed = pd.read_csv("../data/new/hh_corpus_sz245_m20_all_confusion_v2_edit.csv", header=0, index_col='id')
-# co = pd.merge(data, ed, left_index=True, right_index=True, how='outer', suffixes=('', '_y'))
-#
-# co[co.main_label != 0].main_label.count()
-# co[co.main_label_y != 0].main_label_y.count()
-#
-# co['main_label_y'] = co['main_label_y'].fillna(0).astype('int')
-# co.loc[co.main_label_y != 0, 'main_label'] = co.main_label_y
-#
-# co['additional_labels_y'] = co['additional_labels_y'].fillna('0,0,0')
-# co.loc[co.additional_labels_y != '0,0,0', 'additional_labels'] = co.additional_labels_y
-#
-# co['editor_name_y'] = co['editor_name_y'].fillna('')
-# co.loc[co.editor_name_y != '', 'editor_name'] = co.editor_name_y
-#
-# co['comments_y'] = co['comments_y'].fillna('')
-# co.loc[co.comments_y != '', 'comments'] = co.comments_y
-#
-# co = co[co.main_label != -1]
-# co = co[co.main_label != 13]
-#
-# co.loc[co.main_label != 0, 'standard_mark'] = co.main_label
-# co = co.drop(columns=['main_label_y', 'additional_labels_y', 'editor_name_y', 'comments_y'])
-#
-# co.to_csv("../data/new/hh_corpus_sz245_m20_all_v3.csv", index_label='id')
+merge_marking(
+    corpus_original_name='hh_corpus_sz245_m20_all_v3.csv',
+    corpus_edited_name='hh_corpus_sz245_m20_all_v3_edit.csv',
+    corpus_result_name='hh_corpus_sz245_m20_all_v4.csv'
+)
 
 
 # y = ad.apply(str.split, sep=',')
@@ -297,12 +276,6 @@ run_experiments(corpus_name='hh_corpus_sz245_m20_all_v4',
 
 
 # temp = data[data.standard_mark != data.pred_mark_w2v].sort_values(by='proba_pred_w2v', ascending=False)
-
-# co.loc[co.additional_labels == '0,0,0', 'additional_labels'] = ''
-# co.loc[co.main_label != 0, 'labels'] = co.main_label.apply(str) + ',' + co.additional_labels
-#
-# co.labels = co.labels.apply(clean_label)
-
 
 
 # model = BinaryRelevance(classifier=LogisticRegression(C=1.0, solver='sag', n_jobs=-1))
