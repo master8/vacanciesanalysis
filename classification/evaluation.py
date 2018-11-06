@@ -28,6 +28,11 @@ class Evaluator:
         return cross_val_accuracy, cross_val_f1, train_accuracy, train_f1, test_accuracy, test_f1, y_test, y_predict_test
 
     @staticmethod
+    def evaluate_only_cross_val(model, x_all, y_all):
+        cross_val_f1 = cross_val_score(estimator=model, X=x_all, y=y_all, scoring='f1_weighted', cv=5, n_jobs=-1)
+        return cross_val_f1
+
+    @staticmethod
     def cross_probabilities(model, x_all, y_all, data_source: DataSource, method: str):
         proba = cross_val_predict(model, x_all, y_all, cv=KFold(n_splits=5, shuffle=True), method='predict_proba')
 

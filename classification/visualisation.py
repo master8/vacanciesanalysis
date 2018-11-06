@@ -53,6 +53,31 @@ class Visualizer:
 
         self.__show_confusion_matrix(y_true, y_pred, classifier_name + '_' + vec_method)
 
+    def show_results(self, classifier_name, model_name, vec_method, cross_val_f1):
+        print()
+        print(classifier_name + " " + model_name + " " + vec_method)
+        print()
+        print("cross validation")
+        print("f-score:" + str(cross_val_f1))
+        print("f-score mean:" + str(cross_val_f1.mean()))
+        print()
+
+        file_path = "results/classification_results.csv"
+
+        pd.read_csv(file_path, header=0).append({
+            'date_time': datetime.now(),
+            'classifier_name': classifier_name,
+            'model_name': model_name,
+            'vec_method': vec_method,
+            'cross_val_accuracy': '',
+            'cross_val_f1': cross_val_f1.mean(),
+            'train_accuracy': '',
+            'train_f1': '',
+            'test_accuracy': '',
+            'test_f1': '',
+            'dataset': self.__corpus_name
+        }, ignore_index=True).to_csv(file_path, index=False)
+
     def __show_confusion_matrix(self, y_true, y_pred, name):
 
         labels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21]

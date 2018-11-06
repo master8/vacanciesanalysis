@@ -7,6 +7,8 @@ import re
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+from classification.experiments.onevsrest import OneVsRestExperiments
+
 logging.basicConfig(filename='main.log', level=logging.INFO)
 logging.warning('Start main!')
 from sklearn.model_selection import train_test_split, KFold, cross_val_score
@@ -39,37 +41,27 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
                              x_column_name,
                              y_column_name)
 
-    tokenizer = Tokenizer(data_source=data_source,
-                          corpus_name=corpus_name)
-    tokenizer.tokenize()
+    # tokenizer = Tokenizer(data_source=data_source,
+    #                       corpus_name=corpus_name)
+    # tokenizer.tokenize()
+    #
+    # tokens_provider = TokensProvider(corpus_name=corpus_name)
 
-    tokens_provider = TokensProvider(corpus_name=corpus_name)
-
-    vectorizer = Vectorizer(tokens_provider=tokens_provider,
-                            corpus_name=corpus_name)
-    vectorizer.vectorize_with_tfidf()
-    vectorizer.vectorize_with_w2v()
-    vectorizer.vectorize_with_w2v_tfidf()
-    vectorizer.vectorize_with_w2v_big()
+    # vectorizer = Vectorizer(tokens_provider=tokens_provider,
+    #                         corpus_name=corpus_name)
+    # vectorizer.vectorize_with_tfidf()
+    # vectorizer.vectorize_with_w2v()
+    # vectorizer.vectorize_with_w2v_tfidf()
+    # vectorizer.vectorize_with_w2v_big()
 
     vectors_provider = VectorsProvider(corpus_name=corpus_name)
     visualizer = Visualizer(corpus_name=corpus_name)
 
-    logreg = LogisticRegressionExperiments(data_source=data_source,
-                                           vectors_provider=vectors_provider,
-                                           visualizer=visualizer)
-    logreg.make_use_tfidf()
-    logreg.make_use_w2v()
-    logreg.make_use_w2v_with_tfidf()
-    logreg.make_use_w2v_big()
-
-    svc = SVCExperiments(data_source=data_source,
-                         vectors_provider=vectors_provider,
-                         visualizer=visualizer)
-    svc.make_use_tfidf()
-    svc.make_use_w2v()
-    svc.make_use_w2v_with_tfidf()
-    svc.make_use_w2v_big()
+    onevsrest = OneVsRestExperiments(data_source=data_source,
+                                     vectors_provider=vectors_provider,
+                                     visualizer=visualizer)
+    onevsrest.make_use_w2v()
+    onevsrest.make_use_tfidf()
 
 
 # n - name
@@ -79,27 +71,26 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
 
 # sz - count vacancies per mark
 # m - count marks
-CURRENT_CORPUS_NAME = 'hh_corpus_sz245_m20_all_v3'
+# CURRENT_CORPUS_NAME = 'hh_corpus_sz245_m20_all_v3'
+#
+# CURRENT_X_COLUMN_NAME = 'all_description'
+# CURRENT_Y_COLUMN_NAME = 'standard_mark'
+#
+run_experiments(corpus_name='hh_corpus_sz245_m20_all',
+                x_column_name='all_description',
+                y_column_name='standard_mark')
 
-CURRENT_X_COLUMN_NAME = 'all_description'
-CURRENT_Y_COLUMN_NAME = 'standard_mark'
-#
-# run_experiments(corpus_name='hh_sz100_m20_nrd',
-#                 x_column_name='name_requirements_duties',
-#                 y_column_name='standard_mark')
-#
-# run_experiments(corpus_name='hh_sz100_m20_all',
-#                 x_column_name='all_description',
-#                 y_column_name='standard_mark')
-#
-#
-# run_experiments(corpus_name='hh_sz50_m16_nrd',
-#                 x_column_name='name_requirements_duties',
-#                 y_column_name='standard_mark')
-#
-# run_experiments(corpus_name='hh_sz100_m16_nrd',
-#                 x_column_name='name_requirements_duties',
-#                 y_column_name='standard_mark')
+run_experiments(corpus_name='hh_corpus_sz245_m20_all_v2',
+                x_column_name='all_description',
+                y_column_name='standard_mark')
+
+run_experiments(corpus_name='hh_corpus_sz245_m20_all_v3',
+                x_column_name='all_description',
+                y_column_name='standard_mark')
+
+run_experiments(corpus_name='hh_corpus_sz245_m20_all_v4',
+                x_column_name='all_description',
+                y_column_name='standard_mark')
 #
 # run_experiments(corpus_name='hh_sz200_m16_nrd',
 #                 x_column_name='name_requirements_duties',
@@ -113,9 +104,9 @@ CURRENT_Y_COLUMN_NAME = 'standard_mark'
 #                 x_column_name='name_requirements_duties',
 #                 y_column_name='standard_mark')
 
-data_source = DataSource(CURRENT_CORPUS_NAME,
-                         CURRENT_X_COLUMN_NAME,
-                         CURRENT_Y_COLUMN_NAME)
+# data_source = DataSource(CURRENT_CORPUS_NAME,
+#                          CURRENT_X_COLUMN_NAME,
+#                          CURRENT_Y_COLUMN_NAME)
 #
 # tokenizer = Tokenizer(data_source=data_source,
 #                       corpus_name=CURRENT_CORPUS_NAME)
@@ -133,7 +124,7 @@ data_source = DataSource(CURRENT_CORPUS_NAME,
 # vectorizer.vectorize_with_tfidf_ngrams()
 # vectorizer.vectorize_with_w2v_old()
 
-vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
+# vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
 
 
 # visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
@@ -312,14 +303,7 @@ vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
 #
 # co.labels = co.labels.apply(clean_label)
 
-binarizer = MultiLabelBinarizer()
 
-x_all = vectors_provider.get_w2v_vectors()
-y_all = data_source.get_y_multi_label()
 
-y_all_bin = binarizer.fit_transform(y_all)
-
-# model = OneVsRestClassifier(LogisticRegression(C=1.0, solver='sag', n_jobs=-1), n_jobs=-1)
 # model = BinaryRelevance(classifier=LogisticRegression(C=1.0, solver='sag', n_jobs=-1))
-model = LabelPowerset(classifier=LogisticRegression(C=1.0, solver='sag', n_jobs=-1)) # w2v 0.8342391573578064
-cross_val_f1 = cross_val_score(estimator=model, X=x_all, y=y_all_bin, scoring='f1_weighted', cv=5, n_jobs=-1)
+# model = LabelPowerset(classifier=LogisticRegression(C=1.0, solver='sag', n_jobs=-1)) # w2v 0.8342391573578064
