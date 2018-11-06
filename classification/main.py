@@ -37,31 +37,32 @@ pymystem3.mystem.MYSTEM_BIN = "/home/mluser/anaconda3/envs/master8_env/.local/bi
 
 
 def run_experiments(corpus_name, x_column_name, y_column_name):
-    data_source = DataSource(corpus_name,
-                             x_column_name,
-                             y_column_name)
+    try:
+        data_source = DataSource(corpus_name,
+                                 x_column_name,
+                                 y_column_name)
 
-    # tokenizer = Tokenizer(data_source=data_source,
-    #                       corpus_name=corpus_name)
-    # tokenizer.tokenize()
-    #
-    # tokens_provider = TokensProvider(corpus_name=corpus_name)
+        tokenizer = Tokenizer(data_source=data_source,
+                              corpus_name=corpus_name)
+        tokenizer.tokenize()
 
-    # vectorizer = Vectorizer(tokens_provider=tokens_provider,
-    #                         corpus_name=corpus_name)
-    # vectorizer.vectorize_with_tfidf()
-    # vectorizer.vectorize_with_w2v()
-    # vectorizer.vectorize_with_w2v_tfidf()
-    # vectorizer.vectorize_with_w2v_big()
+        tokens_provider = TokensProvider(corpus_name=corpus_name)
 
-    vectors_provider = VectorsProvider(corpus_name=corpus_name)
-    visualizer = Visualizer(corpus_name=corpus_name)
+        vectorizer = Vectorizer(tokens_provider=tokens_provider,
+                                corpus_name=corpus_name)
+        vectorizer.vectorize_with_tfidf()
+        vectorizer.vectorize_with_w2v()
 
-    onevsrest = OneVsRestExperiments(data_source=data_source,
-                                     vectors_provider=vectors_provider,
-                                     visualizer=visualizer)
-    onevsrest.make_use_w2v()
-    # onevsrest.make_use_tfidf()
+        vectors_provider = VectorsProvider(corpus_name=corpus_name)
+        visualizer = Visualizer(corpus_name=corpus_name)
+
+        onevsrest = OneVsRestExperiments(data_source=data_source,
+                                         vectors_provider=vectors_provider,
+                                         visualizer=visualizer)
+        onevsrest.make_use_w2v()
+        onevsrest.make_use_tfidf()
+    except:
+        logging.warning('FAILED - ' + corpus_name)
 
 
 # n - name
