@@ -34,7 +34,7 @@ class Evaluator:
 
     @staticmethod
     def cross_probabilities(model, x_all, y_all, data_source: DataSource, method: str):
-        proba = cross_val_predict(model, x_all, y_all, cv=KFold(n_splits=5, shuffle=True), method='predict_proba')
+        proba = cross_val_predict(model, x_all, y_all, cv=KFold(n_splits=5, shuffle=True), method='predict_proba', n_jobs=-1)
 
         proba = pd.DataFrame(proba)
         temp = pd.DataFrame()

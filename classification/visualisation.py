@@ -53,7 +53,7 @@ class Visualizer:
 
         self.__show_confusion_matrix(y_true, y_pred, classifier_name + '_' + vec_method)
 
-    def show_results(self, classifier_name, model_name, vec_method, cross_val_f1):
+    def show_results_briefly(self, classifier_name, model_name, vec_method, cross_val_f1):
         print()
         print(classifier_name + " " + model_name + " " + vec_method)
         print()

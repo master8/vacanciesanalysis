@@ -33,7 +33,7 @@ class OneVsRestExperiments:
 
         cross_val_f1 = Evaluator.evaluate_only_cross_val(model1, x_all, y_all)
 
-        self.__visualizer.show_results(self.__CLASSIFIER_NAME, "LogisticRegression(C=1.0, solver='sag')",
+        self.__visualizer.show_results_briefly(self.__CLASSIFIER_NAME, "LogisticRegression(C=1.0, solver='sag')",
                                        "tfidf", cross_val_f1)
 
     def make_use_w2v(self):
@@ -49,5 +49,5 @@ class OneVsRestExperiments:
 
         cross_val_f1 = Evaluator.evaluate_only_cross_val(model1, x_all, y_all)
 
-        self.__visualizer.show_results(self.__CLASSIFIER_NAME, "LogisticRegression(C=1.0, solver='sag')",
+        self.__visualizer.show_results_briefly(self.__CLASSIFIER_NAME, "LogisticRegression(C=1.0, solver='sag')",
                                        "Word2Vec", cross_val_f1)
