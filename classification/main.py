@@ -112,19 +112,32 @@ data_source = DataSource(CURRENT_CORPUS_NAME,
 vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
 visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
 
+x_all = vectors_provider.get_w2v_vectors()
+y_all = data_source.get_y_multi_label()
+
+
+model = OneVsRestClassifier(LogisticRegression(C=1.0, solver='sag', n_jobs=-1), n_jobs=-1)
+logging.warning('Start w2v proba!')
+proba = cross_val_predict(model, x_all, y_all, cv=KFold(n_splits=5, shuffle=True), method='predict_proba', n_jobs=-1)
+logging.warning('end w2v proba!')
+proba = pd.DataFrame(proba)
+proba.to_csv('../data/new/predict_proba_w2v.csv')
+logging.warning('saved w2v proba!')
+
+
+
+
 x_all = vectors_provider.get_tfidf_vectors()
 y_all = data_source.get_y_multi_label()
 
-# binarizer = MultiLabelBinarizer()
-# y_all = binarizer.fit_transform(y_all)
 
 model = OneVsRestClassifier(LogisticRegression(C=1.0, solver='sag', n_jobs=-1), n_jobs=-1)
-logging.warning('Start proba!')
+logging.warning('Start tfidf proba!')
 proba = cross_val_predict(model, x_all, y_all, cv=KFold(n_splits=5, shuffle=True), method='predict_proba', n_jobs=-1)
-logging.warning('end proba!')
+logging.warning('end tfidf proba!')
 proba = pd.DataFrame(proba)
-proba.to_csv('../data/new/proba_test_v4.csv')
-logging.warning('saved proba!')
+proba.to_csv('../data/new/predict_proba_tfidf.csv')
+logging.warning('saved tfidf proba!')
 
 # logreg = LogisticRegressionExperiments(data_source=data_source,
 #                                        vectors_provider=vectors_provider,
