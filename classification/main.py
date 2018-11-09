@@ -42,16 +42,16 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
                                  x_column_name,
                                  y_column_name)
 
-        tokenizer = Tokenizer(data_source=data_source,
-                              corpus_name=corpus_name)
-        tokenizer.tokenize()
-
-        tokens_provider = TokensProvider(corpus_name=corpus_name)
-
-        vectorizer = Vectorizer(tokens_provider=tokens_provider,
-                                corpus_name=corpus_name)
-        vectorizer.vectorize_with_tfidf()
-        vectorizer.vectorize_with_w2v()
+        # tokenizer = Tokenizer(data_source=data_source,
+        #                       corpus_name=corpus_name)
+        # tokenizer.tokenize()
+        #
+        # tokens_provider = TokensProvider(corpus_name=corpus_name)
+        #
+        # vectorizer = Vectorizer(tokens_provider=tokens_provider,
+        #                         corpus_name=corpus_name)
+        # vectorizer.vectorize_with_tfidf()
+        # vectorizer.vectorize_with_w2v()
 
         vectors_provider = VectorsProvider(corpus_name=corpus_name)
         visualizer = Visualizer(corpus_name=corpus_name)
@@ -77,32 +77,32 @@ CURRENT_CORPUS_NAME = 'hh_corpus_sz245_m20_all_v4'
 CURRENT_X_COLUMN_NAME = 'all_description'
 CURRENT_Y_COLUMN_NAME = 'standard_mark'
 
-run_experiments(corpus_name='hh_corpus_sz245_m20_all',
-                x_column_name='all_description',
-                y_column_name='standard_mark')
-
-run_experiments(corpus_name='hh_corpus_sz245_m20_all_v2',
-                x_column_name='all_description',
-                y_column_name='standard_mark')
-
-run_experiments(corpus_name='hh_corpus_sz245_m20_all_v3',
-                x_column_name='all_description',
-                y_column_name='standard_mark')
-
+# run_experiments(corpus_name='hh_corpus_sz245_m20_all',
+#                 x_column_name='all_description',
+#                 y_column_name='standard_mark')
+#
+# run_experiments(corpus_name='hh_corpus_sz245_m20_all_v2',
+#                 x_column_name='all_description',
+#                 y_column_name='standard_mark')
+#
+# run_experiments(corpus_name='hh_corpus_sz245_m20_all_v3',
+#                 x_column_name='all_description',
+#                 y_column_name='standard_mark')
+#
 data_source = DataSource(CURRENT_CORPUS_NAME,
                          CURRENT_X_COLUMN_NAME,
                          CURRENT_Y_COLUMN_NAME)
+#
+# tokenizer = Tokenizer(data_source=data_source,
+#                       corpus_name=CURRENT_CORPUS_NAME)
+# tokenizer.tokenize()
+#
+# tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
 
-tokenizer = Tokenizer(data_source=data_source,
-                      corpus_name=CURRENT_CORPUS_NAME)
-tokenizer.tokenize()
-
-tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
-
-vectorizer = Vectorizer(tokens_provider=tokens_provider,
-                        corpus_name=CURRENT_CORPUS_NAME)
-vectorizer.vectorize_with_tfidf()
-vectorizer.vectorize_with_w2v()
+# vectorizer = Vectorizer(tokens_provider=tokens_provider,
+#                         corpus_name=CURRENT_CORPUS_NAME)
+# vectorizer.vectorize_with_tfidf()
+# vectorizer.vectorize_with_w2v()
 # vectorizer.vectorize_with_w2v_tfidf()
 # vectorizer.vectorize_with_w2v_big()
 # vectorizer.vectorize_with_tfidf_wshingles()
@@ -115,7 +115,7 @@ visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
 logreg = LogisticRegressionExperiments(data_source=data_source,
                                        vectors_provider=vectors_provider,
                                        visualizer=visualizer)
-logreg.make_use_w2v()
+# logreg.make_use_w2v()
 logreg.make_use_tfidf()
 # logreg.make_use_w2v_with_tfidf(
 # logreg.make_use_w2v_big())
