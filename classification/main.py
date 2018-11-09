@@ -112,20 +112,34 @@ data_source = DataSource(CURRENT_CORPUS_NAME,
 vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
 visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
 
-logreg = LogisticRegressionExperiments(data_source=data_source,
-                                       vectors_provider=vectors_provider,
-                                       visualizer=visualizer)
+x_all = vectors_provider.get_tfidf_vectors()
+y_all = data_source.get_y_multi_label()
+
+# binarizer = MultiLabelBinarizer()
+# y_all = binarizer.fit_transform(y_all)
+
+model = OneVsRestClassifier(LogisticRegression(C=1.0, solver='sag', n_jobs=-1), n_jobs=-1)
+logging.warning('Start proba!')
+proba = cross_val_predict(model, x_all, y_all, cv=KFold(n_splits=5, shuffle=True), method='predict_proba', n_jobs=-1)
+logging.warning('end proba!')
+proba = pd.DataFrame(proba)
+proba.to_csv('../data/new/proba_test_v4.csv')
+logging.warning('saved proba!')
+
+# logreg = LogisticRegressionExperiments(data_source=data_source,
+#                                        vectors_provider=vectors_provider,
+#                                        visualizer=visualizer)
 # logreg.make_use_w2v()
-logreg.make_use_tfidf()
+# logreg.make_use_tfidf()
 # logreg.make_use_w2v_with_tfidf(
 # logreg.make_use_w2v_big())
 # logreg.make_use_tfidf_wshingles()
 # logreg.make_use_tfidf_ngrams()
 # logreg.make_use_w2v_old()
 
-run_experiments(corpus_name='hh_corpus_sz245_m20_all_v4',
-                x_column_name='all_description',
-                y_column_name='standard_mark')
+# run_experiments(corpus_name='hh_corpus_sz245_m20_all_v4',
+#                 x_column_name='all_description',
+#                 y_column_name='standard_mark')
 
 # knn = KNeighborsExperiments(data_source=data_source,
 #                             vectors_provider=vectors_provider,
