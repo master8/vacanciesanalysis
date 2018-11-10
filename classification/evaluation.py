@@ -82,7 +82,7 @@ class Evaluator:
         return results
 
     @staticmethod
-    def multi_label_predict_proba(model, x_all, y_all, data_source: DataSource):
+    def multi_label_predict_proba_w2v(model, x_all, y_all, data_source: DataSource):
 
         classes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '14', '15', '16', '17', '18', '19','20', '21']
         temp = pd.DataFrame(y_all, columns=['labels'])
@@ -144,3 +144,44 @@ class Evaluator:
                                   'pred_mark_tfidf', 'proba_pred_tfidf'])
 
         data_source.save_confusion(temp)
+
+    @staticmethod
+    def multi_label_predict_proba_tfidf(model, x_all, y_all, data_source: DataSource):
+
+        classes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '14', '15', '16', '17', '18', '19',
+                   '20', '21']
+        temp = pd.DataFrame(y_all, columns=['labels'])
+
+        binarizer = MultiLabelBinarizer(classes=classes)
+        y_all = binarizer.fit_transform(y_all)
+        x_all = np.array(x_all)
+
+        kf = KFold(n_splits=5, shuffle=True)
+
+        proba = []
+        for train, test in kf.split(x_all, y_all):
+            x_train = x_all[train]
+            y_train = y_all[train]
+
+            x_test = x_all[test]
+            y_test = y_all[test]
+
+            m = clone(model)
+            m.fit(x_train, y_train)
+            proba.append(pd.DataFrame(m.predict_proba(x_test), index=test, columns=classes))
+
+        proba = pd.concat(proba)
+
+        results = pd.merge(temp, proba, left_index=True, right_index=True, how='outer')
+        results['pred_labels_tfidf'] = ''
+
+        for mark in classes:
+            results.pred_labels_tfidf = results.pred_labels_tfidf + results[mark].apply(Evaluator.check_and_add_label,
+                                                                                    mark=mark)
+
+        results.pred_labels_tfidf = results.pred_labels_tfidf.apply(clean_label)
+
+        co = data_source.get_corpus()
+        co['pred_labels_tfidf'] = results.pred_labels_tfidf
+
+        data_source.save_corpus(co)

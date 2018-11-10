@@ -117,7 +117,13 @@ data_source = DataSource(CURRENT_CORPUS_NAME,
 # vectorizer.vectorize_with_w2v_old()
 
 vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
-# visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
+visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
+
+onevsrest = OneVsRestExperiments(data_source=data_source,
+                                 vectors_provider=vectors_provider,
+                                 visualizer=visualizer)
+onevsrest.make_use_tfidf()
+onevsrest.make_use_w2v()
 
 # x_all = vectors_provider.get_w2v_vectors()
 # y_all = data_source.get_y_multi_label()
