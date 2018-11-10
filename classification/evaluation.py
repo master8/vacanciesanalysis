@@ -1,6 +1,9 @@
 import pandas as pd
+import numpy as np
+from sklearn import clone
 from sklearn.metrics import accuracy_score, f1_score
 from sklearn.model_selection import cross_val_score, train_test_split, cross_val_predict, KFold
+from sklearn.preprocessing import MultiLabelBinarizer
 
 from classification.source import DataSource
 
@@ -65,3 +68,47 @@ class Evaluator:
         co[pred_mark_column] = temp[pred_mark_column]
         co[proba_pred_column] = temp[proba_pred_column]
         data_source.save_corpus(co)
+
+    @staticmethod
+    def multi_label_predict_proba(model, x_all, y_all, data_source: DataSource):
+
+        classes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '14', '15', '16', '17', '18', '19','20', '21']
+        temp = pd.DataFrame(y_all, columns=['labels'])
+
+        binarizer = MultiLabelBinarizer(classes=classes)
+        y_all = binarizer.fit_transform(y_all)
+        x_all = np.array(x_all)
+
+        kf = KFold(n_splits=5, shuffle=True)
+
+        proba = []
+        for train, test in kf.split(x_all, y_all):
+            x_train = x_all[train]
+            y_train = y_all[train]
+
+            x_test = x_all[test]
+            y_test = y_all[test]
+
+            m = clone(model)
+            m.fit(x_train, y_train)
+            proba.append(pd.DataFrame(m.predict_proba(x_test), index=test, columns=classes))
+
+        proba = pd.concat(proba)
+
+        results = pd.merge(temp, proba, left_index=True, right_index=True, how='outer')
+
+        y_true = pd.DataFrame(y_all, columns=classes)
+        temp = pd.DataFrame(index=results.index)
+
+        for mark in classes:
+            temp['diff_' + mark] = y_true[mark] - results[mark]
+            temp['diff_' + mark] = temp['diff_' + mark].abs()
+
+        temp['max_wrong'] = temp.max(axis=1)
+
+        co = data_source.get_corpus()
+        co['max_wrong'] = temp['max_wrong']
+
+        for mark in classes:
+            co['m' + mark] = results[mark]
+
