@@ -114,3 +114,8 @@ class Evaluator:
 
         data_source.save_corpus(co)
 
+        temp = co.sort_values(by='max_wrong', ascending=False)
+        temp = temp[temp.max_wrong > 0.5]
+        temp.to_csv()
+        data_source.save_confusion(temp)
+

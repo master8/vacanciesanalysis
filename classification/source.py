@@ -38,5 +38,8 @@ class DataSource:
         self.__corpus = corpus
         corpus.to_csv('../data/new/' + self.__corpus_name + '.csv', index=False)
 
+    def save_confusion(self, confusion: pd.DataFrame):
+        confusion.to_csv('../data/new/' + self.__corpus_name + '_confusion.csv', index=False)
+
     def __read_corpus(self) -> pd.DataFrame:
         return pd.read_csv('../data/new/' + self.__corpus_name + '.csv', header=0)
