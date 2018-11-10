@@ -32,6 +32,8 @@ class Evaluator:
 
     @staticmethod
     def evaluate_only_cross_val(model, x_all, y_all):
+        binarizer = MultiLabelBinarizer()
+        y_all = binarizer.fit_transform(y_all)
         cross_val_f1 = cross_val_score(estimator=model, X=x_all, y=y_all, scoring='f1_weighted', cv=5, n_jobs=-1)
         return cross_val_f1
 

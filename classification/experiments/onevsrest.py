@@ -24,9 +24,6 @@ class OneVsRestExperiments:
         x_all = self.__vectors_provider.get_tfidf_vectors()
         y_all = self.__data_source.get_y_multi_label()
 
-        binarizer = MultiLabelBinarizer()
-        y_all = binarizer.fit_transform(y_all)
-
         # TODO here grid search
 
         model1 = OneVsRestClassifier(LogisticRegression(C=1.0, solver='sag', n_jobs=-1), n_jobs=-1)
@@ -40,12 +37,10 @@ class OneVsRestExperiments:
         x_all = self.__vectors_provider.get_w2v_vectors()
         y_all = self.__data_source.get_y_multi_label()
 
-        binarizer = MultiLabelBinarizer()
-        y_all = binarizer.fit_transform(y_all)
-
         # TODO here grid search
 
         model1 = OneVsRestClassifier(LogisticRegression(C=1.0, solver='sag', n_jobs=-1), n_jobs=-1)
+        Evaluator.multi_label_predict_proba(model1, x_all, y_all, data_source=self.__data_source)
 
         cross_val_f1 = Evaluator.evaluate_only_cross_val(model1, x_all, y_all)
 
