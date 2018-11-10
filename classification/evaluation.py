@@ -116,6 +116,12 @@ class Evaluator:
 
         temp = co.sort_values(by='max_wrong', ascending=False)
         temp = temp[temp.max_wrong > 0.5]
-        temp.to_csv()
+        temp = temp.drop(columns=['created_at', 'area_id', 'area_name', 'employer_id',
+                                  'employer_name', 'employer_url', 'employment_id', 'experience_id',
+                                  'schedule_id', 'description', 'specializations', 'key_skills',
+                                  'salary_f_t_g_c', 'alternate_url', 'duties', 'requirements', 'standard_mark',
+                                  'proba_true_w2v', 'pred_mark_w2v', 'proba_pred_w2v', 'proba_true_tfidf',
+                                  'pred_mark_tfidf', 'proba_pred_tfidf'])
+
         data_source.save_confusion(temp)
 
