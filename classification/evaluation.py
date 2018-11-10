@@ -112,3 +112,5 @@ class Evaluator:
         for mark in classes:
             co['m' + mark] = results[mark]
 
+        data_source.save_corpus(co)
+
