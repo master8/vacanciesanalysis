@@ -5,6 +5,7 @@ from sklearn.metrics import accuracy_score, f1_score
 from sklearn.model_selection import cross_val_score, train_test_split, cross_val_predict, KFold
 from sklearn.preprocessing import MultiLabelBinarizer
 
+from classification.marking import clean_label
 from classification.source import DataSource
 
 
@@ -72,6 +73,15 @@ class Evaluator:
         data_source.save_corpus(co)
 
     @staticmethod
+    def check_and_add_label(mark_proba, mark: str):
+        results = ''
+
+        if mark_proba > 0.5:
+            results += mark + ','
+
+        return results
+
+    @staticmethod
     def multi_label_predict_proba(model, x_all, y_all, data_source: DataSource):
 
         classes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '14', '15', '16', '17', '18', '19','20', '21']
@@ -108,7 +118,15 @@ class Evaluator:
 
         temp['max_wrong'] = temp.max(axis=1)
 
+        results['pred_labels_w2v'] = ''
+
+        for mark in classes:
+            results.pred_labels_w2v = results.pred_labels_w2v + results[mark].apply(Evaluator.check_and_add_label, mark=mark)
+
+        results.pred_labels_w2v = results.pred_labels_w2v.apply(clean_label)
+
         co = data_source.get_corpus()
+        co['pred_labels_w2v'] = results.pred_labels_w2v
         co['max_wrong'] = temp['max_wrong']
 
         for mark in classes:
@@ -126,4 +144,3 @@ class Evaluator:
                                   'pred_mark_tfidf', 'proba_pred_tfidf'])
 
         data_source.save_confusion(temp)
-
