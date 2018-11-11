@@ -272,6 +272,9 @@ def clean_label(label: str):
     if '' in t:
         t.remove('')
 
+    if '13' in t:
+        t.remove('13')
+
     return ','.join(t)
 
 
