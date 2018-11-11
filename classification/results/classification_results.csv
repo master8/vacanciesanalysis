@@ -134,3 +134,13 @@ date_time,classifier_name,model_name,vec_method,cross_val_accuracy,cross_val_f1,
 2018-11-11 22:06:34.929222,OneVsRestClassifier,BaggingClassifier(MLPClassifier()),Word2Vec,,0.8168206210322015,,,,,hh_corpus_sz245_m20_all_v4
 2018-11-11 22:06:41.171730,OneVsRestClassifier,ExtraTreesClassifier(),Word2Vec,,0.4814105020484644,,,,,hh_corpus_sz245_m20_all_v4
 2018-11-11 22:10:10.941565,OneVsRestClassifier,GradientBoostingClassifier(),Word2Vec,,0.6702696661605175,,,,,hh_corpus_sz245_m20_all_v4
+2018-11-11 22:16:44.572256,OneVsRestClassifier,BRkNNaClassifier(),Word2Vec,,0.6481807625295205,,,,,hh_corpus_sz245_m20_all_v4
+2018-11-11 22:17:16.756984,OneVsRestClassifier,BinaryRelevance(LogisticRegression()),Word2Vec,,0.7969443082237697,,,,,hh_corpus_sz245_m20_all_v4
+2018-11-11 22:17:26.049981,OneVsRestClassifier,BinaryRelevance(LinearSVC()),Word2Vec,,0.7650910175723181,,,,,hh_corpus_sz245_m20_all_v4
+2018-11-11 22:25:02.493477,OneVsRestClassifier,BinaryRelevance(MLPClassifier()),Word2Vec,,0.8156297736537381,,,,,hh_corpus_sz245_m20_all_v4
+2018-11-11 22:25:13.416787,OneVsRestClassifier,ClassifierChain(LogisticRegression()),Word2Vec,,0.8101388939882213,,,,,hh_corpus_sz245_m20_all_v4
+2018-11-11 22:25:21.365562,OneVsRestClassifier,ClassifierChain(LinearSVC()),Word2Vec,,0.7738812258367083,,,,,hh_corpus_sz245_m20_all_v4
+2018-11-11 22:32:33.999927,OneVsRestClassifier,ClassifierChain(MLPClassifier()),Word2Vec,,0.8196000081049656,,,,,hh_corpus_sz245_m20_all_v4
+2018-11-11 22:33:25.704069,OneVsRestClassifier,LabelPowerset(LogisticRegression()),Word2Vec,,0.8399895108785487,,,,,hh_corpus_sz245_m20_all_v4
+2018-11-11 22:33:46.572933,OneVsRestClassifier,LabelPowerset(LinearSVC()),Word2Vec,,0.7764376462570179,,,,,hh_corpus_sz245_m20_all_v4
+2018-11-11 22:34:04.140064,OneVsRestClassifier,LabelPowerset(MLPClassifier()),Word2Vec,,0.8245644975611945,,,,,hh_corpus_sz245_m20_all_v4

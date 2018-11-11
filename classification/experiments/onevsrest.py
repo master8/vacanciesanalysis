@@ -17,7 +17,7 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, Bagging
 from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis, LinearDiscriminantAnalysis
 from skmultilearn.adapt import BRkNNaClassifier, BRkNNbClassifier, MLkNN, MLARAM
-from skmultilearn.ensemble import RakelD, RakelO, LabelSpacePartitioningClassifier
+from skmultilearn.ensemble import RakelD, RakelO
 from skmultilearn.problem_transform import BinaryRelevance, ClassifierChain, LabelPowerset
 
 from classification.evaluation import Evaluator
