@@ -108,4 +108,14 @@ date_time,classifier_name,model_name,vec_method,cross_val_accuracy,cross_val_f1,
 2018-11-09 21:24:00.586328,LogisticRegression,"(C=1.0, solver='sag')",Word2Vec,0.8596246283606968,0.8589835237713149,0.9626580417524258,0.9624924228498908,0.8600823045267489,0.8598314178364601,hh_corpus_sz245_m20_all_v4
 2018-11-09 22:12:51.065398,LogisticRegression,"(C=1.0, solver='sag')",TF-IDF,0.8890438707102577,0.8890522860085625,1.0,1.0,0.8868312757201646,0.8862691924320775,hh_corpus_sz245_m20_all_v4
 2018-11-09 22:13:22.621391,OneVsRestClassifier,"LogisticRegression(C=1.0, solver='sag')",Word2Vec,,0.8015198266229726,,,,,hh_corpus_sz245_m20_all_v4
-2018-11-09 22:42:20.868202,OneVsRestClassifier,"LogisticRegression(C=1.0, solver='sag')",tfidf,,0.814192763898884,,,,,hh_corpus_sz245_m20_all_v4
+2018-11-09 22:42:20.868202,OneVsRestClassifier,"LogisticRegression(C=1.0, solver='sag')",tfidf,,0.8141927638988841,,,,,hh_corpus_sz245_m20_all_v4
+2018-11-11 18:33:34.442350,OneVsRestClassifier,LogisticRegression(),Word2Vec,,0.7969443082237697,,,,,hh_corpus_sz245_m20_all_v4
+2018-11-11 18:33:52.859582,OneVsRestClassifier,SVC(),Word2Vec,,0.665392547045999,,,,,hh_corpus_sz245_m20_all_v4
+2018-11-11 18:34:45.110929,OneVsRestClassifier,KNeighborsClassifier(),Word2Vec,,0.6934911130912618,,,,,hh_corpus_sz245_m20_all_v4
+2018-11-11 18:42:58.079458,OneVsRestClassifier,GaussianProcessClassifier(),Word2Vec,,0.5646937828720171,,,,,hh_corpus_sz245_m20_all_v4
+2018-11-11 18:43:29.587176,OneVsRestClassifier,DecisionTreeClassifier(),Word2Vec,,0.490467051551742,,,,,hh_corpus_sz245_m20_all_v4
+2018-11-11 18:43:39.070998,OneVsRestClassifier,RandomForestClassifier(),Word2Vec,,0.4794708875783308,,,,,hh_corpus_sz245_m20_all_v4
+2018-11-11 18:51:15.394128,OneVsRestClassifier,MLPClassifier(),Word2Vec,,0.8149160523292958,,,,,hh_corpus_sz245_m20_all_v4
+2018-11-11 18:53:28.830936,OneVsRestClassifier,AdaBoostClassifier(),Word2Vec,,0.6978712782608272,,,,,hh_corpus_sz245_m20_all_v4
+2018-11-11 18:53:31.319551,OneVsRestClassifier,GaussianNB(),Word2Vec,,0.4301587517056373,,,,,hh_corpus_sz245_m20_all_v4
+2018-11-11 18:54:06.027588,OneVsRestClassifier,QuadraticDiscriminantAnalysis(),Word2Vec,,0.04807742255566637,,,,,hh_corpus_sz245_m20_all_v4
