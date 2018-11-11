@@ -65,13 +65,13 @@ class OneVsRestExperiments:
             # GaussianNB(),
             # QuadraticDiscriminantAnalysis()
             RidgeClassifier(),
-            SGDClassifier(),
-            Perceptron(),
-            PassiveAggressiveClassifier(),
+            SGDClassifier(n_jobs=-1),
+            Perceptron(n_jobs=-1),
+            PassiveAggressiveClassifier(n_jobs=-1),
             BernoulliNB(),
-            MultinomialNB(),
             NearestCentroid(),
-            LinearSVC()
+            LinearSVC(),
+            MultinomialNB()
         ]
 
         model_params = [
@@ -90,9 +90,9 @@ class OneVsRestExperiments:
             'Perceptron()',
             'PassiveAggressiveClassifier()',
             'BernoulliNB()',
-            'MultinomialNB()',
             'NearestCentroid()',
-            'LinearSVC()'
+            'LinearSVC()',
+            'MultinomialNB()'
         ]
 
         i = 0
