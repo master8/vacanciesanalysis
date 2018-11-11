@@ -1,17 +1,18 @@
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LogisticRegression, RidgeClassifier, SGDClassifier, Perceptron, \
+    PassiveAggressiveClassifier
 from sklearn.multiclass import OneVsRestClassifier
 from matplotlib.colors import ListedColormap
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.datasets import make_moons, make_circles, make_classification
 from sklearn.neural_network import MLPClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier, NearestCentroid
+from sklearn.svm import SVC, LinearSVC
 from sklearn.gaussian_process import GaussianProcessClassifier
 from sklearn.gaussian_process.kernels import RBF
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
-from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 
 from classification.evaluation import Evaluator
@@ -53,29 +54,45 @@ class OneVsRestExperiments:
         # TODO here grid search
 
         base_estimators = [
-            LogisticRegression(n_jobs=-1),
-            SVC(),
-            KNeighborsClassifier(),
-            GaussianProcessClassifier(),
-            DecisionTreeClassifier(),
-            RandomForestClassifier(),
-            MLPClassifier(),
-            AdaBoostClassifier(),
-            GaussianNB(),
-            QuadraticDiscriminantAnalysis()
+            # LogisticRegression(n_jobs=-1),
+            # SVC(),
+            # KNeighborsClassifier(),
+            # GaussianProcessClassifier(),
+            # DecisionTreeClassifier(),
+            # RandomForestClassifier(),
+            # MLPClassifier(),
+            # AdaBoostClassifier(),
+            # GaussianNB(),
+            # QuadraticDiscriminantAnalysis()
+            RidgeClassifier(),
+            SGDClassifier(),
+            Perceptron(),
+            PassiveAggressiveClassifier(),
+            BernoulliNB(),
+            MultinomialNB(),
+            NearestCentroid(),
+            LinearSVC()
         ]
 
         model_params = [
-            'LogisticRegression()',
-            'SVC()',
-            'KNeighborsClassifier()',
-            'GaussianProcessClassifier()',
-            'DecisionTreeClassifier()',
-            'RandomForestClassifier()',
-            'MLPClassifier()',
-            'AdaBoostClassifier()',
-            'GaussianNB()',
-            'QuadraticDiscriminantAnalysis()'
+            # 'LogisticRegression()',
+            # 'SVC()',
+            # 'KNeighborsClassifier()',
+            # 'GaussianProcessClassifier()',
+            # 'DecisionTreeClassifier()',
+            # 'RandomForestClassifier()',
+            # 'MLPClassifier()',
+            # 'AdaBoostClassifier()',
+            # 'GaussianNB()',
+            # 'QuadraticDiscriminantAnalysis()'
+            'RidgeClassifier()',
+            'SGDClassifier()',
+            'Perceptron()',
+            'PassiveAggressiveClassifier()',
+            'BernoulliNB()',
+            'MultinomialNB()',
+            'NearestCentroid()',
+            'LinearSVC()'
         ]
 
         i = 0
