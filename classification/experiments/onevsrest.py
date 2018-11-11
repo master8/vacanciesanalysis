@@ -1,6 +1,18 @@
 from sklearn.linear_model import LogisticRegression
 from sklearn.multiclass import OneVsRestClassifier
-from sklearn.preprocessing import MultiLabelBinarizer
+from matplotlib.colors import ListedColormap
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.datasets import make_moons, make_circles, make_classification
+from sklearn.neural_network import MLPClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
+from sklearn.gaussian_process import GaussianProcessClassifier
+from sklearn.gaussian_process.kernels import RBF
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 
 from classification.evaluation import Evaluator
 from classification.source import DataSource
@@ -40,11 +52,44 @@ class OneVsRestExperiments:
 
         # TODO here grid search
 
-        model0 = OneVsRestClassifier(LogisticRegression(n_jobs=-1), n_jobs=-1)
+        base_estimators = [
+            LogisticRegression(n_jobs=-1),
+            SVC(),
+            KNeighborsClassifier(),
+            GaussianProcessClassifier(),
+            DecisionTreeClassifier(),
+            RandomForestClassifier(),
+            MLPClassifier(),
+            AdaBoostClassifier(),
+            GaussianNB(),
+            QuadraticDiscriminantAnalysis()
+        ]
+
+        model_params = [
+            'LogisticRegression()',
+            'SVC()',
+            'KNeighborsClassifier()',
+            'GaussianProcessClassifier()',
+            'DecisionTreeClassifier()',
+            'RandomForestClassifier()',
+            'MLPClassifier()',
+            'AdaBoostClassifier()',
+            'GaussianNB()',
+            'QuadraticDiscriminantAnalysis()'
+        ]
+
+        i = 0
+        for base_estimator in base_estimators:
+            model = OneVsRestClassifier(base_estimator, n_jobs=-1)
+            cross_val_f1 = Evaluator.evaluate_only_cross_val(model, x_all, y_all)
+            self.__visualizer.show_results_briefly(self.__CLASSIFIER_NAME, model_params[i],
+                                           "Word2Vec", cross_val_f1)
+            i += 1
+
         # model1 = OneVsRestClassifier(LogisticRegression(C=1.0, solver='sag', n_jobs=-1), n_jobs=-1)
         # Evaluator.multi_label_predict_proba_w2v(model1, x_all, y_all, data_source=self.__data_source)
 
-        cross_val_f1 = Evaluator.evaluate_only_cross_val(model0, x_all, y_all)
-
-        self.__visualizer.show_results_briefly(self.__CLASSIFIER_NAME, "LogisticRegression()",
-                                       "Word2Vec", cross_val_f1)
+        # cross_val_f1 = Evaluator.evaluate_only_cross_val(model1, x_all, y_all)
+        #
+        # self.__visualizer.show_results_briefly(self.__CLASSIFIER_NAME, "LogisticRegression(C=1.0, solver='sag')",
+        #                                "Word2Vec", cross_val_f1)
