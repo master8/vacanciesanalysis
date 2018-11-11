@@ -39,8 +39,54 @@ class OneVsRestExperiments:
 
         # TODO here grid search
 
-        model1 = OneVsRestClassifier(LogisticRegression(C=1.0, solver='sag', n_jobs=-1), n_jobs=-1)
-        Evaluator.multi_label_predict_proba_tfidf(model1, x_all, y_all, data_source=self.__data_source)
+        base_estimators = [
+            LogisticRegression(n_jobs=-1),
+            # SVC(),
+            # KNeighborsClassifier(),
+            # GaussianProcessClassifier(),
+            # DecisionTreeClassifier(),
+            # RandomForestClassifier(),
+            MLPClassifier(),
+            # AdaBoostClassifier(),
+            # GaussianNB(),
+            # QuadraticDiscriminantAnalysis()
+            # RidgeClassifier(),
+            # SGDClassifier(n_jobs=-1),
+            # Perceptron(n_jobs=-1),
+            # PassiveAggressiveClassifier(n_jobs=-1),
+            # BernoulliNB(),
+            LinearSVC()
+        ]
+
+        model_params = [
+            'LogisticRegression()',
+            # 'SVC()',
+            # 'KNeighborsClassifier()',
+            # 'GaussianProcessClassifier()',
+            # 'DecisionTreeClassifier()',
+            # 'RandomForestClassifier()',
+            'MLPClassifier()',
+            # 'AdaBoostClassifier()',
+            # 'GaussianNB()',
+            # 'QuadraticDiscriminantAnalysis()'
+            # 'RidgeClassifier()',
+            # 'SGDClassifier()',
+            # 'Perceptron()',
+            # 'PassiveAggressiveClassifier()',
+            # 'BernoulliNB()',
+            'LinearSVC()'
+        ]
+
+        i = 0
+        for base_estimator in base_estimators:
+            model = OneVsRestClassifier(base_estimator, n_jobs=-1)
+            cross_val_f1 = Evaluator.evaluate_only_cross_val(model, x_all, y_all)
+            self.__visualizer.show_results_briefly(self.__CLASSIFIER_NAME, model_params[i],
+                                                   "tfidf", cross_val_f1)
+            i += 1
+
+        # model1 = OneVsRestClassifier(LogisticRegression(C=1.0, solver='sag', n_jobs=-1), n_jobs=-1)
+        # Evaluator.multi_label_predict_proba_tfidf(model1, x_all, y_all, data_source=self.__data_source)
 
         # cross_val_f1 = Evaluator.evaluate_only_cross_val(model1, x_all, y_all)
         #
@@ -54,40 +100,40 @@ class OneVsRestExperiments:
         # TODO here grid search
 
         base_estimators = [
-            # LogisticRegression(n_jobs=-1),
+            LogisticRegression(n_jobs=-1),
             # SVC(),
             # KNeighborsClassifier(),
             # GaussianProcessClassifier(),
             # DecisionTreeClassifier(),
             # RandomForestClassifier(),
-            # MLPClassifier(),
+            MLPClassifier(),
             # AdaBoostClassifier(),
             # GaussianNB(),
             # QuadraticDiscriminantAnalysis()
-            RidgeClassifier(),
-            SGDClassifier(n_jobs=-1),
-            Perceptron(n_jobs=-1),
-            PassiveAggressiveClassifier(n_jobs=-1),
-            BernoulliNB(),
+            # RidgeClassifier(),
+            # SGDClassifier(n_jobs=-1),
+            # Perceptron(n_jobs=-1),
+            # PassiveAggressiveClassifier(n_jobs=-1),
+            # BernoulliNB(),
             LinearSVC()
         ]
 
         model_params = [
-            # 'LogisticRegression()',
+            'LogisticRegression()',
             # 'SVC()',
             # 'KNeighborsClassifier()',
             # 'GaussianProcessClassifier()',
             # 'DecisionTreeClassifier()',
             # 'RandomForestClassifier()',
-            # 'MLPClassifier()',
+            'MLPClassifier()',
             # 'AdaBoostClassifier()',
             # 'GaussianNB()',
             # 'QuadraticDiscriminantAnalysis()'
-            'RidgeClassifier()',
-            'SGDClassifier()',
-            'Perceptron()',
-            'PassiveAggressiveClassifier()',
-            'BernoulliNB()',
+            # 'RidgeClassifier()',
+            # 'SGDClassifier()',
+            # 'Perceptron()',
+            # 'PassiveAggressiveClassifier()',
+            # 'BernoulliNB()',
             'LinearSVC()'
         ]
 
