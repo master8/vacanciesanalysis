@@ -69,9 +69,7 @@ class OneVsRestExperiments:
             Perceptron(n_jobs=-1),
             PassiveAggressiveClassifier(n_jobs=-1),
             BernoulliNB(),
-            NearestCentroid(),
-            LinearSVC(),
-            MultinomialNB()
+            LinearSVC()
         ]
 
         model_params = [
@@ -90,9 +88,7 @@ class OneVsRestExperiments:
             'Perceptron()',
             'PassiveAggressiveClassifier()',
             'BernoulliNB()',
-            'NearestCentroid()',
-            'LinearSVC()',
-            'MultinomialNB()'
+            'LinearSVC()'
         ]
 
         i = 0
