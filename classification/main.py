@@ -116,14 +116,14 @@ data_source = DataSource(CURRENT_CORPUS_NAME,
 # vectorizer.vectorize_with_tfidf_ngrams()
 # vectorizer.vectorize_with_w2v_old()
 
-vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
-visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
-
-onevsrest = OneVsRestExperiments(data_source=data_source,
-                                 vectors_provider=vectors_provider,
-                                 visualizer=visualizer)
+# vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
+# visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
+#
+# onevsrest = OneVsRestExperiments(data_source=data_source,
+#                                  vectors_provider=vectors_provider,
+#                                  visualizer=visualizer)
 # onevsrest.make_use_tfidf()
-onevsrest.make_use_w2v()
+# onevsrest.make_use_w2v()
 
 # x_all = vectors_provider.get_w2v_vectors()
 # y_all = data_source.get_y_multi_label()
@@ -270,3 +270,9 @@ onevsrest.make_use_w2v()
 
 # model = BinaryRelevance(classifier=LogisticRegression(C=1.0, solver='sag', n_jobs=-1))
 # model = LabelPowerset(classifier=LogisticRegression(C=1.0, solver='sag', n_jobs=-1)) # w2v 0.8342391573578064
+
+def get_main(label: str):
+    t = label.split(',')
+    t = list(map(str.strip, t))
+
+    return int(t[0])
