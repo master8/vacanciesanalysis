@@ -16,11 +16,15 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, Bagging
     GradientBoostingClassifier, VotingClassifier
 from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis, LinearDiscriminantAnalysis
+from skmultilearn.adapt import BRkNNaClassifier, BRkNNbClassifier, MLkNN, MLARAM
+from skmultilearn.ensemble import RakelD, RakelO, LabelSpacePartitioningClassifier
+from skmultilearn.problem_transform import BinaryRelevance, ClassifierChain, LabelPowerset
 
 from classification.evaluation import Evaluator
 from classification.source import DataSource
 from classification.vectorization import VectorsProvider
 from classification.visualisation import Visualizer
+import logging
 
 
 class OneVsRestExperiments:
@@ -118,16 +122,36 @@ class OneVsRestExperiments:
             # PassiveAggressiveClassifier(n_jobs=-1),
             # BernoulliNB(),
             # LinearSVC(),
-            LinearDiscriminantAnalysis(),
-            BaggingClassifier(LogisticRegression(n_jobs=-1), n_jobs=-1),
-            BaggingClassifier(LinearSVC(), n_jobs=-1),
-            BaggingClassifier(MLPClassifier(), n_jobs=-1),
-            ExtraTreesClassifier(n_jobs=-1),
-            GradientBoostingClassifier(),
-            VotingClassifier([LogisticRegression(n_jobs=-1), LinearSVC(), MLPClassifier()], n_jobs=-1),
-            LogisticRegressionCV(n_jobs=-1),
-            RidgeClassifierCV(),
-            MultinomialNB()
+            # LinearDiscriminantAnalysis(),
+            # BaggingClassifier(LogisticRegression(n_jobs=-1), n_jobs=-1),
+            # BaggingClassifier(LinearSVC(), n_jobs=-1),
+            # BaggingClassifier(MLPClassifier(), n_jobs=-1),
+            # ExtraTreesClassifier(n_jobs=-1),
+            # GradientBoostingClassifier(),
+            # VotingClassifier([LogisticRegression(n_jobs=-1), LinearSVC(), MLPClassifier()], n_jobs=-1),
+            # LogisticRegressionCV(n_jobs=-1),
+            # RidgeClassifierCV(),
+            # MultinomialNB(),
+
+            BRkNNaClassifier(),
+            BRkNNbClassifier(),
+            MLkNN(),
+            MLARAM(),
+            BinaryRelevance(LogisticRegression(n_jobs=-1)),
+            BinaryRelevance(LinearSVC()),
+            BinaryRelevance(MLPClassifier()),
+            ClassifierChain(LogisticRegression(n_jobs=-1)),
+            ClassifierChain(LinearSVC()),
+            ClassifierChain(MLPClassifier()),
+            LabelPowerset(LogisticRegression(n_jobs=-1)),
+            LabelPowerset(LinearSVC()),
+            LabelPowerset(MLPClassifier()),
+            RakelD(LogisticRegression(n_jobs=-1)),
+            RakelD(LinearSVC()),
+            RakelD(MLPClassifier()),
+            RakelO(LogisticRegression(n_jobs=-1)),
+            RakelO(LinearSVC()),
+            RakelO(MLPClassifier())
         ]
 
         model_params = [
@@ -147,25 +171,51 @@ class OneVsRestExperiments:
             # 'PassiveAggressiveClassifier()',
             # 'BernoulliNB()',
             # 'LinearSVC()',
-            'LinearDiscriminantAnalysis()',
-            'BaggingClassifier(LogisticRegression())',
-            'BaggingClassifier(LinearSVC())',
-            'BaggingClassifier(MLPClassifier())',
-            'ExtraTreesClassifier()',
-            'GradientBoostingClassifier()',
-            'VotingClassifier([LogisticRegression(), LinearSVC(), MLPClassifier()])',
-            'LogisticRegressionCV()',
-            'RidgeClassifierCV()',
-            'MultinomialNB()'
+            # 'LinearDiscriminantAnalysis()',
+            # 'BaggingClassifier(LogisticRegression())',
+            # 'BaggingClassifier(LinearSVC())',
+            # 'BaggingClassifier(MLPClassifier())',
+            # 'ExtraTreesClassifier()',
+            # 'GradientBoostingClassifier()',
+            # 'VotingClassifier([LogisticRegression(), LinearSVC(), MLPClassifier()])',
+            # 'LogisticRegressionCV()',
+            # 'RidgeClassifierCV()',
+            # 'MultinomialNB()',
+
+            'BRkNNaClassifier()',
+            'BRkNNbClassifier()',
+            'MLkNN()',
+            'MLARAM()',
+            'BinaryRelevance(LogisticRegression())',
+            'BinaryRelevance(LinearSVC())',
+            'BinaryRelevance(MLPClassifier())',
+            'ClassifierChain(LogisticRegression())',
+            'ClassifierChain(LinearSVC())',
+            'ClassifierChain(MLPClassifier())',
+            'LabelPowerset(LogisticRegression())',
+            'LabelPowerset(LinearSVC())',
+            'LabelPowerset(MLPClassifier())',
+            'RakelD(LogisticRegression())',
+            'RakelD(LinearSVC())',
+            'RakelD(MLPClassifier())',
+            'RakelO(LogisticRegression())',
+            'RakelO(LinearSVC())',
+            'RakelO(MLPClassifier())'
         ]
 
         i = 0
         for base_estimator in base_estimators:
-            model = OneVsRestClassifier(base_estimator, n_jobs=-1)
-            cross_val_f1 = Evaluator.evaluate_only_cross_val(model, x_all, y_all)
-            self.__visualizer.show_results_briefly(self.__CLASSIFIER_NAME, model_params[i],
-                                           "Word2Vec", cross_val_f1)
+            logging.warning('Start ' + model_params[i])
+            try:
+                # model = OneVsRestClassifier(base_estimator, n_jobs=-1)
+                model = base_estimator
+                cross_val_f1 = Evaluator.evaluate_only_cross_val(model, x_all, y_all)
+                self.__visualizer.show_results_briefly(self.__CLASSIFIER_NAME, model_params[i],
+                                               "Word2Vec", cross_val_f1)
+            except:
+                logging.warning('Error on ' + model_params[i])
             i += 1
+            logging.warning('End ' + model_params[i])
 
         # model1 = OneVsRestClassifier(LogisticRegression(C=1.0, solver='sag', n_jobs=-1), n_jobs=-1)
         # Evaluator.multi_label_predict_proba_w2v(model1, x_all, y_all, data_source=self.__data_source)
