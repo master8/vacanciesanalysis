@@ -128,11 +128,10 @@ class OneVsRestExperiments:
             # BaggingClassifier(MLPClassifier(), n_jobs=-1),
             # ExtraTreesClassifier(n_jobs=-1),
             # GradientBoostingClassifier(),
-            # VotingClassifier([LogisticRegression(n_jobs=-1), LinearSVC(), MLPClassifier()], n_jobs=-1),
-            # LogisticRegressionCV(n_jobs=-1),
-            # RidgeClassifierCV(),
-            # MultinomialNB(),
-
+            #? VotingClassifier([LogisticRegression(n_jobs=-1), LinearSVC(), MLPClassifier()], n_jobs=-1),
+            #? LogisticRegressionCV(n_jobs=-1),
+            #? RidgeClassifierCV(),
+            #? MultinomialNB(),
             BRkNNaClassifier(),
             BRkNNbClassifier(),
             MLkNN(),
@@ -181,7 +180,6 @@ class OneVsRestExperiments:
             # 'LogisticRegressionCV()',
             # 'RidgeClassifierCV()',
             # 'MultinomialNB()',
-
             'BRkNNaClassifier()',
             'BRkNNbClassifier()',
             'MLkNN()',
