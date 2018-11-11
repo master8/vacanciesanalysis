@@ -1,5 +1,6 @@
 from sklearn.linear_model import LogisticRegression, RidgeClassifier, SGDClassifier, Perceptron, \
-    PassiveAggressiveClassifier
+    PassiveAggressiveClassifier, LogisticRegressionCV, RidgeClassifierCV
+from sklearn.linear_model.base import LinearClassifierMixin
 from sklearn.multiclass import OneVsRestClassifier
 from matplotlib.colors import ListedColormap
 from sklearn.model_selection import train_test_split
@@ -11,9 +12,10 @@ from sklearn.svm import SVC, LinearSVC
 from sklearn.gaussian_process import GaussianProcessClassifier
 from sklearn.gaussian_process.kernels import RBF
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
+from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, BaggingClassifier, ExtraTreesClassifier, \
+    GradientBoostingClassifier, VotingClassifier
 from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
-from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
+from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis, LinearDiscriminantAnalysis
 
 from classification.evaluation import Evaluator
 from classification.source import DataSource
@@ -100,13 +102,13 @@ class OneVsRestExperiments:
         # TODO here grid search
 
         base_estimators = [
-            LogisticRegression(n_jobs=-1),
+            # LogisticRegression(n_jobs=-1),
             # SVC(),
             # KNeighborsClassifier(),
             # GaussianProcessClassifier(),
             # DecisionTreeClassifier(),
             # RandomForestClassifier(),
-            MLPClassifier(),
+            # MLPClassifier(),
             # AdaBoostClassifier(),
             # GaussianNB(),
             # QuadraticDiscriminantAnalysis()
@@ -115,17 +117,27 @@ class OneVsRestExperiments:
             # Perceptron(n_jobs=-1),
             # PassiveAggressiveClassifier(n_jobs=-1),
             # BernoulliNB(),
-            LinearSVC()
+            # LinearSVC(),
+            LinearDiscriminantAnalysis(),
+            BaggingClassifier(LogisticRegression(n_jobs=-1), n_jobs=-1),
+            BaggingClassifier(LinearSVC(), n_jobs=-1),
+            BaggingClassifier(MLPClassifier(), n_jobs=-1),
+            ExtraTreesClassifier(n_jobs=-1),
+            GradientBoostingClassifier(),
+            VotingClassifier([LogisticRegression(n_jobs=-1), LinearSVC(), MLPClassifier()], n_jobs=-1),
+            LogisticRegressionCV(n_jobs=-1),
+            RidgeClassifierCV(),
+            MultinomialNB()
         ]
 
         model_params = [
-            'LogisticRegression()',
+            # 'LogisticRegression()',
             # 'SVC()',
             # 'KNeighborsClassifier()',
             # 'GaussianProcessClassifier()',
             # 'DecisionTreeClassifier()',
             # 'RandomForestClassifier()',
-            'MLPClassifier()',
+            # 'MLPClassifier()',
             # 'AdaBoostClassifier()',
             # 'GaussianNB()',
             # 'QuadraticDiscriminantAnalysis()'
@@ -134,7 +146,17 @@ class OneVsRestExperiments:
             # 'Perceptron()',
             # 'PassiveAggressiveClassifier()',
             # 'BernoulliNB()',
-            'LinearSVC()'
+            # 'LinearSVC()',
+            'LinearDiscriminantAnalysis()',
+            'BaggingClassifier(LogisticRegression())',
+            'BaggingClassifier(LinearSVC())',
+            'BaggingClassifier(MLPClassifier())',
+            'ExtraTreesClassifier()',
+            'GradientBoostingClassifier()',
+            'VotingClassifier([LogisticRegression(), LinearSVC(), MLPClassifier()])',
+            'LogisticRegressionCV()',
+            'RidgeClassifierCV()',
+            'MultinomialNB()'
         ]
 
         i = 0
