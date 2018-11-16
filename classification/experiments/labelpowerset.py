@@ -28,9 +28,9 @@ import logging
 from datetime import datetime
 
 
-class OneVsRestExperiments:
+class LabelPowersetExperiments:
 
-    __CLASSIFIER_NAME = "OneVsRestClassifier"
+    __CLASSIFIER_NAME = "LabelPowerset"
 
     def __init__(self,
                  data_source: DataSource,
@@ -64,7 +64,7 @@ class OneVsRestExperiments:
         for base_estimator in base_estimators:
             logging.warning(str(datetime.now()) + 'Start ' + model_params[i])
             try:
-                model = OneVsRestClassifier(base_estimator, n_jobs=-1)
+                model = LabelPowerset(base_estimator)
                 cross_val_f1 = Evaluator.evaluate_only_cross_val(model, x_all, y_all)
                 self.__visualizer.show_results_briefly(self.__CLASSIFIER_NAME, model_params[i],
                                                        "tfidf", cross_val_f1)
@@ -97,7 +97,7 @@ class OneVsRestExperiments:
         for base_estimator in base_estimators:
             logging.warning(str(datetime.now()) + 'Start ' + model_params[i])
             try:
-                model = OneVsRestClassifier(base_estimator, n_jobs=-1)
+                model = LabelPowerset(base_estimator)
                 cross_val_f1 = Evaluator.evaluate_only_cross_val(model, x_all, y_all)
                 self.__visualizer.show_results_briefly(self.__CLASSIFIER_NAME, model_params[i],
                                                        "Word2Vec", cross_val_f1)
