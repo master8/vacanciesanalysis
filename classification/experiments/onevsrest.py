@@ -62,16 +62,16 @@ class OneVsRestExperiments:
             # PassiveAggressiveClassifier(n_jobs=-1),
             # BernoulliNB(),
             # LinearSVC(),
-            BRkNNaClassifier(),
-            BRkNNbClassifier(),
-            MLkNN(),
-            MLARAM(),
-            BinaryRelevance(LogisticRegression(n_jobs=-1)),
-            BinaryRelevance(LinearSVC()),
-            BinaryRelevance(MLPClassifier()),
-            ClassifierChain(LogisticRegression(n_jobs=-1)),
-            ClassifierChain(LinearSVC()),
-            ClassifierChain(MLPClassifier()),
+            # BRkNNaClassifier(),
+            # BRkNNbClassifier(),
+            # MLkNN(),
+            # MLARAM(),
+            # BinaryRelevance(LogisticRegression(n_jobs=-1)),
+            # BinaryRelevance(LinearSVC()),
+            # BinaryRelevance(MLPClassifier()),
+            # ClassifierChain(LogisticRegression(n_jobs=-1)),
+            # ClassifierChain(LinearSVC()),
+            # ClassifierChain(MLPClassifier()),
             LabelPowerset(LogisticRegression(n_jobs=-1)),
             LabelPowerset(LinearSVC()),
             LabelPowerset(MLPClassifier())
@@ -94,16 +94,16 @@ class OneVsRestExperiments:
             # 'PassiveAggressiveClassifier()',
             # 'BernoulliNB()',
             # 'LinearSVC()',
-            'BRkNNaClassifier()',
-            'BRkNNbClassifier()',
-            'MLkNN()',
-            'MLARAM()',
-            'BinaryRelevance(LogisticRegression())',
-            'BinaryRelevance(LinearSVC())',
-            'BinaryRelevance(MLPClassifier())',
-            'ClassifierChain(LogisticRegression())',
-            'ClassifierChain(LinearSVC())',
-            'ClassifierChain(MLPClassifier())',
+            # 'BRkNNaClassifier()',
+            # 'BRkNNbClassifier()',
+            # 'MLkNN()',
+            # 'MLARAM()',
+            # 'BinaryRelevance(LogisticRegression())',
+            # 'BinaryRelevance(LinearSVC())',
+            # 'BinaryRelevance(MLPClassifier())',
+            # 'ClassifierChain(LogisticRegression())',
+            # 'ClassifierChain(LinearSVC())',
+            # 'ClassifierChain(MLPClassifier())',
             'LabelPowerset(LogisticRegression())',
             'LabelPowerset(LinearSVC())',
             'LabelPowerset(MLPClassifier())'
@@ -120,8 +120,8 @@ class OneVsRestExperiments:
                                                        "tfidf", cross_val_f1)
             except:
                 logging.warning('Error on ' + model_params[i])
-            i += 1
             logging.warning('End ' + model_params[i])
+            i += 1
 
         # model1 = OneVsRestClassifier(LogisticRegression(C=1.0, solver='sag', n_jobs=-1), n_jobs=-1)
         # Evaluator.multi_label_predict_proba_tfidf(model1, x_all, y_all, data_source=self.__data_source)
@@ -232,8 +232,8 @@ class OneVsRestExperiments:
                                                "Word2Vec", cross_val_f1)
             except:
                 logging.warning('Error on ' + model_params[i])
-            i += 1
             logging.warning('End ' + model_params[i])
+            i += 1
 
 
 
