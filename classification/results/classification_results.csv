@@ -160,3 +160,7 @@ date_time,classifier_name,model_name,vec_method,cross_val_accuracy,cross_val_f1,
 2018-11-16 22:13:31.536477,LabelPowerset,LogisticRegression(),Word2Vec,,0.8483965414055803,,,,,hh_corpus_sz245_m20_all_v5
 2018-11-16 22:13:51.112132,LabelPowerset,LinearSVC(),Word2Vec,,0.7902966572024029,,,,,hh_corpus_sz245_m20_all_v5
 2018-11-16 22:14:07.502507,LabelPowerset,MLPClassifier(),Word2Vec,,0.8390385814570657,,,,,hh_corpus_sz245_m20_all_v5
+2018-11-16 23:01:31.846188,LabelPowerset,"LogisticRegression(C=1.0, solver='sag')",tfidf,,0.8817530681957608,,,,,hh_corpus_sz245_m20_all_v5
+2018-11-16 23:02:24.132865,LabelPowerset,LogisticRegression(),tfidf,,0.8779953185744741,,,,,hh_corpus_sz245_m20_all_v5
+2018-11-16 23:02:42.736984,LabelPowerset,LinearSVC(),tfidf,,0.8696594413215634,,,,,hh_corpus_sz245_m20_all_v5
+2018-11-16 23:04:49.422066,LabelPowerset,MLPClassifier(),tfidf,,0.8200409148172978,,,,,hh_corpus_sz245_m20_all_v5
