@@ -15,6 +15,8 @@ _ALL_DESCRIPTION_W2V = '/hh_all_description_sz300-it100-min2-sg0.w2v'
 _VECTORS_BASE_PATH = "prepared_data/"
 _VECTORS_TFIDF_FILE_NAME = "/vectors_tfidf.pkl"
 _VECTORS_W2V_FILE_NAME = "/vectors_w2v.pkl"
+_VECTORS_W2V_CBOW_FILE_NAME = "/vectors_w2v_cbow.pkl"
+_VECTORS_W2V_fix_FILE_NAME = "/vectors_w2v_fix.pkl"
 _VECTORS_W2V_TFIDF_FILE_NAME = "/vectors_w2v_tfidf.pkl"
 _VECTORS_W2V_BIG_FILE_NAME = "/vectors_w2v_big.pkl"
 
@@ -173,6 +175,44 @@ class Vectorizer:
 
         print("end w2v vectorizing, vectors saved")
 
+    def vectorize_with_w2v_cbow(self):
+        print("start w2v cbow vectorizing...")
+        logging.warning(str(datetime.now()) + " start w2v vectorizing...")
+
+        tokens = self.__tokens_provider.get_tokens()
+        # w2v_model = gensim.models.Word2Vec(tokens, min_count=2, iter=100, size=300, sg=0, workers=32)
+        # w2v_model.save(_VECTORS_BASE_PATH + self.__corpus_name + _ALL_DESCRIPTION_W2V)
+
+        w2v_path = '/home/mluser/prof/EduVacanciesStructuring/data/big_word2vec/big_word2vec_model_CBOW'
+        w2v_model = gensim.models.Word2Vec.load(w2v_path)
+        vectorized_tokens = [self.__SentenceToAverageWeightedVector(w2v_model.wv, vacancy) for vacancy in tokens]
+
+        outfile = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_W2V_CBOW_FILE_NAME, 'wb')
+        pickle.dump(vectorized_tokens, outfile)
+        outfile.close()
+        logging.warning(str(datetime.now()) + " end w2v vectorizing, vectors saved")
+
+        print("end w2v cbow vectorizing, vectors saved")
+
+    def vectorize_with_w2v_fix(self):
+        print("start w2v fix vectorizing...")
+        logging.warning(str(datetime.now()) + " start w2v vectorizing...")
+
+        tokens = self.__tokens_provider.get_tokens()
+        # w2v_model = gensim.models.Word2Vec(tokens, min_count=2, iter=100, size=300, sg=0, workers=32)
+        # w2v_model.save(_VECTORS_BASE_PATH + self.__corpus_name + _ALL_DESCRIPTION_W2V)
+
+        w2v_path = '/home/mluser/prof/EduVacanciesStructuring/data/big_word2vec/big_word2vec_model_fix'
+        w2v_model = gensim.models.Word2Vec.load(w2v_path)
+        vectorized_tokens = [self.__SentenceToAverageWeightedVector(w2v_model.wv, vacancy) for vacancy in tokens]
+
+        outfile = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_W2V_fix_FILE_NAME, 'wb')
+        pickle.dump(vectorized_tokens, outfile)
+        outfile.close()
+        logging.warning(str(datetime.now()) + " end w2v vectorizing, vectors saved")
+
+        print("end w2v fix vectorizing, vectors saved")
+
     # TODO порефакторить
     def __SentenceToAverageWeightedVector(self, wv, sentence):
         logging.info(str(datetime.now()) + " step " + str(self.__step))
@@ -233,6 +273,20 @@ class VectorsProvider:
     def get_w2v_vectors(self):
         if self.__vectors_w2v is None:
             file = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_W2V_FILE_NAME, 'rb')
+            self.__vectors_w2v = pickle.load(file)
+            file.close()
+        return self.__vectors_w2v
+
+    def get_w2v_vectors_cbow(self):
+        if self.__vectors_w2v is None:
+            file = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_W2V_CBOW_FILE_NAME, 'rb')
+            self.__vectors_w2v = pickle.load(file)
+            file.close()
+        return self.__vectors_w2v
+
+    def get_w2v_vectors_fix(self):
+        if self.__vectors_w2v is None:
+            file = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_W2V_fix_FILE_NAME, 'rb')
             self.__vectors_w2v = pickle.load(file)
             file.close()
         return self.__vectors_w2v
