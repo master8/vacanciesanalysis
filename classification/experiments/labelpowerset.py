@@ -47,15 +47,15 @@ class LabelPowersetExperiments:
         # TODO here grid search
 
         base_estimators = [
-            # LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
-            LogisticRegression(n_jobs=-1),
+            LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
+            # LogisticRegression(n_jobs=-1),
             # LinearSVC(),
             # MLPClassifier()
         ]
 
         model_params = [
-            # "LogisticRegression(C=1.0, solver='sag')",
-            "LogisticRegression()",
+            "LogisticRegression(C=1.0, solver='sag')",
+            # "LogisticRegression()",
             # "LinearSVC()",
             # "MLPClassifier()"
         ]
@@ -80,15 +80,15 @@ class LabelPowersetExperiments:
         # TODO here grid search
 
         base_estimators = [
-            # LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
-            LogisticRegression(n_jobs=-1),
+            LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
+            # LogisticRegression(n_jobs=-1),
             # LinearSVC(),
             # MLPClassifier()
         ]
 
         model_params = [
-            # "LogisticRegression(C=1.0, solver='sag')",
-            "LogisticRegression()",
+            "LogisticRegression(C=1.0, solver='sag')",
+            # "LogisticRegression()",
             # "LinearSVC()",
             # "MLPClassifier()"
         ]
@@ -113,15 +113,15 @@ class LabelPowersetExperiments:
         # TODO here grid search
 
         base_estimators = [
-            # LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
-            LogisticRegression(n_jobs=-1),
+            LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
+            # LogisticRegression(n_jobs=-1),
             # LinearSVC(),
             # MLPClassifier()
         ]
 
         model_params = [
-            # "LogisticRegression(C=1.0, solver='sag')",
-            "LogisticRegression()",
+            "LogisticRegression(C=1.0, solver='sag')",
+            # "LogisticRegression()",
             # "LinearSVC()",
             # "MLPClassifier()"
         ]
@@ -146,15 +146,15 @@ class LabelPowersetExperiments:
         # TODO here grid search
 
         base_estimators = [
-            # LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
-            LogisticRegression(n_jobs=-1),
+            LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
+            # LogisticRegression(n_jobs=-1),
             # LinearSVC(),
             # MLPClassifier()
         ]
 
         model_params = [
-            # "LogisticRegression(C=1.0, solver='sag')",
-            "LogisticRegression()",
+            "LogisticRegression(C=1.0, solver='sag')",
+            # "LogisticRegression()",
             # "LinearSVC()",
             # "MLPClassifier()"
         ]
