@@ -105,3 +105,17 @@ class LabelPowersetExperiments:
                 logging.warning('Error on ' + model_params[i])
             logging.warning(str(datetime.now()) + 'End ' + model_params[i])
             i += 1
+
+    def make_use_tfidf_with_results(self):
+        x_all = self.__vectors_provider.get_tfidf_vectors()
+        y_all = self.__data_source.get_y_multi_label()
+
+        model1 = LabelPowerset(LogisticRegression(C=1.0, solver='sag', n_jobs=-1))
+        Evaluator.multi_label_predict_proba_tfidf(model1, x_all, y_all, data_source=self.__data_source)
+
+    def make_use_w2v_with_results(self):
+        x_all = self.__vectors_provider.get_w2v_vectors()
+        y_all = self.__data_source.get_y_multi_label()
+
+        model1 = LabelPowerset(LogisticRegression(C=1.0, solver='sag', n_jobs=-1))
+        Evaluator.multi_label_predict_proba_w2v(model1, x_all, y_all, data_source=self.__data_source)
