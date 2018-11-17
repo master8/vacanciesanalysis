@@ -47,17 +47,17 @@ class LabelPowersetExperiments:
         # TODO here grid search
 
         base_estimators = [
-            LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
+            # LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
             LogisticRegression(n_jobs=-1),
-            LinearSVC(),
-            MLPClassifier()
+            # LinearSVC(),
+            # MLPClassifier()
         ]
 
         model_params = [
-            "LogisticRegression(C=1.0, solver='sag')",
+            # "LogisticRegression(C=1.0, solver='sag')",
             "LogisticRegression()",
-            "LinearSVC()",
-            "MLPClassifier()"
+            # "LinearSVC()",
+            # "MLPClassifier()"
         ]
 
         i = 0
@@ -80,17 +80,17 @@ class LabelPowersetExperiments:
         # TODO here grid search
 
         base_estimators = [
-            LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
+            # LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
             LogisticRegression(n_jobs=-1),
-            LinearSVC(),
-            MLPClassifier()
+            # LinearSVC(),
+            # MLPClassifier()
         ]
 
         model_params = [
-            "LogisticRegression(C=1.0, solver='sag')",
+            # "LogisticRegression(C=1.0, solver='sag')",
             "LogisticRegression()",
-            "LinearSVC()",
-            "MLPClassifier()"
+            # "LinearSVC()",
+            # "MLPClassifier()"
         ]
 
         i = 0
@@ -101,6 +101,72 @@ class LabelPowersetExperiments:
                 cross_val_f1 = Evaluator.evaluate_only_cross_val(model, x_all, y_all)
                 self.__visualizer.show_results_briefly(self.__CLASSIFIER_NAME, model_params[i],
                                                        "Word2Vec", cross_val_f1)
+            except:
+                logging.warning('Error on ' + model_params[i])
+            logging.warning(str(datetime.now()) + 'End ' + model_params[i])
+            i += 1
+
+    def make_use_w2v_cbow(self):
+        x_all = self.__vectors_provider.get_w2v_vectors_cbow()
+        y_all = self.__data_source.get_y_multi_label()
+
+        # TODO here grid search
+
+        base_estimators = [
+            # LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
+            LogisticRegression(n_jobs=-1),
+            # LinearSVC(),
+            # MLPClassifier()
+        ]
+
+        model_params = [
+            # "LogisticRegression(C=1.0, solver='sag')",
+            "LogisticRegression()",
+            # "LinearSVC()",
+            # "MLPClassifier()"
+        ]
+
+        i = 0
+        for base_estimator in base_estimators:
+            logging.warning(str(datetime.now()) + 'Start ' + model_params[i])
+            try:
+                model = LabelPowerset(base_estimator)
+                cross_val_f1 = Evaluator.evaluate_only_cross_val(model, x_all, y_all)
+                self.__visualizer.show_results_briefly(self.__CLASSIFIER_NAME, model_params[i],
+                                                       "Word2Vec_CBOW", cross_val_f1)
+            except:
+                logging.warning('Error on ' + model_params[i])
+            logging.warning(str(datetime.now()) + 'End ' + model_params[i])
+            i += 1
+
+    def make_use_w2v_fix(self):
+        x_all = self.__vectors_provider.get_w2v_vectors_fix()
+        y_all = self.__data_source.get_y_multi_label()
+
+        # TODO here grid search
+
+        base_estimators = [
+            # LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
+            LogisticRegression(n_jobs=-1),
+            # LinearSVC(),
+            # MLPClassifier()
+        ]
+
+        model_params = [
+            # "LogisticRegression(C=1.0, solver='sag')",
+            "LogisticRegression()",
+            # "LinearSVC()",
+            # "MLPClassifier()"
+        ]
+
+        i = 0
+        for base_estimator in base_estimators:
+            logging.warning(str(datetime.now()) + 'Start ' + model_params[i])
+            try:
+                model = LabelPowerset(base_estimator)
+                cross_val_f1 = Evaluator.evaluate_only_cross_val(model, x_all, y_all)
+                self.__visualizer.show_results_briefly(self.__CLASSIFIER_NAME, model_params[i],
+                                                       "Word2Vec_fix", cross_val_f1)
             except:
                 logging.warning('Error on ' + model_params[i])
             logging.warning(str(datetime.now()) + 'End ' + model_params[i])

@@ -109,22 +109,22 @@ data_source = DataSource(CURRENT_CORPUS_NAME,
 #                       corpus_name=CURRENT_CORPUS_NAME)
 # tokenizer.tokenize()
 #
-tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
+# tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
 #
-vectorizer = Vectorizer(tokens_provider=tokens_provider,
-                        corpus_name=CURRENT_CORPUS_NAME)
-vectorizer.vectorize_with_w2v()
-vectorizer.vectorize_with_w2v_cbow()
-vectorizer.vectorize_with_w2v_fix()
-vectorizer.vectorize_with_tfidf()
+# vectorizer = Vectorizer(tokens_provider=tokens_provider,
+#                         corpus_name=CURRENT_CORPUS_NAME)
+# vectorizer.vectorize_with_w2v()
+# vectorizer.vectorize_with_w2v_cbow()
+# vectorizer.vectorize_with_w2v_fix()
+# vectorizer.vectorize_with_tfidf()
 # vectorizer.vectorize_with_w2v_tfidf()
 # vectorizer.vectorize_with_w2v_big()
 # vectorizer.vectorize_with_tfidf_wshingles()
 # vectorizer.vectorize_with_tfidf_ngrams()
 # vectorizer.vectorize_with_w2v_old()
 
-# vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
-# visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
+vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
+visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
 #
 # onevsrest = OneVsRestExperiments(data_source=data_source,
 #                                  vectors_provider=vectors_provider,
@@ -132,13 +132,15 @@ vectorizer.vectorize_with_tfidf()
 # onevsrest.make_use_w2v()
 # onevsrest.make_use_tfidf()
 #
-# lpe = LabelPowersetExperiments(data_source=data_source,
-#                                vectors_provider=vectors_provider,
-#                                visualizer=visualizer)
+lpe = LabelPowersetExperiments(data_source=data_source,
+                               vectors_provider=vectors_provider,
+                               visualizer=visualizer)
 # lpe.make_use_w2v_with_results()
 # lpe.make_use_tfidf_with_results()
-# lpe.make_use_w2v()
-# lpe.make_use_tfidf()
+lpe.make_use_w2v()
+lpe.make_use_w2v_cbow()
+lpe.make_use_w2v_fix()
+lpe.make_use_tfidf()
 
 
 # x_all = vectors_provider.get_w2v_vectors()
