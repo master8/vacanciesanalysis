@@ -145,7 +145,7 @@ lpe = LabelPowersetExperiments(data_source=data_source,
 # lpe.make_use_w2v_with_results()
 # lpe.make_use_tfidf_with_results()
 # lpe.make_use_w2v()
-# lpe.make_use_w2v_cbow()
+lpe.make_use_w2v_cbow()
 # lpe.make_use_w2v_fix()
 lpe.make_use_tfidf()
 
