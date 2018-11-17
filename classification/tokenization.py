@@ -6,6 +6,7 @@ from datetime import datetime
 from nltk.corpus import stopwords
 from pymystem3 import Mystem
 
+from classification.preprocessing import process_text
 from classification.source import DataSource
 
 
@@ -25,7 +26,8 @@ class Tokenizer:
         print("start tokenizing...")
         logging.warning(str(datetime.now()) + " start tokenizing...")
 
-        tokenized_requirements = self.__tokenize_sentences_lemmatized(self.__data_source.get_x())
+        # tokenized_requirements = self.__tokenize_sentences_lemmatized(self.__data_source.get_x())
+        tokenized_requirements = self.__data_source.get_x().apply(lambda text: process_text(text)['lemmatized_text_pos_tags'])
 
         outfile = open(_TOKENS_BASE_PATH + self.__corpus_name + _TOKENS_FILE_NAME, 'wb')
         pickle.dump(tokenized_requirements, outfile)
