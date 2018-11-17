@@ -289,7 +289,8 @@ vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
 
 x_all = vectors_provider.get_w2v_vectors()
 y_all = data_source.get_y_multi_label()
-model = OneVsRestClassifier(LogisticRegression(n_jobs=-1), n_jobs=-1)
+model = LabelPowerset(LogisticRegression(n_jobs=-1))
+# model = OneVsRestClassifier(LogisticRegression(n_jobs=-1), n_jobs=-1)
 # classes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '14', '15', '16', '17', '18', '19',
 #                    '20', '21']
 # binarizer = MultiLabelBinarizer(classes=classes)
@@ -301,4 +302,4 @@ model = OneVsRestClassifier(LogisticRegression(n_jobs=-1), n_jobs=-1)
 # y_pred = model.predict(x_test)
 # print(classification_report(y_test, y_pred, target_names=classes))
 
-Evaluator.multi_label_report(model, x_all, y_all)
+Evaluator.multi_label_report(model, x_all, y_all, sparse=True)

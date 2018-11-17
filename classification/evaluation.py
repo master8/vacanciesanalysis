@@ -9,6 +9,7 @@ from classification.marking import clean_label
 from classification.source import DataSource
 from sklearn.metrics import classification_report
 from sklearn.metrics import precision_recall_fscore_support
+from scipy.sparse import csr_matrix
 
 
 class Evaluator:
@@ -84,7 +85,7 @@ class Evaluator:
         return results
 
     @staticmethod
-    def multi_label_report(model, x_all, y_all):
+    def multi_label_report(model, x_all, y_all, sparse=False):
         classes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '14', '15', '16', '17', '18', '19',
                    '20', '21']
         temp = pd.DataFrame(y_all, columns=['labels'])
@@ -105,7 +106,12 @@ class Evaluator:
 
             m = clone(model)
             m.fit(x_train, y_train)
-            predict.append(pd.DataFrame(m.predict(x_test), index=test, columns=classes))
+            y_pred = m.predict(x_test)
+
+            if sparse:
+                y_pred = csr_matrix(y_pred).toarray(order=classes)
+
+            predict.append(pd.DataFrame(y_pred, index=test, columns=classes))
 
         y_pred = pd.concat(predict)
         results = pd.merge(temp, y_pred, left_index=True, right_index=True, how='outer')
