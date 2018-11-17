@@ -7,6 +7,8 @@ from sklearn.preprocessing import MultiLabelBinarizer
 
 from classification.marking import clean_label
 from classification.source import DataSource
+from sklearn.metrics import classification_report
+from sklearn.metrics import precision_recall_fscore_support
 
 
 class Evaluator:
@@ -80,6 +82,39 @@ class Evaluator:
             results += mark + ','
 
         return results
+
+    @staticmethod
+    def multi_label_report(model, x_all, y_all):
+        classes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '14', '15', '16', '17', '18', '19',
+                   '20', '21']
+        temp = pd.DataFrame(y_all, columns=['labels'])
+
+        binarizer = MultiLabelBinarizer(classes=classes)
+        y_all = binarizer.fit_transform(y_all)
+        x_all = np.array(x_all)
+
+        kf = KFold(n_splits=5, shuffle=True)
+
+        predict = []
+        for train, test in kf.split(x_all, y_all):
+            x_train = x_all[train]
+            y_train = y_all[train]
+
+            x_test = x_all[test]
+            y_test = y_all[test]
+
+            m = clone(model)
+            m.fit(x_train, y_train)
+            predict.append(pd.DataFrame(m.predict(x_test), index=test, columns=classes))
+
+        y_pred = pd.concat(predict)
+        results = pd.merge(temp, y_pred, left_index=True, right_index=True, how='outer')
+        y_pred = results.drop(columns='labels')
+        print(classification_report(y_all, y_pred, target_names=classes))
+        print('macro ' + str(precision_recall_fscore_support(y_all, y_pred, average='macro')))
+        print('micro ' + str(precision_recall_fscore_support(y_all, y_pred, average='micro')))
+        print('weighted ' + str(precision_recall_fscore_support(y_all, y_pred, average='weighted')))
+
 
     @staticmethod
     def multi_label_predict_proba_w2v(model, x_all, y_all, data_source: DataSource):

@@ -14,8 +14,10 @@ import re
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+from classification.evaluation import Evaluator
 from classification.experiments.labelpowerset import LabelPowersetExperiments
 from classification.experiments.onevsrest import OneVsRestExperiments
+from sklearn.metrics import classification_report
 
 logging.basicConfig(filename='main.log', level=logging.INFO)
 logging.warning('Start main!')
@@ -118,7 +120,7 @@ data_source = DataSource(CURRENT_CORPUS_NAME,
 # vectorizer.vectorize_with_w2v_old()
 
 vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
-visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
+# visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
 #
 # onevsrest = OneVsRestExperiments(data_source=data_source,
 #                                  vectors_provider=vectors_provider,
@@ -126,11 +128,11 @@ visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
 # onevsrest.make_use_w2v()
 # onevsrest.make_use_tfidf()
 #
-lpe = LabelPowersetExperiments(data_source=data_source,
-                               vectors_provider=vectors_provider,
-                               visualizer=visualizer)
-lpe.make_use_w2v_with_results()
-lpe.make_use_tfidf_with_results()
+# lpe = LabelPowersetExperiments(data_source=data_source,
+#                                vectors_provider=vectors_provider,
+#                                visualizer=visualizer)
+# lpe.make_use_w2v_with_results()
+# lpe.make_use_tfidf_with_results()
 # lpe.make_use_w2v()
 # lpe.make_use_tfidf()
 
@@ -279,8 +281,24 @@ lpe.make_use_tfidf_with_results()
 # model = BinaryRelevance(classifier=LogisticRegression(C=1.0, solver='sag', n_jobs=-1))
 # model = LabelPowerset(classifier=LogisticRegression(C=1.0, solver='sag', n_jobs=-1)) # w2v 0.8342391573578064
 
-def get_main(label: str):
-    t = label.split(',')
-    t = list(map(str.strip, t))
+# def get_main(label: str):
+#     t = label.split(',')
+#     t = list(map(str.strip, t))
+#
+#     return int(t[0])
 
-    return int(t[0])
+x_all = vectors_provider.get_w2v_vectors()
+y_all = data_source.get_y_multi_label()
+model = OneVsRestClassifier(LogisticRegression(n_jobs=-1), n_jobs=-1)
+# classes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '14', '15', '16', '17', '18', '19',
+#                    '20', '21']
+# binarizer = MultiLabelBinarizer(classes=classes)
+# y_all = binarizer.fit_transform(y_all)
+# x_all = np.array(x_all)
+#
+# x_train, x_test, y_train, y_test = train_test_split(x_all, y_all, test_size=0.3)
+# model.fit(x_train, y_train)
+# y_pred = model.predict(x_test)
+# print(classification_report(y_test, y_pred, target_names=classes))
+
+Evaluator.multi_label_report(model, x_all, y_all)
