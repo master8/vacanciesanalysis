@@ -483,8 +483,8 @@ def merge_marking(corpus_original_name: str, corpus_edited_name: str, corpus_res
     #    'proba_true_w2v', 'pred_mark_w2v', 'proba_pred_w2v', 'proba_true_tfidf',
     #    'pred_mark_tfidf', 'proba_pred_tfidf'])
 
-    ed = ed.drop(columns=['name', 'all_description', 'has_duties', 'has_requirements', 'labels',
-       'pred_labels_w2v', 'pred_labels_tfidf', 'max_wrong', 'm1', 'm2',
+    ed = ed.drop(columns=['name', 'all_description', 'labels',
+       'w2v', 'tfidf', 'max_wrong', 'm1', 'm2',
        'm3', 'm4', 'm5', 'm6', 'm7', 'm8', 'm9', 'm10', 'm11', 'm12', 'm14',
        'm15', 'm16', 'm17', 'm18', 'm19', 'm20', 'm21'])
 

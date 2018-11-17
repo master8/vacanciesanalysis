@@ -2,7 +2,8 @@ from datetime import datetime
 
 import pandas as pd
 import numpy as np
-from sklearn import clone
+from scipy.sparse import csr_matrix
+from sklearn import clone, cluster
 from sklearn.metrics import accuracy_score, f1_score
 from sklearn.model_selection import cross_val_score, train_test_split, cross_val_predict, KFold
 from sklearn.preprocessing import MultiLabelBinarizer
@@ -13,6 +14,7 @@ import logging
 import re
 import matplotlib.pyplot as plt
 import seaborn as sns
+from skmultilearn.ensemble import LabelSpacePartitioningClassifier
 
 from classification.evaluation import Evaluator
 from classification.experiments.labelpowerset import LabelPowersetExperiments
@@ -20,6 +22,9 @@ from classification.experiments.onevsrest import OneVsRestExperiments
 from sklearn.metrics import classification_report
 
 from classification.preprocessing import process_text
+from skmultilearn.cluster import MatrixLabelSpaceClusterer
+from sklearn.cluster import KMeans, MeanShift, SpectralClustering, Birch
+from sklearn.cluster import DBSCAN
 
 logging.basicConfig(filename='main.log', level=logging.INFO)
 logging.warning('Start main!')
@@ -43,6 +48,8 @@ from classification.source import DataSource
 from classification.tokenization import Tokenizer, TokensProvider
 from classification.vectorization import Vectorizer, VectorsProvider
 from classification.visualisation import Visualizer
+
+from skmultilearn.cluster import LabelCooccurrenceGraphBuilder
 
 pymystem3.mystem.MYSTEM_DIR = "/home/mluser/anaconda3/envs/master8_env/.local/bin"
 pymystem3.mystem.MYSTEM_BIN = "/home/mluser/anaconda3/envs/master8_env/.local/bin/mystem"
@@ -84,7 +91,7 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
 
 # sz - count vacancies per mark
 # m - count marks
-CURRENT_CORPUS_NAME = 'hh_corpus_sz245_m20_all_v5'
+CURRENT_CORPUS_NAME = 'hh_corpus_sz245_m20_all_v6'
 
 CURRENT_X_COLUMN_NAME = 'all_description'
 CURRENT_Y_COLUMN_NAME = 'standard_mark'
@@ -105,18 +112,18 @@ data_source = DataSource(CURRENT_CORPUS_NAME,
                          CURRENT_X_COLUMN_NAME,
                          CURRENT_Y_COLUMN_NAME)
 
-# tokenizer = Tokenizer(data_source=data_source,
-#                       corpus_name=CURRENT_CORPUS_NAME)
-# tokenizer.tokenize()
-#
-# tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
-#
-# vectorizer = Vectorizer(tokens_provider=tokens_provider,
-#                         corpus_name=CURRENT_CORPUS_NAME)
+tokenizer = Tokenizer(data_source=data_source,
+                      corpus_name=CURRENT_CORPUS_NAME)
+tokenizer.tokenize()
+
+tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
+
+vectorizer = Vectorizer(tokens_provider=tokens_provider,
+                        corpus_name=CURRENT_CORPUS_NAME)
 # vectorizer.vectorize_with_w2v()
-# vectorizer.vectorize_with_w2v_cbow()
+vectorizer.vectorize_with_w2v_cbow()
 # vectorizer.vectorize_with_w2v_fix()
-# vectorizer.vectorize_with_tfidf()
+vectorizer.vectorize_with_tfidf()
 # vectorizer.vectorize_with_w2v_tfidf()
 # vectorizer.vectorize_with_w2v_big()
 # vectorizer.vectorize_with_tfidf_wshingles()
@@ -137,9 +144,9 @@ lpe = LabelPowersetExperiments(data_source=data_source,
                                visualizer=visualizer)
 # lpe.make_use_w2v_with_results()
 # lpe.make_use_tfidf_with_results()
-lpe.make_use_w2v()
+# lpe.make_use_w2v()
 lpe.make_use_w2v_cbow()
-lpe.make_use_w2v_fix()
+# lpe.make_use_w2v_fix()
 lpe.make_use_tfidf()
 
 
@@ -263,9 +270,9 @@ lpe.make_use_tfidf()
 
 
 # merge_marking(
-#     corpus_original_name='hh_corpus_sz245_m20_all_v4.csv',
-#     corpus_edited_name='hh_corpus_sz245_m20_all_v4_edit.csv',
-#     corpus_result_name='hh_corpus_sz245_m20_all_v5.csv'
+#     corpus_original_name='hh_corpus_sz245_m20_all_v5.csv',
+#     corpus_edited_name='hh_corpus_sz245_m20_all_v5_edit.csv',
+#     corpus_result_name='hh_corpus_sz245_m20_all_v6.csv'
 # )
 
 
@@ -311,3 +318,33 @@ lpe.make_use_tfidf()
 # Evaluator.multi_label_report(model, x_all, y_all, sparse=True)
 
 # tokenized_requirements = data_source.get_x()[:10].apply(lambda text: process_text(text)['lemmatized_text_pos_tags'])
+
+# x_all = vectors_provider.get_w2v_vectors_cbow()
+# y_all = data_source.get_y_multi_label()
+# model = LabelPowerset(LogisticRegression(n_jobs=-1))
+#
+# classes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '14', '15', '16', '17', '18', '19',
+#            '20', '21']
+# binarizer = MultiLabelBinarizer(classes=classes)
+# y_all = binarizer.fit_transform(y_all)
+# x_all = np.array(x_all)
+#
+# x_train, x_test, y_train, y_test = train_test_split(x_all, y_all, test_size=0.3)
+#
+# graph_builder = LabelCooccurrenceGraphBuilder(weighted=True, include_self_edges=False)
+# edge_map = graph_builder.transform(y_train)
+#
+# # matrix_clusterer = MatrixLabelSpaceClusterer(clusterer=KMeans(n_clusters=20, n_jobs=-1))
+# matrix_clusterer = MatrixLabelSpaceClusterer(clusterer=DBSCAN(eps=.2))
+#
+# matrix_clusterer.fit_predict(x_train, y_train)
+#
+# classifier = LabelSpacePartitioningClassifier(
+#     classifier=model,
+#     clusterer=matrix_clusterer
+# )
+#
+# classifier.fit(x_train, y_train)
+# prediction = classifier.predict(x_test)
+# y_pred = csr_matrix(prediction).toarray(order=classes)
+# print(classification_report(y_test, y_pred, target_names=classes))
