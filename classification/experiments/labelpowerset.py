@@ -75,7 +75,7 @@ class LabelPowersetExperiments:
             {
                 'classifier': [LogisticRegression()],
                 'classifier__fit_intercept': (True, False),
-                'classifier__C': np.logspace(-4, 4, 9),
+                'classifier__C': np.logspace(-1, 5, 7),
                 'classifier__intercept_scaling': (True, False),
                 'classifier__class_weight': (None, 'balanced'),
                 'classifier__solver': ('newton-cg', 'lbfgs', 'sag', 'saga'),
@@ -185,7 +185,7 @@ class LabelPowersetExperiments:
             {
                 'classifier': [LogisticRegression()],
                 'classifier__fit_intercept': (True, False),
-                'classifier__C': np.logspace(-4, 4, 9),
+                'classifier__C': np.logspace(-1, 5, 7),
                 'classifier__intercept_scaling': (True, False),
                 'classifier__class_weight': (None, 'balanced'),
                 'classifier__solver': ('newton-cg', 'lbfgs', 'sag', 'saga'),

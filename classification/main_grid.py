@@ -64,7 +64,7 @@ pymystem3.mystem.MYSTEM_BIN = "/home/mluser/anaconda3/envs/master8_env/.local/bi
 
 # sz - count vacancies per mark
 # m - count marks
-CURRENT_CORPUS_NAME = 'hh_corpus_sz245_m20_all_v5_test'
+CURRENT_CORPUS_NAME = 'hh_corpus_sz245_m20_all_v7'
 
 CURRENT_X_COLUMN_NAME = 'all_description'
 CURRENT_Y_COLUMN_NAME = 'standard_mark'
@@ -74,18 +74,18 @@ data_source = DataSource(CURRENT_CORPUS_NAME,
                          CURRENT_Y_COLUMN_NAME)
 
 
-# tokenizer = Tokenizer(data_source=data_source,
-#                       corpus_name=CURRENT_CORPUS_NAME)
-# tokenizer.tokenize()
-#
-# tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
-#
-# vectorizer = Vectorizer(tokens_provider=tokens_provider,
-#                         corpus_name=CURRENT_CORPUS_NAME)
+tokenizer = Tokenizer(data_source=data_source,
+                      corpus_name=CURRENT_CORPUS_NAME)
+tokenizer.tokenize()
+
+tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
+
+vectorizer = Vectorizer(tokens_provider=tokens_provider,
+                        corpus_name=CURRENT_CORPUS_NAME)
 # vectorizer.vectorize_with_w2v()
-# vectorizer.vectorize_with_w2v_cbow()
+vectorizer.vectorize_with_w2v_cbow()
 # vectorizer.vectorize_with_w2v_fix()
-# vectorizer.vectorize_with_tfidf()
+vectorizer.vectorize_with_tfidf()
 # vectorizer.vectorize_with_w2v_tfidf()
 # vectorizer.vectorize_with_w2v_big()
 # vectorizer.vectorize_with_tfidf_wshingles()
@@ -133,7 +133,7 @@ lpe = LabelPowersetExperiments(data_source=data_source,
 # lpe.make_use_w2v()
 lpe.make_use_w2v_cbow()
 # lpe.make_use_w2v_fix()
-# lpe.make_use_tfidf()
+lpe.make_use_tfidf()
 
 
 # x_all = vectors_provider.get_w2v_vectors()
