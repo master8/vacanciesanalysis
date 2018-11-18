@@ -13,11 +13,32 @@ class Visualizer:
         super().__init__()
         self.__corpus_name = corpus_name
 
-    def save_metrics(self, report, micro, macro, weighted):
+    def save_metrics(self, classifier_name, model_name, vec_method, report, micro, macro, weighted):
         print(report)
         print(micro)
         print(macro)
         print(weighted)
+
+        file_path = "results/classification_reports.csv"
+        re = pd.read_csv(file_path, header=0)
+        re.append({
+            'date_time': datetime.now(),
+            'classifier_name': classifier_name,
+            'model_name': model_name,
+            'vec_method': vec_method,
+            'dataset': self.__corpus_name,
+            'f1_micro': micro[2],
+            'f1_macro': macro[2],
+            'f1_weighted': weighted[2],
+            'precision_micro': micro[0],
+            'precision_macro': macro[0],
+            'precision_weighted': weighted[0],
+            'recall_micro': micro[1],
+            'recall_macro': macro[1],
+            'recall_weighted': weighted[1],
+            'report_for_labels': report
+        }, ignore_index=True)
+
 
     def show_results(self, classifier_name, model_name, vec_method,
                      cross_val_accuracy, cross_val_f1,

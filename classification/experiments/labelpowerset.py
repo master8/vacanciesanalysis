@@ -135,7 +135,8 @@ class LabelPowersetExperiments:
                 # self.__visualizer.show_results_briefly(self.__CLASSIFIER_NAME, model_params[i],
                 #                                        "Word2Vec_CBOW", cross_val_f1)
                 report, micro, macro, weighted = Evaluator.multi_label_report(model, x_all, y_all, True)
-                self.__visualizer.save_metrics(report, micro, macro, weighted)
+                self.__visualizer.save_metrics(self.__CLASSIFIER_NAME, model_params[i], "Word2Vec_CBOW",
+                                               report, micro, macro, weighted)
             except:
                 logging.warning('Error on ' + model_params[i])
             logging.warning(str(datetime.now()) + 'End ' + model_params[i])
