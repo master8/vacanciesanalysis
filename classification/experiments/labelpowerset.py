@@ -1,10 +1,12 @@
+import numpy as np
+
 from sklearn.linear_model import LogisticRegression, RidgeClassifier, SGDClassifier, Perceptron, \
     PassiveAggressiveClassifier, LogisticRegressionCV, RidgeClassifierCV
 from sklearn.linear_model.base import LinearClassifierMixin
 from sklearn.multiclass import OneVsRestClassifier
 from matplotlib.colors import ListedColormap
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.preprocessing import StandardScaler, MultiLabelBinarizer
 from sklearn.datasets import make_moons, make_circles, make_classification
 from sklearn.neural_network import MLPClassifier
 from sklearn.neighbors import KNeighborsClassifier, NearestCentroid
@@ -44,37 +46,74 @@ class LabelPowersetExperiments:
         x_all = self.__vectors_provider.get_tfidf_vectors()
         y_all = self.__data_source.get_y_multi_label()
 
-        # TODO here grid search
+        binarizer = MultiLabelBinarizer()
+        y_all = binarizer.fit_transform(y_all)
 
-        base_estimators = [
-            # LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
-            LogisticRegression(n_jobs=-1),
-            LinearSVC(),
-            # MLPClassifier()
+        default = LabelPowerset()
+        parameters = [
+            {
+                'classifier': [SVC()],
+                'classifier__C': np.logspace(-1, 5, 7),
+                'classifier__kernel': ['linear', 'poly', 'rbf', 'sigmoid'],
+                'classifier__degree': range(0, 5, 1),
+                'classifier__probability': [True, False],
+                'classifier__shrinking': [True, False],
+
+            }
         ]
 
-        model_params = [
-            # "LogisticRegression(C=1.0, solver='sag')",
-            "LogisticRegression()",
-            "LinearSVC()",
-            # "MLPClassifier()"
-        ]
+        grid = GridSearchCV(default, parameters, scoring='f1_weighted', cv=5, n_jobs=-1)
+        grid.fit(x_all, y_all)
+        best_param = grid.best_params_
+        self.__visualizer.save_best_params(self.__CLASSIFIER_NAME, 'SVC()', "tfidf", best_param)
 
-        i = 0
-        for base_estimator in base_estimators:
-            logging.warning(str(datetime.now()) + 'Start ' + model_params[i])
-            try:
-                model = LabelPowerset(base_estimator)
-                # cross_val_f1 = Evaluator.evaluate_only_cross_val(model, x_all, y_all)
-                # self.__visualizer.show_results_briefly(self.__CLASSIFIER_NAME, model_params[i],
-                #                                        "Word2Vec_CBOW", cross_val_f1)
-                report, micro, macro, weighted = Evaluator.multi_label_report(model, x_all, y_all, True)
-                self.__visualizer.save_metrics(self.__CLASSIFIER_NAME, model_params[i], "tfidf",
-                                               report, micro, macro, weighted)
-            except:
-                logging.warning('Error on ' + model_params[i])
-            logging.warning(str(datetime.now()) + 'End ' + model_params[i])
-            i += 1
+        default = LabelPowerset()
+
+        parameters = [
+            {
+                'classifier': [LogisticRegression()],
+                'classifier__fit_intercept': (True, False),
+                'classifier__C': np.logspace(-4, 4, 9),
+                'classifier__intercept_scaling': (True, False),
+                'classifier__class_weight': (None, 'balanced'),
+                'classifier__solver': ('newton-cg', 'lbfgs', 'sag', 'saga'),
+                'classifier__multi_class': ('ovr', 'multinomial')
+            }]
+
+        grid = GridSearchCV(default, parameters, scoring='f1_weighted', cv=5, n_jobs=-1)
+        grid.fit(x_all, y_all)
+        best_param = grid.best_params_
+        self.__visualizer.save_best_params(self.__CLASSIFIER_NAME, 'LogisticRegression()', "tfidf", best_param)
+
+        # base_estimators = [
+        #     # LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
+        #     LogisticRegression(n_jobs=-1),
+        #     LinearSVC(),
+        #     # MLPClassifier()
+        # ]
+        #
+        # model_params = [
+        #     # "LogisticRegression(C=1.0, solver='sag')",
+        #     "LogisticRegression()",
+        #     "LinearSVC()",
+        #     # "MLPClassifier()"
+        # ]
+        #
+        # i = 0
+        # for base_estimator in base_estimators:
+        #     logging.warning(str(datetime.now()) + 'Start ' + model_params[i])
+        #     try:
+        #         model = LabelPowerset(base_estimator)
+        #         # cross_val_f1 = Evaluator.evaluate_only_cross_val(model, x_all, y_all)
+        #         # self.__visualizer.show_results_briefly(self.__CLASSIFIER_NAME, model_params[i],
+        #         #                                        "Word2Vec_CBOW", cross_val_f1)
+        #         report, micro, macro, weighted = Evaluator.multi_label_report(model, x_all, y_all, True)
+        #         self.__visualizer.save_metrics(self.__CLASSIFIER_NAME, model_params[i], "tfidf",
+        #                                        report, micro, macro, weighted)
+        #     except:
+        #         logging.warning('Error on ' + model_params[i])
+        #     logging.warning(str(datetime.now()) + 'End ' + model_params[i])
+        #     i += 1
 
     def make_use_w2v(self):
         x_all = self.__vectors_provider.get_w2v_vectors()
@@ -113,37 +152,71 @@ class LabelPowersetExperiments:
         x_all = self.__vectors_provider.get_w2v_vectors_cbow()
         y_all = self.__data_source.get_y_multi_label()
 
-        # TODO here grid search
+        default = LabelPowerset()
+        parameters = [
+            {
+                'classifier': [SVC()],
+                'classifier__C': np.logspace(-1, 5, 7),
+                'classifier__kernel': ['linear', 'poly', 'rbf', 'sigmoid'],
+                'classifier__degree': range(0, 5, 1),
+                'classifier__probability': [True, False],
+                'classifier__shrinking': [True, False],
 
-        base_estimators = [
-            # LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
-            LogisticRegression(n_jobs=-1),
-            # LinearSVC(),
-            MLPClassifier()
+            }
         ]
 
-        model_params = [
-            # "LogisticRegression(C=1.0, solver='sag')",
-            "LogisticRegression()",
-            # "LinearSVC()",
-            "MLPClassifier()"
-        ]
+        grid = GridSearchCV(default, parameters, scoring='f1_weighted', cv=5, n_jobs=-1)
+        grid.fit(x_all, y_all)
+        best_param = grid.best_params_
+        self.__visualizer.save_best_params(self.__CLASSIFIER_NAME, 'SVC()', "Word2Vec_CBOW", best_param)
 
-        i = 0
-        for base_estimator in base_estimators:
-            logging.warning(str(datetime.now()) + 'Start ' + model_params[i])
-            try:
-                model = LabelPowerset(base_estimator)
-                # cross_val_f1 = Evaluator.evaluate_only_cross_val(model, x_all, y_all)
-                # self.__visualizer.show_results_briefly(self.__CLASSIFIER_NAME, model_params[i],
-                #                                        "Word2Vec_CBOW", cross_val_f1)
-                report, micro, macro, weighted = Evaluator.multi_label_report(model, x_all, y_all, True)
-                self.__visualizer.save_metrics(self.__CLASSIFIER_NAME, model_params[i], "Word2Vec_CBOW",
-                                               report, micro, macro, weighted)
-            except:
-                logging.warning('Error on ' + model_params[i])
-            logging.warning(str(datetime.now()) + 'End ' + model_params[i])
-            i += 1
+        default = LabelPowerset()
+
+        parameters = [
+            {
+                'classifier': [LogisticRegression()],
+                'classifier__fit_intercept': (True, False),
+                'classifier__C': np.logspace(-4, 4, 9),
+                'classifier__intercept_scaling': (True, False),
+                'classifier__class_weight': (None, 'balanced'),
+                'classifier__solver': ('newton-cg', 'lbfgs', 'sag', 'saga'),
+                'classifier__multi_class': ('ovr', 'multinomial')
+            }]
+
+        grid = GridSearchCV(default, parameters, scoring='f1_weighted', cv=5, n_jobs=-1)
+        grid.fit(x_all, y_all)
+        best_param = grid.best_params_
+        self.__visualizer.save_best_params(self.__CLASSIFIER_NAME, 'LogisticRegression()', "Word2Vec_CBOW", best_param)
+
+        # base_estimators = [
+        #     # LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
+        #     LogisticRegression(n_jobs=-1),
+        #     # LinearSVC(),
+        #     MLPClassifier()
+        # ]
+        #
+        # model_params = [
+        #     # "LogisticRegression(C=1.0, solver='sag')",
+        #     "LogisticRegression()",
+        #     # "LinearSVC()",
+        #     "MLPClassifier()"
+        # ]
+        #
+        # i = 0
+        # for base_estimator in base_estimators:
+        #     logging.warning(str(datetime.now()) + 'Start ' + model_params[i])
+        #     try:
+        #         model = LabelPowerset(base_estimator)
+        #         # cross_val_f1 = Evaluator.evaluate_only_cross_val(model, x_all, y_all)
+        #         # self.__visualizer.show_results_briefly(self.__CLASSIFIER_NAME, model_params[i],
+        #         #                                        "Word2Vec_CBOW", cross_val_f1)
+        #         report, micro, macro, weighted = Evaluator.multi_label_report(model, x_all, y_all, True)
+        #         self.__visualizer.save_metrics(self.__CLASSIFIER_NAME, model_params[i], "Word2Vec_CBOW",
+        #                                        report, micro, macro, weighted)
+        #     except:
+        #         logging.warning('Error on ' + model_params[i])
+        #     logging.warning(str(datetime.now()) + 'End ' + model_params[i])
+        #     i += 1
 
     def make_use_w2v_fix(self):
         x_all = self.__vectors_provider.get_w2v_vectors_fix()

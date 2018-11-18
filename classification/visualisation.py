@@ -13,6 +13,17 @@ class Visualizer:
         super().__init__()
         self.__corpus_name = corpus_name
 
+    def save_best_params(self, classifier_name, model_name, vec_method, best_param):
+        file_path = "results/classification_grid_search.csv"
+        pd.read_csv(file_path, header=0).append({
+            'date_time': datetime.now(),
+            'classifier_name': classifier_name,
+            'model_params': model_name,
+            'vec_method': vec_method,
+            'dataset': self.__corpus_name,
+            'best_param': best_param
+        }, ignore_index=True).to_csv(file_path, index=False)
+
     def save_metrics(self, classifier_name, model_name, vec_method, report, micro, macro, weighted):
         print(report)
         print(micro)
