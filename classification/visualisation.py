@@ -13,6 +13,12 @@ class Visualizer:
         super().__init__()
         self.__corpus_name = corpus_name
 
+    def save_metrics(self, report, micro, macro, weighted):
+        print(report)
+        print(micro)
+        print(macro)
+        print(weighted)
+
     def show_results(self, classifier_name, model_name, vec_method,
                      cross_val_accuracy, cross_val_f1,
                      train_accuracy, train_f1,

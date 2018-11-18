@@ -130,22 +130,22 @@ data_source = DataSource(CURRENT_CORPUS_NAME,
 # vectorizer.vectorize_with_tfidf_ngrams()
 # vectorizer.vectorize_with_w2v_old()
 
-# vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
-# visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
-#
+vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
+visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
+
 # onevsrest = OneVsRestExperiments(data_source=data_source,
 #                                  vectors_provider=vectors_provider,
 #                                  visualizer=visualizer)
 # onevsrest.make_use_w2v()
 # onevsrest.make_use_tfidf()
 #
-# lpe = LabelPowersetExperiments(data_source=data_source,
-#                                vectors_provider=vectors_provider,
-#                                visualizer=visualizer)
+lpe = LabelPowersetExperiments(data_source=data_source,
+                               vectors_provider=vectors_provider,
+                               visualizer=visualizer)
 # lpe.make_use_w2v_with_results()
 # lpe.make_use_tfidf_with_results()
 # lpe.make_use_w2v()
-# lpe.make_use_w2v_cbow()
+lpe.make_use_w2v_cbow()
 # lpe.make_use_w2v_fix()
 # lpe.make_use_tfidf()
 

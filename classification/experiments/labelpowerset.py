@@ -114,16 +114,16 @@ class LabelPowersetExperiments:
 
         base_estimators = [
             # LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
-            # LogisticRegression(n_jobs=-1),
-            LinearSVC(),
-            MLPClassifier()
+            LogisticRegression(n_jobs=-1),
+            # LinearSVC(),
+            # MLPClassifier()
         ]
 
         model_params = [
             # "LogisticRegression(C=1.0, solver='sag')",
-            # "LogisticRegression()",
-            "LinearSVC()",
-            "MLPClassifier()"
+            "LogisticRegression()",
+            # "LinearSVC()",
+            # "MLPClassifier()"
         ]
 
         i = 0
@@ -131,9 +131,10 @@ class LabelPowersetExperiments:
             logging.warning(str(datetime.now()) + 'Start ' + model_params[i])
             try:
                 model = LabelPowerset(base_estimator)
-                cross_val_f1 = Evaluator.evaluate_only_cross_val(model, x_all, y_all)
-                self.__visualizer.show_results_briefly(self.__CLASSIFIER_NAME, model_params[i],
-                                                       "Word2Vec_CBOW", cross_val_f1)
+                # cross_val_f1 = Evaluator.evaluate_only_cross_val(model, x_all, y_all)
+                # self.__visualizer.show_results_briefly(self.__CLASSIFIER_NAME, model_params[i],
+                #                                        "Word2Vec_CBOW", cross_val_f1)
+                Evaluator.multi_label_report(model, x_all, y_all, True)
             except:
                 logging.warning('Error on ' + model_params[i])
             logging.warning(str(datetime.now()) + 'End ' + model_params[i])

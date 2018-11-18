@@ -116,10 +116,11 @@ class Evaluator:
         y_pred = pd.concat(predict)
         results = pd.merge(temp, y_pred, left_index=True, right_index=True, how='outer')
         y_pred = results.drop(columns='labels')
-        print(classification_report(y_all, y_pred, target_names=classes))
-        print('macro ' + str(precision_recall_fscore_support(y_all, y_pred, average='macro')))
-        print('micro ' + str(precision_recall_fscore_support(y_all, y_pred, average='micro')))
-        print('weighted ' + str(precision_recall_fscore_support(y_all, y_pred, average='weighted')))
+
+        return classification_report(y_all, y_pred, target_names=classes), \
+               precision_recall_fscore_support(y_all, y_pred, average='micro'), \
+               precision_recall_fscore_support(y_all, y_pred, average='macro'), \
+               precision_recall_fscore_support(y_all, y_pred, average='weighted')
 
 
     @staticmethod
