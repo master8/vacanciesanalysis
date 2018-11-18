@@ -5,11 +5,13 @@ class DataSource:
     def __init__(self,
                  corpus_name,
                  x_column_name,
-                 y_column_name) -> None:
+                 y_column_name,
+                 n_samples = None) -> None:
         super().__init__()
         self.__corpus_name = corpus_name
         self.__x_column_name = x_column_name
         self.__y_column_name = y_column_name
+        self.__n_samples = n_samples
 
         self.__corpus: pd.DataFrame = None
 
@@ -42,4 +44,17 @@ class DataSource:
         confusion.to_csv('../data/new/' + self.__corpus_name + '_confusion.csv', index=False)
 
     def __read_corpus(self) -> pd.DataFrame:
-        return pd.read_csv('../data/new/' + self.__corpus_name + '.csv', header=0)
+
+        corpus = pd.read_csv('../data/new/' + self.__corpus_name + '.csv', header=0)
+
+        if self.__n_samples is not None:
+            classes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '14', '15', '16', '17', '18',
+                       '19', '20', '21']
+            frames = []
+            for mark in classes:
+                corpus['has_' + mark] = corpus.labels.apply(lambda le: mark in le.split(','))
+                frames.append(corpus[corpus['has_' + mark]].sample(10))
+
+            corpus = pd.concat(frames)
+
+        return corpus

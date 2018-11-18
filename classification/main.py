@@ -130,8 +130,8 @@ data_source = DataSource(CURRENT_CORPUS_NAME,
 # vectorizer.vectorize_with_tfidf_ngrams()
 # vectorizer.vectorize_with_w2v_old()
 
-vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
-visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
+# vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
+# visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
 #
 # onevsrest = OneVsRestExperiments(data_source=data_source,
 #                                  vectors_provider=vectors_provider,
@@ -139,15 +139,15 @@ visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
 # onevsrest.make_use_w2v()
 # onevsrest.make_use_tfidf()
 #
-lpe = LabelPowersetExperiments(data_source=data_source,
-                               vectors_provider=vectors_provider,
-                               visualizer=visualizer)
+# lpe = LabelPowersetExperiments(data_source=data_source,
+#                                vectors_provider=vectors_provider,
+#                                visualizer=visualizer)
 # lpe.make_use_w2v_with_results()
 # lpe.make_use_tfidf_with_results()
 # lpe.make_use_w2v()
-lpe.make_use_w2v_cbow()
+# lpe.make_use_w2v_cbow()
 # lpe.make_use_w2v_fix()
-lpe.make_use_tfidf()
+# lpe.make_use_tfidf()
 
 
 # x_all = vectors_provider.get_w2v_vectors()
@@ -348,3 +348,12 @@ lpe.make_use_tfidf()
 # prediction = classifier.predict(x_test)
 # y_pred = csr_matrix(prediction).toarray(order=classes)
 # print(classification_report(y_test, y_pred, target_names=classes))
+
+
+# re = []
+# for mark in classes:
+#     co['has_' + mark] = co.labels.apply(lambda le: mark in le.split(','))
+#     re.append(co[co['has_' + mark]].sample(10))
+#     print(mark + ' ' + str(co[co['has_' + mark]].labels.count()))
+#
+# re = pd.concat(re)
