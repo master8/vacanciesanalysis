@@ -58,7 +58,8 @@ class DataSource:
                 corpus['has_' + mark] = corpus.labels.apply(lambda le: mark in le.split(','))
                 frames.append(corpus[corpus['has_' + mark]].sample(self.__n_samples))
 
-            corpus = pd.concat(frames)
-            corpus = corpus.drop_duplicates(subset='id')
+            corpus = pd.concat(frames, ignore_index=True)
+            corpus = corpus.drop_duplicates(['id'])
+            corpus.reset_index(drop=True)
 
         return corpus
