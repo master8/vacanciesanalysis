@@ -23,7 +23,7 @@ class Visualizer:
         pd.read_csv(file_path, header=0).append({
             'date_time': datetime.now(),
             'classifier_name': classifier_name,
-            'model_name': model_name,
+            'model_params': model_name,
             'vec_method': vec_method,
             'dataset': self.__corpus_name,
             'f1_micro': micro[2],
