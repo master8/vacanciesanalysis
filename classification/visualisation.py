@@ -20,8 +20,7 @@ class Visualizer:
         print(weighted)
 
         file_path = "results/classification_reports.csv"
-        re = pd.read_csv(file_path, header=0)
-        re.append({
+        pd.read_csv(file_path, header=0).append({
             'date_time': datetime.now(),
             'classifier_name': classifier_name,
             'model_name': model_name,
@@ -37,7 +36,7 @@ class Visualizer:
             'recall_macro': macro[1],
             'recall_weighted': weighted[1],
             'report_for_labels': report
-        }, ignore_index=True)
+        }, ignore_index=True).to_csv(file_path, index=False)
 
 
     def show_results(self, classifier_name, model_name, vec_method,
