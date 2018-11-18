@@ -60,6 +60,6 @@ class DataSource:
 
             corpus = pd.concat(frames, ignore_index=True)
             corpus = corpus.drop_duplicates(['id'])
-            corpus.reset_index(drop=True)
+            corpus = corpus.reset_index(drop=True)
 
         return corpus
