@@ -91,10 +91,40 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
 
 # sz - count vacancies per mark
 # m - count marks
-CURRENT_CORPUS_NAME = 'hh_corpus_sz245_m20_all_v6'
+CURRENT_CORPUS_NAME = 'hh_corpus_sz245_m20_all_v6_t'
 
 CURRENT_X_COLUMN_NAME = 'all_description'
 CURRENT_Y_COLUMN_NAME = 'standard_mark'
+
+def run_size_experiments(n_samples):
+    data_source = DataSource(CURRENT_CORPUS_NAME,
+                             CURRENT_X_COLUMN_NAME,
+                             CURRENT_Y_COLUMN_NAME, n_samples)
+
+    tokenizer = Tokenizer(data_source=data_source,
+                          corpus_name=CURRENT_CORPUS_NAME)
+    tokenizer.tokenize()
+
+    tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
+
+    vectorizer = Vectorizer(tokens_provider=tokens_provider,
+                            corpus_name=CURRENT_CORPUS_NAME)
+    # vectorizer.vectorize_with_tfidf()
+    vectorizer.vectorize_with_w2v_cbow()
+
+    vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
+    visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME + '_' + str(n_samples))
+
+    lpe = LabelPowersetExperiments(data_source=data_source,
+                                   vectors_provider=vectors_provider,
+                                   visualizer=visualizer)
+    lpe.make_use_w2v_cbow()
+    # lpe.make_use_tfidf()
+
+
+run_size_experiments(10)
+run_size_experiments(20)
+run_size_experiments(30)
 
 # run_experiments(corpus_name='hh_corpus_sz245_m20_all',
 #                 x_column_name='all_description',
@@ -108,9 +138,9 @@ CURRENT_Y_COLUMN_NAME = 'standard_mark'
 #                 x_column_name='all_description',
 #                 y_column_name='standard_mark')
 #
-data_source = DataSource(CURRENT_CORPUS_NAME,
-                         CURRENT_X_COLUMN_NAME,
-                         CURRENT_Y_COLUMN_NAME)
+# data_source = DataSource(CURRENT_CORPUS_NAME,
+#                          CURRENT_X_COLUMN_NAME,
+#                          CURRENT_Y_COLUMN_NAME)
 
 # tokenizer = Tokenizer(data_source=data_source,
 #                       corpus_name=CURRENT_CORPUS_NAME)
@@ -130,8 +160,8 @@ data_source = DataSource(CURRENT_CORPUS_NAME,
 # vectorizer.vectorize_with_tfidf_ngrams()
 # vectorizer.vectorize_with_w2v_old()
 
-vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
-visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
+# vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
+# visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
 
 # onevsrest = OneVsRestExperiments(data_source=data_source,
 #                                  vectors_provider=vectors_provider,
@@ -139,13 +169,13 @@ visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
 # onevsrest.make_use_w2v()
 # onevsrest.make_use_tfidf()
 #
-lpe = LabelPowersetExperiments(data_source=data_source,
-                               vectors_provider=vectors_provider,
-                               visualizer=visualizer)
+# lpe = LabelPowersetExperiments(data_source=data_source,
+#                                vectors_provider=vectors_provider,
+#                                visualizer=visualizer)
 # lpe.make_use_w2v_with_results()
 # lpe.make_use_tfidf_with_results()
 # lpe.make_use_w2v()
-lpe.make_use_w2v_cbow()
+# lpe.make_use_w2v_cbow()
 # lpe.make_use_w2v_fix()
 # lpe.make_use_tfidf()
 
