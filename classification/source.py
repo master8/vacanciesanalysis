@@ -56,7 +56,7 @@ class DataSource:
             frames = []
             for mark in classes:
                 corpus['has_' + mark] = corpus.labels.apply(lambda le: mark in le.split(','))
-                frames.append(corpus[corpus['has_' + mark]].sample(10))
+                frames.append(corpus[corpus['has_' + mark]].sample(self.__n_samples))
 
             corpus = pd.concat(frames)
 
