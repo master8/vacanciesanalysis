@@ -114,15 +114,15 @@ class LabelPowersetExperiments:
 
         base_estimators = [
             # LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
-            # LogisticRegression(n_jobs=-1),
-            LinearSVC(),
+            LogisticRegression(n_jobs=-1),
+            # LinearSVC(),
             # MLPClassifier()
         ]
 
         model_params = [
             # "LogisticRegression(C=1.0, solver='sag')",
-            # "LogisticRegression()",
-            "LinearSVC()",
+            "LogisticRegression()",
+            # "LinearSVC()",
             # "MLPClassifier()"
         ]
 

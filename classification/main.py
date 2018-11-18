@@ -127,6 +127,13 @@ def run_size_experiments(n_samples):
 run_size_experiments(10)
 run_size_experiments(20)
 run_size_experiments(30)
+run_size_experiments(40)
+run_size_experiments(50)
+run_size_experiments(60)
+run_size_experiments(70)
+run_size_experiments(80)
+run_size_experiments(90)
+run_size_experiments(100)
 
 # run_experiments(corpus_name='hh_corpus_sz245_m20_all',
 #                 x_column_name='all_description',
