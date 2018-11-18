@@ -67,6 +67,8 @@ class LabelPowersetExperiments:
         best_param = grid.best_params_
         self.__visualizer.save_best_params(self.__CLASSIFIER_NAME, 'SVC()', "tfidf", best_param)
 
+        logging.warning(str(datetime.now()) + 'End SVC')
+
         default = LabelPowerset()
 
         parameters = [
@@ -84,6 +86,8 @@ class LabelPowersetExperiments:
         grid.fit(x_all, y_all)
         best_param = grid.best_params_
         self.__visualizer.save_best_params(self.__CLASSIFIER_NAME, 'LogisticRegression()', "tfidf", best_param)
+
+        logging.warning(str(datetime.now()) + 'End LogisticRegression')
 
         # base_estimators = [
         #     # LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
@@ -152,6 +156,9 @@ class LabelPowersetExperiments:
         x_all = self.__vectors_provider.get_w2v_vectors_cbow()
         y_all = self.__data_source.get_y_multi_label()
 
+        binarizer = MultiLabelBinarizer()
+        y_all = binarizer.fit_transform(y_all)
+
         default = LabelPowerset()
         parameters = [
             {
@@ -170,6 +177,8 @@ class LabelPowersetExperiments:
         best_param = grid.best_params_
         self.__visualizer.save_best_params(self.__CLASSIFIER_NAME, 'SVC()', "Word2Vec_CBOW", best_param)
 
+        logging.warning(str(datetime.now()) + 'End SVC')
+
         default = LabelPowerset()
 
         parameters = [
@@ -187,6 +196,8 @@ class LabelPowersetExperiments:
         grid.fit(x_all, y_all)
         best_param = grid.best_params_
         self.__visualizer.save_best_params(self.__CLASSIFIER_NAME, 'LogisticRegression()', "Word2Vec_CBOW", best_param)
+
+        logging.warning(str(datetime.now()) + 'End LogisticRegression')
 
         # base_estimators = [
         #     # LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
