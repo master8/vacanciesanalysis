@@ -97,6 +97,7 @@ CURRENT_X_COLUMN_NAME = 'all_description'
 CURRENT_Y_COLUMN_NAME = 'standard_mark'
 
 def run_size_experiments(n_samples):
+    logging.warning('start' + str(n_samples))
     data_source = DataSource(CURRENT_CORPUS_NAME,
                              CURRENT_X_COLUMN_NAME,
                              CURRENT_Y_COLUMN_NAME, n_samples)
@@ -120,6 +121,7 @@ def run_size_experiments(n_samples):
                                    visualizer=visualizer)
     lpe.make_use_w2v_cbow()
     # lpe.make_use_tfidf()
+    logging.warning('end! ' + str(n_samples))
 
 
 run_size_experiments(10)
