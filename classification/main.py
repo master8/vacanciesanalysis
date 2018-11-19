@@ -96,6 +96,7 @@ CURRENT_CORPUS_NAME = 'hh_corpus_sz245_m20_all_v7'
 CURRENT_X_COLUMN_NAME = 'all_description'
 CURRENT_Y_COLUMN_NAME = 'standard_mark'
 
+
 def run_size_experiments(n_samples):
     logging.warning('start' + str(n_samples))
     data_source = DataSource(CURRENT_CORPUS_NAME,
@@ -115,6 +116,12 @@ def run_size_experiments(n_samples):
 
     vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
     visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME + '_' + str(n_samples))
+
+    ovr = OneVsRestExperiments(data_source=data_source,
+                               vectors_provider=vectors_provider,
+                               visualizer=visualizer)
+    ovr.make_use_w2v()
+    ovr.make_use_tfidf()
 
     lpe = LabelPowersetExperiments(data_source=data_source,
                                    vectors_provider=vectors_provider,
