@@ -199,31 +199,31 @@ class LabelPowersetExperiments:
         # logging.warning(str(datetime.now()) + 'End LogisticRegression')
 
         base_estimators = [
-            # LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
-            LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
-                               intercept_scaling=True, max_iter=100, multi_class='ovr', penalty='l2', random_state=None,
-                               solver='newton-cg',
-                               tol=0.0001, warm_start=False, n_jobs=-1),
+            LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
+            # LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
+            #                    intercept_scaling=True, max_iter=100, multi_class='ovr', penalty='l2', random_state=None,
+            #                    solver='newton-cg',
+            #                    tol=0.0001, warm_start=False, n_jobs=-1),
             # LinearSVC(),
             # MLPClassifier()
-            SVC(C=0.1, cache_size=200, class_weight=None, coef0=0.0,
-                decision_function_shape='ovr', degree=0, gamma='auto', kernel='linear',
-                max_iter=-1, probability=True, random_state=None, shrinking=True,
-                tol=0.001, verbose=False)
+            # SVC(C=0.1, cache_size=200, class_weight=None, coef0=0.0,
+            #     decision_function_shape='ovr', degree=0, gamma='auto', kernel='linear',
+            #     max_iter=-1, probability=True, random_state=None, shrinking=True,
+            #     tol=0.001, verbose=False)
         ]
 
         model_params = [
-            # "LogisticRegression(C=1.0, solver='sag')",
-            "LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,\
-                               intercept_scaling=True, max_iter=100, multi_class='ovr', penalty='l2', random_state=None,\
-                               solver='newton-cg',\
-                               tol=0.0001, warm_start=False, n_jobs=-1)",
+            "LogisticRegression(C=1.0, solver='sag')",
+            # "LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,\
+            #                    intercept_scaling=True, max_iter=100, multi_class='ovr', penalty='l2', random_state=None,\
+            #                    solver='newton-cg',\
+            #                    tol=0.0001, warm_start=False, n_jobs=-1)",
             # "LinearSVC()",
             # "MLPClassifier()",
-            "SVC(C=0.1, cache_size=200, class_weight=None, coef0=0.0,\
-                decision_function_shape='ovr', degree=0, gamma='auto', kernel='linear',\
-                max_iter=-1, probability=True, random_state=None, shrinking=True,\
-                tol=0.001, verbose=False)"
+            # "SVC(C=0.1, cache_size=200, class_weight=None, coef0=0.0,\
+            #     decision_function_shape='ovr', degree=0, gamma='auto', kernel='linear',\
+            #     max_iter=-1, probability=True, random_state=None, shrinking=True,\
+            #     tol=0.001, verbose=False)"
         ]
 
         i = 0

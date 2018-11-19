@@ -2124,7 +2124,7 @@ avg / total       0.89      0.82      0.85      4534
 
 avg / total       0.90      0.83      0.86      5620
 "
-2018-11-19 19:27:28.033394,LabelPowerset,"SVC(C=0.1, cache_size=200, class_weight=None, coef0=0.0,                decision_function_shape='ovr', degree=0, gamma='auto', kernel='linear',                max_iter=-1, probability=True, random_state=None, shrinking=True,                tol=0.001, verbose=False)",Word2Vec_CBOW,hh_corpus_sz245_m20_all_v7_None,0.8516345347862533,0.8517144599074646,0.8486701092971621,0.8934922806331835,0.8943983691961146,0.890629079414146,0.8135231316725978,0.8158584213975797,0.8135231316725978,"             precision    recall  f1-score   support
+2018-11-19 19:27:28.033394,LabelPowerset,"SVC(C=0.1, cache_size=200, class_weight=None, coef0=0.0,                decision_function_shape='ovr', degree=0, gamma='auto', kernel='linear',                max_iter=-1, probability=True, random_state=None, shrinking=True,                tol=0.001, verbose=False)",Word2Vec_CBOW,hh_corpus_sz245_m20_all_v7_None,0.8516345347862533,0.8517144599074646,0.8486701092971621,0.8934922806331835,0.8943983691961146,0.8906290794141459,0.8135231316725978,0.8158584213975797,0.8135231316725978,"             precision    recall  f1-score   support
 
           1       0.94      0.90      0.92       243
           2       0.86      0.63      0.73       305
@@ -2148,4 +2148,29 @@ avg / total       0.90      0.83      0.86      5620
          21       0.77      0.56      0.65       322
 
 avg / total       0.89      0.81      0.85      5620
+"
+2018-11-19 21:27:07.637305,LabelPowerset,"LogisticRegression(C=1.0, solver='sag')",Word2Vec_CBOW,hh_corpus_sz245_m20_all_v7_None,0.8640029665337907,0.8663657830206171,0.8610075502601078,0.9018772982388233,0.9035177909344844,0.8989745023841446,0.8291814946619217,0.83515996992036,0.8291814946619217,"             precision    recall  f1-score   support
+
+          1       0.93      0.92      0.92       243
+          2       0.84      0.62      0.71       305
+          3       0.90      0.91      0.91       244
+          4       0.91      0.83      0.86       209
+          5       0.85      0.75      0.79       256
+          6       0.82      0.74      0.78       266
+          7       0.98      0.89      0.93       241
+          8       0.86      0.73      0.79       304
+          9       0.98      0.94      0.96       221
+         10       0.92      0.86      0.89       333
+         11       0.96      0.83      0.89       236
+         12       0.90      0.92      0.91       216
+         14       0.88      0.85      0.86       713
+         15       0.93      0.97      0.95       229
+         16       0.95      0.93      0.94       279
+         17       0.83      0.74      0.78       217
+         18       0.98      0.96      0.97       256
+         19       0.91      0.81      0.86       273
+         20       0.98      0.92      0.95       257
+         21       0.78      0.58      0.67       322
+
+avg / total       0.90      0.83      0.86      5620
 "
