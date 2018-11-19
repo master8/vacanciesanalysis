@@ -124,7 +124,7 @@ def run_size_experiments(n_samples):
     logging.warning('end! ' + str(n_samples))
 
 
-run_size_experiments(None)
+# run_size_experiments(None)
 # run_size_experiments(10)
 # run_size_experiments(20)
 # run_size_experiments(30)
@@ -317,6 +317,16 @@ run_size_experiments(None)
 # sns.barplot(x='vec_method', hue='dataset', y='cross_val_f1', palette="ch:.25", data=df)
 # plt.legend(loc='lower left')
 # plt.savefig('results/plots/dif_size.svg', format='svg')
+
+re = pd.read_csv('results/classification_reports_t.csv', header=0)
+x = range(8, 161, 8)
+data = pd.DataFrame(index=x)
+data['LogisticRegression-w2v'] = np.array(re[(re.vec_method == 'Word2Vec_CBOW') & (re.model_params == 'LogisticRegression()')].f1_macro)
+data['LogisticRegression-tfidf'] = np.array(re[(re.vec_method == 'tfidf') & (re.model_params == 'LogisticRegression()')].f1_macro)
+data['MLPClassifier-w2v'] = np.array(re[(re.vec_method == 'Word2Vec_CBOW') & (re.model_params == 'MLPClassifier()')].f1_macro)
+data['LinearSVC-tfidf'] = np.array(re[(re.vec_method == 'tfidf') & (re.model_params == 'LinearSVC()')].f1_macro)
+sns.lineplot(data=data)
+plt.savefig('results/plots/dif_size.svg', format='svg')
 
 
 # merge_marking(
