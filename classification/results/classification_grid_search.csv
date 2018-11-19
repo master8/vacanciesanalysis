@@ -1,1 +1,9 @@
 date_time,classifier_name,model_params,vec_method,dataset,best_param
+2018-11-19 04:11:22.622447,LabelPowerset,SVC(),Word2Vec_CBOW,hh_corpus_sz245_m20_all_v7,"{'classifier': SVC(C=0.1, cache_size=200, class_weight=None, coef0=0.0,
+  decision_function_shape='ovr', degree=0, gamma='auto', kernel='linear',
+  max_iter=-1, probability=True, random_state=None, shrinking=True,
+  tol=0.001, verbose=False), 'classifier__C': 0.1, 'classifier__degree': 0, 'classifier__kernel': 'linear', 'classifier__probability': True, 'classifier__shrinking': True}"
+2018-11-19 13:08:25.593414,LabelPowerset,LogisticRegression(),Word2Vec_CBOW,hh_corpus_sz245_m20_all_v7,"{'classifier': LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
+          intercept_scaling=True, max_iter=100, multi_class='ovr',
+          n_jobs=1, penalty='l2', random_state=None, solver='newton-cg',
+          tol=0.0001, verbose=0, warm_start=False), 'classifier__C': 1.0, 'classifier__class_weight': None, 'classifier__fit_intercept': True, 'classifier__intercept_scaling': True, 'classifier__multi_class': 'ovr', 'classifier__solver': 'newton-cg'}"

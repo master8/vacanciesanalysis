@@ -27,7 +27,7 @@ from skmultilearn.cluster import MatrixLabelSpaceClusterer
 from sklearn.cluster import KMeans, MeanShift, SpectralClustering, Birch
 from sklearn.cluster import DBSCAN
 
-logging.basicConfig(filename='main.log', level=logging.INFO)
+logging.basicConfig(filename='main_grid.log', level=logging.INFO)
 logging.warning('Start main!')
 from sklearn.svm import SVC, LinearSVC
 from sklearn.model_selection import train_test_split, KFold, cross_val_score
