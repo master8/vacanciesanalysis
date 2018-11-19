@@ -91,7 +91,7 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
 
 # sz - count vacancies per mark
 # m - count marks
-CURRENT_CORPUS_NAME = 'hh_corpus_sz245_m20_all_v7_t'
+CURRENT_CORPUS_NAME = 'hh_corpus_sz245_m20_all_v7'
 
 CURRENT_X_COLUMN_NAME = 'all_description'
 CURRENT_Y_COLUMN_NAME = 'standard_mark'
@@ -102,16 +102,16 @@ def run_size_experiments(n_samples):
                              CURRENT_X_COLUMN_NAME,
                              CURRENT_Y_COLUMN_NAME, n_samples)
 
-    tokenizer = Tokenizer(data_source=data_source,
-                          corpus_name=CURRENT_CORPUS_NAME)
-    tokenizer.tokenize()
-
-    tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
-
-    vectorizer = Vectorizer(tokens_provider=tokens_provider,
-                            corpus_name=CURRENT_CORPUS_NAME)
-    vectorizer.vectorize_with_w2v_cbow()
-    vectorizer.vectorize_with_tfidf()
+    # tokenizer = Tokenizer(data_source=data_source,
+    #                       corpus_name=CURRENT_CORPUS_NAME)
+    # tokenizer.tokenize()
+    #
+    # tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
+    #
+    # vectorizer = Vectorizer(tokens_provider=tokens_provider,
+    #                         corpus_name=CURRENT_CORPUS_NAME)
+    # vectorizer.vectorize_with_w2v_cbow()
+    # vectorizer.vectorize_with_tfidf()
 
     vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
     visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME + '_' + str(n_samples))
@@ -120,31 +120,31 @@ def run_size_experiments(n_samples):
                                    vectors_provider=vectors_provider,
                                    visualizer=visualizer)
     lpe.make_use_w2v_cbow()
-    lpe.make_use_tfidf()
+    # lpe.make_use_tfidf()
     logging.warning('end! ' + str(n_samples))
 
 
 run_size_experiments(None)
-run_size_experiments(10)
-run_size_experiments(20)
-run_size_experiments(30)
-run_size_experiments(40)
-run_size_experiments(50)
-run_size_experiments(60)
-run_size_experiments(70)
-run_size_experiments(80)
-run_size_experiments(90)
-run_size_experiments(100)
-run_size_experiments(110)
-run_size_experiments(120)
-run_size_experiments(130)
-run_size_experiments(140)
-run_size_experiments(150)
-run_size_experiments(160)
-run_size_experiments(170)
-run_size_experiments(180)
-run_size_experiments(190)
-run_size_experiments(200)
+# run_size_experiments(10)
+# run_size_experiments(20)
+# run_size_experiments(30)
+# run_size_experiments(40)
+# run_size_experiments(50)
+# run_size_experiments(60)
+# run_size_experiments(70)
+# run_size_experiments(80)
+# run_size_experiments(90)
+# run_size_experiments(100)
+# run_size_experiments(110)
+# run_size_experiments(120)
+# run_size_experiments(130)
+# run_size_experiments(140)
+# run_size_experiments(150)
+# run_size_experiments(160)
+# run_size_experiments(170)
+# run_size_experiments(180)
+# run_size_experiments(190)
+# run_size_experiments(200)
 
 # run_experiments(corpus_name='hh_corpus_sz245_m20_all',
 #                 x_column_name='all_description',
