@@ -167,31 +167,31 @@ def run_size_experiments(n_samples):
 #                 x_column_name='all_description',
 #                 y_column_name='standard_mark')
 #
-data_source = DataSource(CURRENT_CORPUS_NAME,
-                         CURRENT_X_COLUMN_NAME,
-                         CURRENT_Y_COLUMN_NAME)
+# data_source = DataSource(CURRENT_CORPUS_NAME,
+#                          CURRENT_X_COLUMN_NAME,
+#                          CURRENT_Y_COLUMN_NAME)
 
 # tokenizer = Tokenizer(data_source=data_source,
 #                       corpus_name=CURRENT_CORPUS_NAME)
 # tokenizer.tokenize_simple()
 
-tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
+# tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
 #
-vectorizer = Vectorizer(tokens_provider=tokens_provider,
-                        corpus_name=CURRENT_CORPUS_NAME)
+# vectorizer = Vectorizer(tokens_provider=tokens_provider,
+#                         corpus_name=CURRENT_CORPUS_NAME)
 # vectorizer.vectorize_with_d2v_dbow()
 # vectorizer.vectorize_with_w2v()
 # vectorizer.vectorize_with_w2v_cbow()
 # vectorizer.vectorize_with_w2v_fix()
-vectorizer.vectorize_with_tfidf()
+# vectorizer.vectorize_with_tfidf()
 # vectorizer.vectorize_with_w2v_tfidf()
 # vectorizer.vectorize_with_w2v_big()
 # vectorizer.vectorize_with_tfidf_wshingles()
 # vectorizer.vectorize_with_tfidf_ngrams()
 # vectorizer.vectorize_with_w2v_old()
 
-vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
-visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
+# vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
+# visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
 
 # onevsrest = OneVsRestExperiments(data_source=data_source,
 #                                  vectors_provider=vectors_provider,
@@ -199,15 +199,15 @@ visualizer = Visualizer(corpus_name=CURRENT_CORPUS_NAME)
 # onevsrest.make_use_w2v()
 # onevsrest.make_use_tfidf()
 #
-lpe = LabelPowersetExperiments(data_source=data_source,
-                               vectors_provider=vectors_provider,
-                               visualizer=visualizer)
+# lpe = LabelPowersetExperiments(data_source=data_source,
+#                                vectors_provider=vectors_provider,
+#                                visualizer=visualizer)
 # lpe.make_use_w2v_with_results()
 # lpe.make_use_tfidf_with_results()
 # lpe.make_use_w2v()
 # lpe.make_use_w2v_cbow()
 # lpe.make_use_w2v_fix()
-lpe.make_use_tfidf()
+# lpe.make_use_tfidf()
 
 
 # x_all = vectors_provider.get_w2v_vectors()
@@ -328,15 +328,39 @@ lpe.make_use_tfidf()
 # plt.legend(loc='lower left')
 # plt.savefig('results/plots/dif_size.svg', format='svg')
 
-# re = pd.read_csv('results/classification_reports_t.csv', header=0)
-# x = range(8, 161, 8)
-# data = pd.DataFrame(index=x)
-# data['LogisticRegression-w2v'] = np.array(re[(re.vec_method == 'Word2Vec_CBOW') & (re.model_params == 'LogisticRegression()')].f1_macro)
-# data['LogisticRegression-tfidf'] = np.array(re[(re.vec_method == 'tfidf') & (re.model_params == 'LogisticRegression()')].f1_macro)
-# data['MLPClassifier-w2v'] = np.array(re[(re.vec_method == 'Word2Vec_CBOW') & (re.model_params == 'MLPClassifier()')].f1_macro)
-# data['LinearSVC-tfidf'] = np.array(re[(re.vec_method == 'tfidf') & (re.model_params == 'LinearSVC()')].f1_macro)
-# sns.lineplot(data=data)
-# plt.savefig('results/plots/dif_size.svg', format='svg')
+re = pd.read_csv('results/classification_reports_t.csv', header=0)
+x = range(8, 161, 8)
+data = pd.DataFrame(index=x)
+data['LogisticRegression Word2Vec'] = np.array(re[(re.vec_method == 'Word2Vec_CBOW') & (re.model_params == 'LogisticRegression()')].f1_macro)
+data['LogisticRegression TF-IDF'] = np.array(re[(re.vec_method == 'tfidf') & (re.model_params == 'LogisticRegression()')].f1_macro)
+data['MLPClassifier Word2Vec'] = np.array(re[(re.vec_method == 'Word2Vec_CBOW') & (re.model_params == 'MLPClassifier()')].f1_macro)
+data['LinearSVC TF-IDF'] = np.array(re[(re.vec_method == 'tfidf') & (re.model_params == 'LinearSVC()')].f1_macro)
+
+cnn = [0.01666666666666667,
+ 0.45550793650793653,
+ 0.80284165181224,
+ 0.7415938911492613,
+ 0.8078647320342457,
+ 0.8237790749416138,
+ 0.8504831107679424,
+ 0.837000439516449,
+ 0.8442408376616315,
+ 0.8852001267198334,
+ 0.8478267928128046,
+ 0.8568798400644813,
+ 0.8555067068337143,
+ 0.8688222721392332,
+ 0.8746513361193348,
+ 0.8628899991793659,
+ 0.8835756003065001,
+ 0.8791513625861697,
+ 0.8736762527922641,
+ 0.8764629081069939]
+
+#data['CNN'] = np.array(cnn)
+
+sns.lineplot(data=data)
+plt.savefig('results/plots/dif_size.png', format='png', dpi=300)
 
 
 # merge_marking(
