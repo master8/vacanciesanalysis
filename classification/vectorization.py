@@ -20,6 +20,8 @@ _VECTORS_W2V_fix_FILE_NAME = "/vectors_w2v_fix.pkl"
 _VECTORS_W2V_TFIDF_FILE_NAME = "/vectors_w2v_tfidf.pkl"
 _VECTORS_W2V_BIG_FILE_NAME = "/vectors_w2v_big.pkl"
 
+_VECTORS_D2V_DBOW_FILE_NAME = "/vectors_d2v_dbow.pkl"
+
 _VECTORS_TFIDF_WSHINGLES_FILE_NAME = "/vectors_tfidf_wshingles.pkl"
 _VECTORS_TFIDF_NGRAMS_FILE_NAME = "/vectors_tfidf_ngrams.pkl"
 
@@ -194,6 +196,23 @@ class Vectorizer:
 
         print("end w2v cbow vectorizing, vectors saved")
 
+    def vectorize_with_d2v_dbow(self):
+        print("start d2v dbow vectorizing...")
+        logging.warning(str(datetime.now()) + " start d2v vectorizing...")
+
+        tokens = self.__tokens_provider.get_tokens()
+
+        d2v_path = '/home/mluser/prof/EduVacanciesStructuring/data/big_doc2vec/big_doc2vec_model_DBOW'
+        d2v_model = gensim.models.Doc2Vec.load(d2v_path)
+        vectorized_tokens = [d2v_model.infer_vector(document) for document in tokens]
+
+        outfile = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_D2V_DBOW_FILE_NAME, 'wb')
+        pickle.dump(vectorized_tokens, outfile)
+        outfile.close()
+        logging.warning(str(datetime.now()) + " end d2v vectorizing, vectors saved")
+
+        print("end d2v dbow vectorizing, vectors saved")
+
     def vectorize_with_w2v_fix(self):
         print("start w2v fix vectorizing...")
         logging.warning(str(datetime.now()) + " start w2v vectorizing...")
@@ -260,6 +279,7 @@ class VectorsProvider:
         self.__corpus_name = corpus_name
         self.__vectors_tfidf = None
         self.__vectors_w2v = None
+        self.__vectors_d2v = None
         self.__vectors_w2v_tfidf = None
         self.__vectors_w2v_big = None
 
@@ -283,6 +303,13 @@ class VectorsProvider:
             self.__vectors_w2v = pickle.load(file)
             file.close()
         return self.__vectors_w2v
+
+    def get_d2v_vectors_dbow(self):
+        if self.__vectors_d2v is None:
+            file = open(_VECTORS_BASE_PATH + self.__corpus_name + _VECTORS_D2V_DBOW_FILE_NAME, 'rb')
+            self.__vectors_d2v = pickle.load(file)
+            file.close()
+        return self.__vectors_d2v
 
     def get_w2v_vectors_fix(self):
         if self.__vectors_w2v is None:
