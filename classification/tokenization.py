@@ -36,6 +36,21 @@ class Tokenizer:
         logging.warning(str(datetime.now()) + " end tokenizing, tokens saved")
         print("end tokenizing, tokens saved")
 
+    def tokenize_simple(self):
+        print("start tokenizing...")
+        logging.warning(str(datetime.now()) + " start tokenizing...")
+
+        x = self.__data_source.get_x()
+        punctuation = r"""!"$%&'()*+,-.—/:;<=>?@[\]^_`{|}~"""
+        tokens = x.str.translate(str.maketrans(" ", " ", punctuation)).str.lower().str.split()
+
+        outfile = open(_TOKENS_BASE_PATH + self.__corpus_name + _TOKENS_FILE_NAME, 'wb')
+        pickle.dump(tokens, outfile)
+        outfile.close()
+
+        logging.warning(str(datetime.now()) + " end tokenizing, tokens saved")
+        print("end tokenizing, tokens saved")
+
     # TODO порефакторить
     def __tokenize_sentences_lemmatized(self, rawSentences):
         sentences = []

@@ -133,7 +133,7 @@ def run_size_experiments(n_samples):
     logging.warning('end! ' + str(n_samples))
 
 
-run_size_experiments(None)
+# run_size_experiments(None)
 # run_size_experiments(10)
 # run_size_experiments(20)
 # run_size_experiments(30)
@@ -167,15 +167,15 @@ run_size_experiments(None)
 #                 x_column_name='all_description',
 #                 y_column_name='standard_mark')
 #
-# data_source = DataSource(CURRENT_CORPUS_NAME,
-#                          CURRENT_X_COLUMN_NAME,
-#                          CURRENT_Y_COLUMN_NAME)
+data_source = DataSource(CURRENT_CORPUS_NAME,
+                         CURRENT_X_COLUMN_NAME,
+                         CURRENT_Y_COLUMN_NAME)
 
 # tokenizer = Tokenizer(data_source=data_source,
 #                       corpus_name=CURRENT_CORPUS_NAME)
 # tokenizer.tokenize()
 #
-# tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
+tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
 #
 # vectorizer = Vectorizer(tokens_provider=tokens_provider,
 #                         corpus_name=CURRENT_CORPUS_NAME)
