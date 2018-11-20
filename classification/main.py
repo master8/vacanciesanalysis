@@ -91,7 +91,7 @@ def run_experiments(corpus_name, x_column_name, y_column_name):
 
 # sz - count vacancies per mark
 # m - count marks
-CURRENT_CORPUS_NAME = 'hh_corpus_sz245_m20_all_v7'
+CURRENT_CORPUS_NAME = 'hh_corpus_sz245_m20_all_v7_t'
 
 CURRENT_X_COLUMN_NAME = 'all_description'
 CURRENT_Y_COLUMN_NAME = 'standard_mark'
@@ -171,10 +171,10 @@ data_source = DataSource(CURRENT_CORPUS_NAME,
                          CURRENT_X_COLUMN_NAME,
                          CURRENT_Y_COLUMN_NAME)
 
-# tokenizer = Tokenizer(data_source=data_source,
-#                       corpus_name=CURRENT_CORPUS_NAME)
-# tokenizer.tokenize()
-#
+tokenizer = Tokenizer(data_source=data_source,
+                      corpus_name=CURRENT_CORPUS_NAME)
+tokenizer.tokenize_simple()
+
 tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
 #
 # vectorizer = Vectorizer(tokens_provider=tokens_provider,
