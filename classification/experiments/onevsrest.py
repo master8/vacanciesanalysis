@@ -142,3 +142,39 @@ class OneVsRestExperiments:
                 logging.warning('Error on ' + model_params[i])
             logging.warning(str(datetime.now()) + 'End ' + model_params[i])
             i += 1
+
+    def make_use_d2v(self):
+        x_all = self.__vectors_provider.get_d2v_vectors_dbow()
+        y_all = self.__data_source.get_y_multi_label()
+
+        # TODO here grid search
+
+        base_estimators = [
+            LogisticRegression(C=1.0, solver='sag', n_jobs=-1),
+            LogisticRegression(n_jobs=-1),
+            LinearSVC(),
+            MLPClassifier()
+        ]
+
+        model_params = [
+            "LogisticRegression(C=1.0, solver='sag')",
+            'LogisticRegression()'
+            "LinearSVC()",
+            "MLPClassifier()"
+        ]
+
+        i = 0
+        for base_estimator in base_estimators:
+            logging.warning(str(datetime.now()) + 'Start ' + model_params[i])
+            try:
+                model = OneVsRestClassifier(base_estimator, n_jobs=-1)
+                # cross_val_f1 = Evaluator.evaluate_only_cross_val(model, x_all, y_all)
+                # self.__visualizer.show_results_briefly(self.__CLASSIFIER_NAME, model_params[i],
+                #                                        "Word2Vec_CBOW", cross_val_f1)
+                report, micro, macro, weighted = Evaluator.multi_label_report(model, x_all, y_all)
+                self.__visualizer.save_metrics(self.__CLASSIFIER_NAME, model_params[i], "Doc2Vec_DBOW",
+                                               report, micro, macro, weighted)
+            except:
+                logging.warning('Error on ' + model_params[i])
+            logging.warning(str(datetime.now()) + 'End ' + model_params[i])
+            i += 1

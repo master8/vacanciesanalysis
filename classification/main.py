@@ -120,14 +120,16 @@ def run_size_experiments(n_samples):
     ovr = OneVsRestExperiments(data_source=data_source,
                                vectors_provider=vectors_provider,
                                visualizer=visualizer)
-    ovr.make_use_w2v()
-    ovr.make_use_tfidf()
+    ovr.make_use_d2v()
+    # ovr.make_use_w2v()
+    # ovr.make_use_tfidf()
 
     lpe = LabelPowersetExperiments(data_source=data_source,
                                    vectors_provider=vectors_provider,
                                    visualizer=visualizer)
-    lpe.make_use_w2v_cbow()
-    lpe.make_use_tfidf()
+    lpe.make_use_d2v_dbow()
+    # lpe.make_use_w2v_cbow()
+    # lpe.make_use_tfidf()
     logging.warning('end! ' + str(n_samples))
 
 
@@ -177,6 +179,7 @@ run_size_experiments(None)
 #
 # vectorizer = Vectorizer(tokens_provider=tokens_provider,
 #                         corpus_name=CURRENT_CORPUS_NAME)
+# vectorizer.vectorize_with_d2v_dbow()
 # vectorizer.vectorize_with_w2v()
 # vectorizer.vectorize_with_w2v_cbow()
 # vectorizer.vectorize_with_w2v_fix()
