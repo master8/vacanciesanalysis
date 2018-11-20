@@ -158,7 +158,7 @@ class OneVsRestExperiments:
 
         model_params = [
             "LogisticRegression(C=1.0, solver='sag')",
-            'LogisticRegression()'
+            'LogisticRegression()',
             "LinearSVC()",
             "MLPClassifier()"
         ]
