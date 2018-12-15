@@ -89,7 +89,7 @@ data_source = DataSource(CURRENT_CORPUS_NAME,
 
 vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
 
-X = vectors_provider.get_w2v_vectors_cbow()[:10]
+X = np.array(vectors_provider.get_w2v_vectors_cbow()[:10])
 corpus = data_source.get_corpus()[:10]
 
 file = open('prepared_data/model.pkl', 'rb')
