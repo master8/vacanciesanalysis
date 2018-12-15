@@ -48,7 +48,7 @@ class DataSource:
 
     def __read_corpus(self) -> pd.DataFrame:
 
-        corpus = pd.read_csv('../data/new/' + self.__corpus_name + '.csv', header=0)
+        corpus = pd.read_csv('../data/new/' + self.__corpus_name + '.csv', header=0, sep='|')
 
         if self.__n_samples is not None:
             classes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '14', '15', '16', '17', '18',
