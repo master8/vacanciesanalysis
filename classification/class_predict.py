@@ -55,7 +55,7 @@ from skmultilearn.cluster import LabelCooccurrenceGraphBuilder
 pymystem3.mystem.MYSTEM_DIR = "/home/mluser/anaconda3/envs/master8_env/.local/bin"
 pymystem3.mystem.MYSTEM_BIN = "/home/mluser/anaconda3/envs/master8_env/.local/bin/mystem"
 
-CURRENT_CORPUS_NAME = 'hh_corpus_sz245_m20_all_v7'
+CURRENT_CORPUS_NAME = 'hh_all_corpus'
 
 CURRENT_X_COLUMN_NAME = 'all_description'
 CURRENT_Y_COLUMN_NAME = 'standard_mark'
@@ -87,10 +87,20 @@ data_source = DataSource(CURRENT_CORPUS_NAME,
                              CURRENT_X_COLUMN_NAME,
                              CURRENT_Y_COLUMN_NAME)
 
+tokenizer = Tokenizer(data_source=data_source,
+                      corpus_name=CURRENT_CORPUS_NAME)
+tokenizer.tokenize()
+
+tokens_provider = TokensProvider(corpus_name=CURRENT_CORPUS_NAME)
+
+vectorizer = Vectorizer(tokens_provider=tokens_provider,
+                        corpus_name=CURRENT_CORPUS_NAME)
+vectorizer.vectorize_with_w2v_cbow()
+
 vectors_provider = VectorsProvider(corpus_name=CURRENT_CORPUS_NAME)
 
-X = np.array(vectors_provider.get_w2v_vectors_cbow()[:10])
-corpus = data_source.get_corpus()[:10]
+X = np.array(vectors_provider.get_w2v_vectors_cbow())
+corpus = data_source.get_corpus()
 
 file = open('prepared_data/model.pkl', 'rb')
 model = pickle.load(file)
