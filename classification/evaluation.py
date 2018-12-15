@@ -124,6 +124,10 @@ class Evaluator:
 
 
     @staticmethod
+    def multi_predict_with_proba(model, X):
+        pass
+
+    @staticmethod
     def multi_label_predict_proba_w2v(model, x_all, y_all, data_source: DataSource):
 
         classes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '14', '15', '16', '17', '18', '19','20', '21']
