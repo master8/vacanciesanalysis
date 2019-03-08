@@ -2,7 +2,7 @@ import pandas as pd
 
 from matching import Matcher
 
-vacancies_parts = pd.read_csv('../data/new/vacancy_parts_for_matching.csv')[:100]
+vacancies_parts = pd.read_csv('../data/new/vacancy_parts_for_matching.csv')
 profstandards_parts = pd.read_csv('../data/new/profstandard_parts_for_matching.csv')
 
 matcher = Matcher()
