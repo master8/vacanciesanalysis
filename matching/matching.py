@@ -16,7 +16,7 @@ tqdm.pandas()
 
 class Matcher:
 
-    def __init__(self) -> None:
+    def __init__(self, n_similar_parts: int = 5) -> None:
         super().__init__()
 
         self.__morph = pymorphy2.MorphAnalyzer()
@@ -24,6 +24,7 @@ class Matcher:
         self.__allowed_characters = ascii_lowercase + digits + self.__cyrillic + whitespace
         self.__word2vec = Word2Vec.load('/home/mluser/prof/EduVacanciesStructuring/data/big_word2vec/big_word2vec_model_CBOW')
         self.__word2vec.wv.init_sims()
+        self.__n_similar_parts = n_similar_parts
 
     def match_parts(self, vacancies_parts: pd.DataFrame, profstandards_parts: pd.DataFrame) -> pd.DataFrame:
 
@@ -34,7 +35,7 @@ class Matcher:
         vectorized_profstandards_parts = self.__preprocess(profstandards_parts, 'full_text')
         vectorized_vacancies_parts = self.__preprocess(vacancies_parts, 'vacancy_part_text')
 
-        return vectorized_profstandards_parts, vectorized_vacancies_parts
+        return self.__similarity(vectorized_vacancies_parts, vectorized_profstandards_parts)
 
     def __preprocess(self, copus: pd.DataFrame, columns_name: str) -> pd.DataFrame:
 
@@ -105,4 +106,36 @@ class Matcher:
 
         mean = gensim.matutils.unitvec(np.array(mean).mean(axis=0)).astype(np.float32)
         return mean
+
+    def __similarity(self, vacancies, standards, own=True):
+        df_result = pd.DataFrame(columns=['enriched_text',
+                                          'similarity', 'profstandard_part_id', 'vacancy_part_id'],
+                                 index=None)
+        own_code = [0]
+        for index, sample in vacancies.iterrows():
+            if own is True:
+                labels = sample['profstandard_id']
+                own_code = labels.split(',')
+            similar_docs = self.__most_similar(sample['vectors'], standards, own_code)[['full_text', 'similarity',
+                                                                                         'profstandard_part_id']]  # sc (близость нужна)
+            similar_docs['vacancy_part_id'] = sample['vacancy_part_id']  # нужно
+            similar_docs = similar_docs.rename(columns={
+                'full_text': 'enriched_text',  # нужно
+            })
+            df_result = pd.concat([df_result, similar_docs], ignore_index=True)
+        return df_result
+
+    def __most_similar(self, infer_vector, vectorized_corpus, own_code=[0]):
+        if own_code[0] != 0:
+            df_sim = pd.DataFrame()
+            for label in own_code:
+                df_sim_label = vectorized_corpus[vectorized_corpus['profstandard_id'] == int(label)]
+                df_sim = pd.concat([df_sim, df_sim_label], ignore_index=False)
+        else:
+            df_sim = vectorized_corpus
+
+        df_sim['similarity'] = vectorized_corpus['vectors'].progress_apply(
+            lambda v: cosine_similarity([infer_vector], [v.tolist()])[0, 0])
+        df_sim = df_sim.sort_values(by='similarity', ascending=False).head(n=self.__n_similar_parts)
+        return df_sim
 
