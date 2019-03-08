@@ -134,7 +134,7 @@ class Matcher:
         else:
             df_sim = vectorized_corpus
 
-        df_sim['similarity'] = vectorized_corpus['vectors'].progress_apply(
+        df_sim['similarity'] = df_sim['vectors'].progress_apply(
             lambda v: cosine_similarity([infer_vector], [v.tolist()])[0, 0])
         df_sim = df_sim.sort_values(by='similarity', ascending=False).head(n=self.__n_similar_parts)
         return df_sim

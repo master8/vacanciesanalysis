@@ -2,8 +2,8 @@
 
 source activate master8_env
 export PYTHONPATH="/home/mluser/master8_projects/pycharm_project_755/"
-cd /home/mluser/master8_projects/pycharm_project_755/classification/
-chmod +x main.py
+cd /home/mluser/master8_projects/pycharm_project_755/matching/
+chmod +x $1
 nohup python $1 &
 
 #Show processes
