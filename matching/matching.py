@@ -13,6 +13,8 @@ from gensim.models import Word2Vec
 from tqdm import tqdm
 tqdm.pandas()
 
+import logging
+
 
 class Matcher:
 
@@ -28,12 +30,21 @@ class Matcher:
 
     def match_parts(self, vacancies_parts: pd.DataFrame, profstandards_parts: pd.DataFrame) -> pd.DataFrame:
 
+        logging.warning('start match_parts')
+
         profstandards_parts['full_text'] = profstandards_parts['part_text'] + ' ' + \
                                            profstandards_parts['function_name'] + ' ' + \
                                            profstandards_parts['general_function_name']
 
+        logging.warning('full_text done')
+
         vectorized_profstandards_parts = self.__preprocess(profstandards_parts, 'full_text')
+
+        logging.warning('lemm done')
+
         vectorized_vacancies_parts = self.__preprocess(vacancies_parts, 'vacancy_part_text')
+
+        logging.warning('vectorized done')
 
         return self.__similarity(vectorized_vacancies_parts, vectorized_profstandards_parts)
 
@@ -124,7 +135,7 @@ class Matcher:
             })
             df_result = pd.concat([df_result, similar_docs], ignore_index=True)
 
-            if index % 100000 == 0:
+            if index % 10000 == 0:
                 df_result.to_csv('../data/new/sim_result_mid.csv', index=False)
 
         return df_result
