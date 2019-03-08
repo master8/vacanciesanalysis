@@ -112,7 +112,7 @@ class Matcher:
                                           'similarity', 'profstandard_part_id', 'vacancy_part_id'],
                                  index=None)
         own_code = [0]
-        for index, sample in vacancies.iterrows():
+        for index, sample in tqdm(vacancies.iterrows()):
             if own is True:
                 labels = sample['profstandard_id']
                 own_code = labels.split(',')
