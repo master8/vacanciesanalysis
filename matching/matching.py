@@ -112,7 +112,7 @@ class Matcher:
                                           'similarity', 'profstandard_part_id', 'vacancy_part_id'],
                                  index=None)
         own_code = [0]
-        for index, sample in tqdm(vacancies.iterrows()):
+        for index, sample in vacancies.iterrows():
             if own is True:
                 labels = sample['profstandard_id']
                 own_code = labels.split(',')
@@ -123,6 +123,10 @@ class Matcher:
                 'full_text': 'enriched_text',  # нужно
             })
             df_result = pd.concat([df_result, similar_docs], ignore_index=True)
+
+            if index % 100000 == 0:
+                df_result.to_csv('../data/new/sim_result_mid.csv', index=False)
+
         return df_result
 
     def __most_similar(self, infer_vector, vectorized_corpus, own_code=[0]):
