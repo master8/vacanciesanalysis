@@ -27,26 +27,20 @@ class Matcher:
 
     def match_parts(self, vacancies_parts: pd.DataFrame, profstandards_parts: pd.DataFrame) -> pd.DataFrame:
 
-        vectorized_profstandards_parts = self.__preprocess_profstandard_parts(profstandards_parts)
-        vectorized_vacancies_parts = self.__preprocess_vacancy_parts(vacancies_parts)
-
-        return vectorized_profstandards_parts, vectorized_vacancies_parts
-
-    def __preprocess_profstandard_parts(self, profstandards_parts: pd.DataFrame) -> pd.DataFrame:
-
         profstandards_parts['full_text'] = profstandards_parts['part_text'] + ' ' + \
                                            profstandards_parts['function_name'] + ' ' + \
                                            profstandards_parts['general_function_name']
 
-        profstandards_parts['processed_text'] = profstandards_parts['full_text'].progress_apply(
+        vectorized_profstandards_parts = self.__preprocess(profstandards_parts, 'full_text')
+        vectorized_vacancies_parts = self.__preprocess(vacancies_parts, 'vacancy_part_text')
+
+        return vectorized_profstandards_parts, vectorized_vacancies_parts
+
+    def __preprocess(self, copus: pd.DataFrame, columns_name: str) -> pd.DataFrame:
+
+        copus['processed_text'] = copus[columns_name].progress_apply(
             lambda text: self.__process_text(str(text))['lemmatized_text_pos_tags'])
-        return self.__get_vectorized_avg_w2v_corpus(profstandards_parts, self.__word2vec.wv)
-
-    def __preprocess_vacancy_parts(self,  vacancies_parts: pd.DataFrame) -> pd.DataFrame:
-
-        vacancies_parts['processed_text'] = vacancies_parts['vacancy_part_text'].progress_apply(
-            lambda text: self.__process_text(str(text))['lemmatized_text_pos_tags'])  # лемматизируем
-        return self.__get_vectorized_avg_w2v_corpus(vacancies_parts, self.__word2vec.wv)  # получаем вектора
+        return self.__get_vectorized_avg_w2v_corpus(copus, self.__word2vec.wv)
 
     def __process_text(self, full_text, filter_pos=("PREP", "NPRO", "CONJ")):
         '''Process a single text and return a processed version
