@@ -18,7 +18,7 @@ import logging
 
 class Matcher:
 
-    def __init__(self, n_similar_parts: int = 5) -> None:
+    def __init__(self, n_similar_parts: int = 5, start_n: int = 0) -> None:
         super().__init__()
 
         self.__morph = pymorphy2.MorphAnalyzer()
@@ -27,6 +27,7 @@ class Matcher:
         self.__word2vec = Word2Vec.load('/home/mluser/prof/EduVacanciesStructuring/data/big_word2vec/big_word2vec_model_CBOW')
         self.__word2vec.wv.init_sims()
         self.__n_similar_parts = n_similar_parts
+        self.__start_n = start_n
 
     def match_parts(self, vacancies_parts: pd.DataFrame, profstandards_parts: pd.DataFrame) -> pd.DataFrame:
 
@@ -136,7 +137,7 @@ class Matcher:
             df_result = pd.concat([df_result, similar_docs], ignore_index=True)
 
             if index % 10000 == 0:
-                df_result.to_csv('../data/new/sim_result_mid.csv', index=False)
+                df_result.to_csv('../data/new/sim_result_mid' + str(self.__start_n) + '.csv', index=False)
 
         return df_result
 
