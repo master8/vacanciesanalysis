@@ -141,7 +141,7 @@ class Matcher:
             i = i + 1
             if i % 1000 == 0:
                 logging.warning(str(datetime.now()) + ' done ' + str(i) + 'count ' + str(df_result.size))
-                df_result.to_csv('../data/new/sim_result_mid' + str(self.__start_n) + '.csv', index=False)
+                df_result.drop(columns=['enriched_text']).to_csv('../data/new/sim_result_mid' + str(self.__start_n) + '.csv', index=False)
 
         return df_result
 

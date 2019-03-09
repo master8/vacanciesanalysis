@@ -21,4 +21,4 @@ profstandards_parts = pd.read_csv('../data/new/profstandard_parts_for_matching.c
 
 matcher = Matcher(start_n=start_n)
 result = matcher.match_parts(vacancies_parts, profstandards_parts)
-result.to_csv('../data/new/sim_result' + str(start_n) + '.csv', index=False)
+result.drop(columns=['enriched_text']).to_csv('../data/new/sim_result' + str(start_n) + '.csv', index=False)
