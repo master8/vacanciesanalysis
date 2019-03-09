@@ -7,7 +7,7 @@ import logging
 
 start_n = int(sys.argv[1])
 
-logging.basicConfig(filename='test' + str(start_n) + '.log', level=logging.INFO)
+logging.basicConfig(filename='pipeline_' + str(start_n) + '.log', level=logging.INFO)
 logging.warning('Start pipeline!')
 
 logging.warning('start n = ' + str(start_n))
