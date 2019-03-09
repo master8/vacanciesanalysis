@@ -14,6 +14,7 @@ from tqdm import tqdm
 tqdm.pandas()
 
 import logging
+from datetime import datetime
 
 
 class Matcher:
@@ -124,6 +125,7 @@ class Matcher:
                                           'similarity', 'profstandard_part_id', 'vacancy_part_id'],
                                  index=None)
         own_code = [0]
+        i = 0
         for index, sample in vacancies.iterrows():
             if own is True:
                 labels = sample['profstandard_id']
@@ -136,7 +138,9 @@ class Matcher:
             })
             df_result = pd.concat([df_result, similar_docs], ignore_index=True)
 
-            if index % 10000 == 0:
+            i = i + 1
+            if i % 1000 == 0:
+                logging.warning(str(datetime.now()) + ' done ' + str(i) + 'count ' + str(df_result.size))
                 df_result.to_csv('../data/new/sim_result_mid' + str(self.__start_n) + '.csv', index=False)
 
         return df_result
@@ -152,6 +156,6 @@ class Matcher:
 
         df_sim['similarity'] = df_sim['vectors'].progress_apply(
             lambda v: cosine_similarity([infer_vector], [v.tolist()])[0, 0])
-        df_sim = df_sim.sort_values(by='similarity', ascending=False).head(n=self.__n_similar_parts)
+        # df_sim = df_sim.sort_values(by='similarity', ascending=False).head(n=self.__n_similar_parts)
         return df_sim
 
