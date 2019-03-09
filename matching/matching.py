@@ -42,11 +42,11 @@ class Matcher:
 
         vectorized_profstandards_parts = self.__preprocess(profstandards_parts, 'full_text')
 
-        logging.warning('lemm done')
+        logging.warning('lemm standard done')
 
         vectorized_vacancies_parts = self.__preprocess(vacancies_parts, 'vacancy_part_text')
 
-        logging.warning('vectorized done')
+        logging.warning('lemm vacancies done')
 
         return self.__similarity(vectorized_vacancies_parts, vectorized_profstandards_parts)
 
