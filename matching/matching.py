@@ -121,8 +121,7 @@ class Matcher:
         return mean
 
     def __similarity(self, vacancies, standards, own=True):
-        df_result = pd.DataFrame(columns=['enriched_text',
-                                          'similarity', 'profstandard_part_id', 'vacancy_part_id'],
+        df_result = pd.DataFrame(columns=['similarity', 'profstandard_part_id', 'vacancy_part_id'],
                                  index=None)
         own_code = [0]
         i = 0
@@ -130,18 +129,15 @@ class Matcher:
             if own is True:
                 labels = sample['profstandard_id']
                 own_code = labels.split(',')
-            similar_docs = self.__most_similar(sample['vectors'], standards, own_code)[['full_text', 'similarity',
+            similar_docs = self.__most_similar(sample['vectors'], standards, own_code)[['similarity',
                                                                                          'profstandard_part_id']]  # sc (близость нужна)
             similar_docs['vacancy_part_id'] = sample['vacancy_part_id']  # нужно
-            similar_docs = similar_docs.rename(columns={
-                'full_text': 'enriched_text',  # нужно
-            })
             df_result = pd.concat([df_result, similar_docs], ignore_index=True)
 
             i = i + 1
             if i % 1000 == 0:
                 logging.warning(str(datetime.now()) + ' done ' + str(i) + 'count ' + str(df_result.size))
-                df_result.drop(columns=['enriched_text']).to_csv('../data/new/sim_result_mid' + str(self.__start_n) + '.csv', index=False)
+                df_result.to_csv('../data/new/sim_result_mid' + str(self.__start_n) + '.csv', index=False)
 
         return df_result
 
