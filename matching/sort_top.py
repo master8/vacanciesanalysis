@@ -23,3 +23,4 @@ for v in vpi:
 
 a = pd.concat(a)
 a.to_csv('../data/new/top/parts' + str(start_n) + '.csv', index=False)
+logging.warning('End top!')
